@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			body{
+				padding: 0;
+				margin: 0;
+			}
+			.header{
+				width: 100%;
+				height: 80px;
+				position: relative;
+				background-color: #eee;
+				padding: 0;
+				margin: 0;
+			}
+			.header__wrap{
+				width: 1200px;
+				height: 80px;
+				line-height: 80px;
+				text-align: center;
+				position: absolute;
+				top: 0;
+				bottom: 0;
+				left: 0;
+				right: 0;
+				margin: 0 auto;
+				
+
+			}
+			.header__logo{
+				position: absolute;
+				margin-left: 100px;
+				
+			}
+			.header__nav{
+				position: relative;
+				margin-left: 600px;
+			}
+			a{
+				text-decoration: none;
+				color: #000000;
+			}
+			.header__nav-item{
+				float: left;
+				margin-left: 30px;
+				transition: all 1s;
+				position: relative;
+			}
+			/* 滑动门特效！ */
+			.header__nav-item__status__init{
+				/* 改变字体颜色 */
+				color: #f01400;
+			}
+			.header__nav-item__status__init::after{
+				/* 内容这里必须为空 */
+				content: '';
+				display: block;
+				width: 100%;
+				height: 2px;
+				background-color: #f01400;
+				/* 通过上面生成红块 */
+				position: absolute;
+				left: 0;
+				bottom: 15px;
+			}
+		</style>
+	</head>
+	<body>
+		<header class="header">
+			<div class="header__wrap">
+				<div class="header__logo">我的手机</div>
+				<nav class="header__nav">
+					<a href="javascript:;" class="header__nav-item">首页</a>
+					<a href="javascript:;" class="header__nav-item">外观</a>
+					<a href="javascript:;" class="header__nav-item">配置</a>
+					<a href="javascript:;" class="header__nav-item">型号</a>
+					<a href="javascript:;" class="header__nav-item">说明</a>
+					<a href="javascript:;" class="header__nav-item ">立即购买</a>
+					
+				</nav>
+			</div>
+			
+		</header>	
+			<script type="text/javascript">
+				window.onload=function(){
+					var navlist=document.querySelectorAll('.header__nav-item')
+					// console.log(navlist)Nodelist
+					var one=function(item,i){
+						// 获取class属性
+						var baseCls=navlist[i].getAttribute('class')
+						console.log(i)
+						item.onmouseover=function(){
+							// 设置class属性
+							navlist[i].setAttribute('class',baseCls+' '+'header__nav-item__status__init')				
+						}
+						item.onmouseout=function(){
+							// 设置class属性
+							navlist[i].setAttribute('class',baseCls.replace('header__nav-item__status__init',''))				
+						}
+					}
+					
+					for(var i=0;i<navlist.length;i++){
+						one(navlist[i],i)
+					}
+				}
+				
+
+			</script>
+		
+	</body>
+</html>

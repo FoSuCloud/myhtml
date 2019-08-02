@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+<!-- 
+1.普通流中元素框的位置由元素在XHTML中的位置决定。
+块级元素从上到下依次排列，框之间的垂直距离由框的垂直margin计算得到。行内元素在一行中水平布置。
+2.普通流就是html文档中的元素如块级元素、行内元素依据他们的显示属性按照在文档中的先后次序依次显示。
+是块级元素就占一行或多行，是行内元素就和其他元素共处一行，没什么好说的，该咋显示咋显示，一个萝卜一个坑。
+		 -->
+		<style type="text/css">
+			body{
+				height: 3000px;
+			}
+			.one{
+				height: 40px;
+				width: 40px;
+				background-color: red;
+				/* 不使用position的话默认是static，使用普通流
+				 使用position: relative;相对定位(相对于之前的普通流定位)之后，
+				 元素原本所占的空间！！！仍保留
+				 也由于相对定位还占据之前的空间，所以没有脱离文档流*/
+				/* position: relative;
+				top: 100px;
+				left: 100px; */
+			}
+			.two,.three,.five,.seven{
+				height: 40px;
+				width: 40px;
+				background-color: #00FFFF;
+			}
+			.four{
+				height: 40px;
+				width: 40px;
+				background-color: red;
+		/* 
+		 绝对定位将该元素原来的占位不再存在，所以从文档流中删除了！
+1.并相对于其最近的已定位祖先元素定位，如果不存在已定位的祖先元素，则相对于其根祖先元素定位
+		 2.不论该元素为块级元素还是内联级元素，定位后该元素将以块级元素的形式显示
+		 */
+				/* position: absolute;
+				top: 200px;
+				left: 200px; */
+				
+		/* 
+		注1：绝对定位的元素不在文档流中，因此会覆盖其他元素(所以z-index应该为1，所以才能覆盖)。
+		注2：设置当前元素position : absolute时，应将其父元素position : relative。否则的话会定位最近的祖先元素
+		*/
+			}
+			.six{
+				height: 40px;
+				width: 40px;
+				background-color: red;
+				/* 用于滚动条固定！ */
+		/* position: fixed;固定定位(对象是视图)，即使页面滚动也依旧在初始原点定位显示
+		 在fixed滚动之后，在该元素后面的元素会强占位置，也算是脱离了文档流
+		 */
+				position: fixed;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="one"></div>
+		<div class="two"></div>
+		<div class="three"></div>
+		<div class="four"></div>
+		<div class="five"></div>
+		<div class="six"></div>
+		<div class="seven"></div>
+	</body>
+</html>

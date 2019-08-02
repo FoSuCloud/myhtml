@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			.button{
+				width: 100px;
+				height: 40px;
+				line-height: 40px;
+				background-color: #f01414;
+				text-align: center;
+				color: #fff;
+				border-radius: 3px;
+				/* 设置动画 */
+				transition: all .5s;
+			}
+			.button:hover{
+				/* 水平阴影，垂直阴影 ，可选(模糊距离,颜色),rgba第四个参数是透明度 */
+				box-shadow: 0 0 10px rgba(0,0,0,.5);
+				/* 只设置模糊距离好看！ */
+			}
+			
+		</style>
+	</head>
+	<body>
+		<div>
+			<!-- <input type="button" value="我会动喔" /> -->
+			<!-- 用input会不好看 -->
+			<div class="button">我会动喔</div>
+		</div>
+	</body>
+</html>

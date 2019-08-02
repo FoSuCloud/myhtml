@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<!-- 
+		 轮播图步骤：1.设置浮动，使得图片水平排列(此时不设置div等父祖节点宽度)  
+		 2.设置图片父元素ul绝对位置和宽度设置为总图片宽度，使得图片为一个水平排列的整体
+		 3.设置祖元素的宽度为一个图片宽度，并且overflow:hidden，然后通过操纵图片父元素ul的left切换图片
+		 
+		 
+		 -->
+		<style type="text/css">
+			ul{
+				list-style: none;
+				/* 通过position: absolute;width: 600px;把三张图片作为一个整体 */
+				position: absolute;
+				/* width: 600px; */
+				height: 200px;
+				top: 0;
+				/* 通过设置left使得图片移动 */
+				left: 0;
+				/* ul自帶外边距40，填充16，需要去掉 */
+				margin: 0;
+				padding: 0;
+			}
+			img{
+				width: 200px;
+				height: 200px;
+				float: left;
+			}
+			#app{
+				width: 200px;
+				height: 200px;
+				margin: 0;
+				overflow: hidden;
+				/* 父相子绝 */
+				position: relative;
+			}
+
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<ul>
+				<li><img src="../img/1.png" ></li>
+				<li><img src="../img/2.png" ></li>
+				<li><img src="../img/3.jpg" ></li>
+			</ul>
+		</div>
+		
+		<script type="text/javascript">
+			
+			window.onload=function(){
+				var app=document.getElementById('app')
+				// 获取ul标签,注意:getElementsByTagName获取到的都是数组
+				var ultag=app.getElementsByTagName('ul')[0]
+				// 获取img标签的宽度
+				var imag=app.getElementsByTagName('img')
+				// 设置ul图片整体的宽度
+				
+				// JS只能获取内联的css样式,修改css样式,不可以直接获取css样式
+				// ultag.style.width=(imag.style.width)*imag.length+'px';//错误!
+				// 可以使用getComputedStyle方法获取
+				var imgwidth=window.getComputedStyle(imag[0],"").width;//宽度
+				var sumwidth=parseInt(imgwidth)*imag.length;//总宽度
+				ultag.style.width=sumwidth+'px';//设置宽度
+				
+				var ulleft=window.getComputedStyle(ultag,"").left;//左边位置
+				// console.log(parseInt(ulleft))
+				setInterval(function(){
+					// 不能设置-600px!
+					if(-parseInt(ulleft) < (sumwidth-parseInt(imgwidth))){
+						ultag.style.left=parseInt(ulleft)-parseInt(imgwidth)+'px'//设置左边位置
+						ulleft=window.getComputedStyle(ultag,"").left;//获取左边位置
+						console.log(ulleft)
+					}
+					else{
+						ultag.style.left=0;
+						ulleft=0;
+					}
+				},2000);
+			}
+			
+		</script>
+	</body>
+</html>

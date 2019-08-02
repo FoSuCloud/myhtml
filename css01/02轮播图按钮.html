@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			#app{
+				position: relative;
+				width: 200px;
+				height: 200px;
+				overflow: hidden;
+			}
+			#imglist{
+				width: 600px;
+				height: 200px;
+				list-style: none;
+				margin: 0;
+				padding: 0;
+				position: absolute;
+				top: 0;
+				left: -200px;
+			}
+			img{
+				height: 200px;
+				width: 200px;
+				float: left;
+				transition: all ease-in-out 0.5s;
+			}
+			
+			/* 按钮 */
+			#navul{
+				list-style: none;
+				margin: 0;
+				padding: 0;
+				position: absolute;
+				width: 100%;
+				left: 35%;
+				top: 180px;
+			}
+			#navul>li{
+				width: 15px;
+				height: 15px;
+				background-color: #0000FF;
+				float: left;
+				margin-right: 5%;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<ul id="imglist">
+				<li><img src="../img/1.png" ></li>
+				<li><img src="../img/2.png" ></li>
+				<li><img src="../img/3.jpg" ></li>
+			</ul>
+			
+			<ul id="navul">
+				<li></li>
+				<li></li>
+				<li></li>
+			</ul>
+		</div>
+		
+		<script type="text/javascript">
+			window.onload=function(){
+				// 获取元素
+				var app=document.getElementById('app')
+				var imglist=document.getElementById('imglist')
+				var img=document.getElementsByTagName('img')
+				var imgwidth=parseInt(window.getComputedStyle(img[0],'').width)
+				// 设置元素属性
+				var imglength=img.length;//图片个数
+				
+				var num=0;//一个标识
+				// setTimeout() 方法用于在指定的毫秒数后调用函数或计算表达式,执行完之后就没了
+				// setInterval()则可以在“每隔指定的毫秒数”循环调用函数或表达式，直到clearInterval把它清除
+				setInterval(function(){
+					if(num<(imglength-1)){
+						// 设置整体left
+						imglist.style.left=-(num+1)*imgwidth+'px';
+						// console.log((num+1)*imgwidth)
+						num++;
+					}else{
+						imglist.style.left=0
+						num=0
+					}
+				},1500);
+				
+				// 切换图片按钮
+				var btn=document.getElementById('navul')
+				var btnlist=btn.getElementsByTagName('li')
+				// console.log(btnlist)
+				for(var i=0;i<btnlist.length;i++){
+					btnlist[i].num=i;//添加属性保存索引
+					// console.log(btnlist[i].num)
+					btnlist[i].addEventListener("click",function(){
+						// console.log(this.num)
+						// 切换图片到本按钮点中的地方
+						imglist.style.left=-this.num*imgwidth+'px';
+					})
+				}
+			}
+		</script>
+	</body>
+</html>

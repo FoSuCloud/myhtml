@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			body{
+				padding: 0;
+				margin: 0;
+			}
+			.screen-1,.screen-2,.screen-3,.screen-4{
+				height: 800px;
+				position: relative;
+				width: 100%;
+			}
+			.screen-1{
+				background-color: white;
+			}
+			.screen-2{
+				background-color: red;
+			}
+			.screen-3{
+				background-color: white;
+			}
+			.screen-4{
+				background-color: blanchedalmond;
+			}
+			.screen-1__img,.screen-2__img,.screen-3__img,.screen-4__img{
+				background: url('../img/3.jpg') no-repeat center;
+				width: 600px;
+				height: 600px;
+				position: absolute;
+				bottom: 0;
+				margin-left: 50%;
+				left: -300px;
+			}
+			.screen-1__heading,.screen-2__heading,.screen-3__heading,.screen-4__heading{
+				
+				font-size: 16px;
+				color: #2B333B;
+				text-align: center;
+			}
+			.screen-1__subheading,.screen-2__subheading,.screen-3__subheading,.screen-4__subheading{
+				
+				font-size: 14px;
+				color: #2B333B;
+				text-align: center;
+			}
+			/* 鼠标滚动动画!!! */
+			.screen-1__heading,.screen-1__subheading,.screen-1__img,
+			.screen-2__heading,.screen-2__subheading,.screen-2__img,
+			.screen-3__heading,.screen-3__subheading,.screen-3__img,
+			.screen-4__heading,.screen-4__subheading,.screen-4__img
+			{
+				transition: all .5s;
+			}
+			/* 初始化 */
+			.screen-1__heading__init,.screen-2__heading__init,
+			.screen-3__heading__init,.screen-4__heading__init
+			{
+				/* 去到最上面 */
+				transform: translate(0,100%);
+				opacity: 0;
+			}
+			.screen-1__subheading__init,.screen-2__subheading__init,
+			.screen-3__subheading__init,.screen-4__subheading__init
+			{
+				transform: translate(0,-100%);
+				opacity: 0;
+			}
+			.screen-1__img__init,.screen-2__img__init,
+			.screen-3__img__init,.screen-4__img__init
+			{
+				transform: translate(0,100%);
+				opacity: 0;
+			}
+			/* 播放 */
+			.screen-1__heading__done,.screen-1__subheading__done,.screen-1__img__done,
+			.screen-2__heading__done,.screen-2__subheading__done,.screen-2__img__done,
+			.screen-3__heading__done,.screen-3__subheading__done,.screen-3__img__done,
+			.screen-4__heading__done,.screen-4__subheading__done,.screen-4__img__done
+			{
+				/* 回到原位 */
+				transform: translate(0,0);
+				opacity: 1;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="screen-1">
+			<div class="screen-1__heading">
+				优美的设计,更令人着迷
+			</div>
+			<div class="screen-1__subheading">
+				采用受欢迎的设计,使它更加出色<br>
+			款式小巧,轻便手感更舒适,绚丽高清的显示屏,整个外观显得格外精致</h3>
+			</div>
+			<div class="screen-1__img">
+			</div>
+		</div>
+		<div class="screen-2">
+			<div class="screen-2__heading">优美的设计,更令人着迷</div>
+			<div class="screen-2__subheading">采用受欢迎的设计,使它更加出色<br>
+			款式小巧,轻便手感更舒适,绚丽高清的显示屏,整个外观显得格外精致</h3></div>
+			<div class="screen-2__img"></div>
+		</div>
+		<div class="screen-3">
+			<div class="screen-3__heading">优美的设计,更令人着迷</div>
+			<div class="screen-3__subheading">采用受欢迎的设计,使它更加出色<br>
+			款式小巧,轻便手感更舒适,绚丽高清的显示屏,整个外观显得格外精致</h3></div>
+			<div class="screen-3__img"></div>
+		</div>
+		<div class="screen-4">
+			<div class="screen-4__heading">优美的设计,更令人着迷</div>
+			<div class="screen-4__subheading">采用受欢迎的设计,使它更加出色<br>
+			款式小巧,轻便手感更舒适,绚丽高清的显示屏,整个外观显得格外精致</h3></div>
+			<div class="screen-4__img"></div>
+		</div>
+		
+		<script type="text/javascript">
+			var screenList={
+				'.screen-1':[
+					'.screen-1__heading',
+					'.screen-1__subheading',
+					'.screen-1__img'
+				],
+				'.screen-2':[
+					'.screen-2__heading',
+					'.screen-2__subheading',
+					'.screen-2__img'
+				],
+				'.screen-3':[
+					'.screen-3__heading',
+					'.screen-3__subheading',
+					'.screen-3__img'
+				],
+				'.screen-4':[
+					'.screen-4__heading',
+					'.screen-4__subheading',
+					'.screen-4__img'
+				]
+			}
+			
+			
+			// 设置滚动换屏初始化函数
+			var setScreenInit=function(item){
+				// 这一个屏需要初始化的元素
+				var nodeList=screenList[item];
+				// console.log(nodeList)
+				// 此时用of
+				for(var i of nodeList){
+					var node=document.querySelector(i);//需要初始化的元素
+					// console.log(node)
+					// 获取class属性
+					var nodeCls=node.getAttribute('class')
+					node.setAttribute('class',nodeCls+' '+i.substring(1)+'__init')
+				}
+			}
+			
+			// 设置滚动换屏播放函数
+			var setScreenDone=function(item){
+				var nodelist=screenList[item];
+				for(var i of nodelist){
+					// console.log(i)
+					var node=document.querySelector(i);
+					// console.log(node)
+					var baseCls=node.getAttribute('class')
+					node.setAttribute('class',baseCls.replace('__init','__done'))
+				}
+			}
+			
+			// 判断到达哪个屏了
+			window.onscroll=function (){
+				// 获取滚动条高度,判断到达哪个屏幕了
+				var scrollTop=document.documentElement.scrollTop;
+				if(scrollTop>0){
+					setScreenDone('.screen-1')
+				}
+				if(scrollTop>700*1){
+					setScreenDone('.screen-2')
+				}
+				if(scrollTop>700*2){
+					setScreenDone('.screen-3')
+				}
+				if(scrollTop>700*3){
+					setScreenDone('.screen-4')
+				}
+			}
+			
+			
+			// 循环所有需要播放的元素并进行初始化
+			window.onload=function(){
+				for(var i in screenList){
+					setScreenInit(i)
+				}
+				
+			}
+			
+		</script>
+		
+		
+	</body>
+</html>

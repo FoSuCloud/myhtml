@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			/* 边框 */
+			.one,.two,.three,.four{
+				width: 140px;
+				height: 140px;
+				border: #0000FF 1px solid;
+				float: left;
+				text-align: center;
+			}
+			
+			/* 整体缩放动画！ */
+			.all{
+				width: 300px;
+				height: 300px;
+				transition: all 1s;
+			}
+			.all:hover{
+				/* 缩小0.5倍 */
+				transform: scale(.5);
+			}
+			/*scale(1)表示缩放一倍，为不变  */
+		</style>
+	</head>
+	<body>
+		<div class="all">
+			<div class="one">我是一</div>
+			<div class="two">我是二</div>
+			<div class="three">我是三</div>
+			<div class="four">我是四</div>
+		</div>
+	</body>
+</html>

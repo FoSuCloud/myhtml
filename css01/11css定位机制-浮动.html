@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			/* 注意：无论向左还是向右移动，只要高度不一致，
+			无论是中间高还是边缘高，只要不一致，那么下一行移动的框框都会到“矮的一边去” */
+			.one{
+/* 
+l.float将元素从原来的占位中删除(不属于文档流)，向左或向右漂浮，直到碰到包含块的边框或另一浮动元素的边框为止。
+不论该元素为块级元素还是内联级元素，
+定位后该元素将以块级元素的形式(但是它还是可以覆盖其他元素(非浮动元素)！)显示
+*/
+				float: right;
+				width: 30%;
+				height: 200px;
+				background-color: #008000;
+				
+			}
+			.two,.three{
+/* 注：只有在position为static或relative，或继承了父元素的static或relative时，浮动才生效。 */
+				float: right;
+				/* 此时浮动不生效，脱离了文档流,并且可以覆盖其他元素 */
+/* 				position: absolute;
+				top: 100px;
+				left: 200px; */
+				width: 30%;
+				height: 150px;
+				background-color: black;
+			}
+			.four{
+				float: right;
+				width: 30%;
+				height: 150px;
+				background-color: red;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="one"></div>
+		<div class="two"></div>
+		<div class="three"></div>
+		<div class="four"></div>
+		<div class="five"></div>
+	</body>
+</html>

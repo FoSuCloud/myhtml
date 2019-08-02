@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			.btn{
+				width: 100px;
+				height: 100px;
+				position: relative;
+				background-color: #000000;
+			}
+			/* 定义帧动画 */
+			@-webkit-keyframes bunce{
+				0%,100%{
+					transform: scale(0);
+				}
+				50%{
+					transform: scale(1);
+				}
+			}
+			/* 使用帧动画 */
+			.btn:after{
+				/* after,before伪选择器都必须有content */
+				content: ' ';
+				/* 这是动画里面的大小 */
+				width: 20px;
+				height: 20px;
+				border-radius: 50%;
+				background-color: rgba(255,0,0,.5);
+				/* 设置动画所在位置 */
+				position: absolute;
+				top: 0;
+				bottom: 0;
+				left: 0;
+				right: 0;
+				margin: auto;
+				/* 使用动画 */
+				-webkit-animation: bunce 1s infinite;
+			}
+			
+		</style>
+	</head>
+	<body>
+		<div class="btn"></div>
+	</body>
+</html>

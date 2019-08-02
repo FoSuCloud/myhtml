@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<!-- 1.rem:
+		 1、rem的大小是根据html根目录下的字体大小进行计算的。
+		 2、当我们改变根目录下的字体大小的时候，下面字体都改变。
+		 3、rem不仅可以设置字体的大小，也可以设置元素宽、高等属性-->
+		<style type="text/css">
+			.one{
+				/* 设置rem的字体大小(该HTML根目录下的字体默认大小为16px) */
+				/* 48px=16px*3 */
+				font-size: 3rem;
+				display: none;
+			}
+			.one>span{
+				/* 96px=16px*6 */
+				font-size: 6rem;
+			}
+			.one>span>span{
+				/* 144px=16px*9 */
+				font-size: 9rem;
+			}
+			
+			/* 2.em:
+			2.1 em的值并不是固定的；
+			2.2 em会继承父级元素的字体大小。 
+			 */
+			.two{
+				/* 设置em的字体大小(.two外部的元素是html,而HTML默认字体大小是1px) */
+				/* 48px=16px*3 */
+				font-size: 3em;
+				/* display: none; */
+			}
+			.two>span{
+				/* 96px=48px*2,因为.two>span的外部元素是.two，而.two的字体大小是48px */
+				font-size: 2em;
+			}
+			.two>span>span{
+/* 192px=96px*2,因为.two>span>span的外部元素是.two>span，而.two>span的字体大小是96px */
+				font-size: 2em;
+			}
+			
+			
+		</style>
+	</head>
+	<body>
+		 <!-- rem实例 -->
+		 <div class="one">
+		 	我是rem，我字体多大！？
+			<span>
+				我是子元素，也用rem,我字体多大！？
+			    <span>我是子元素的子元素的rem,我字体多大！？</span>
+			</span>
+		 </div>
+		 
+		 <!-- em实例 -->
+		 <div class="two">
+		 	我是em，我字体多大！？
+				<span>
+					我是子元素，也用em,我字体多大！？
+					<span>我是子元素的子元素的em,我字体多大！？</span>
+				</span>
+		 </div>
+		 
+		 <!-- 3.px（Pixel）。相对长度单位。像素px是相对于显示器屏幕分辨率而言的。
+		 1. IE无法调整那些使用px作为单位的字体大小；
+		 2. 国外的大部分网站能够调整的原因在于其使用了em或rem作为字体单位；
+		 3. Firefox能够调整px和em，rem，但是96%以上的中国网民使用IE浏览器(或内核)。
+		 
+		 
+		 -->
+	</body>
+	
+</html>

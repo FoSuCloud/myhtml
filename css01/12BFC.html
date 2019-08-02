@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<!-- 
+		 BFC(Block formatting context)直译为"块级格式化上下文"。它是一个独立的渲染区域，只有Block-level box参与， 
+		 它规定了内部的Block-level Box如何布局，并且与这个区域外部毫不相干。
+		 -->
+		<style type="text/css">
+			   body {
+					width: 300px;
+					/* position: relative; */
+				}
+				.aside {
+					width: 100px;
+					height: 150px;
+		/* 采用浮动定位，脱离了文档流，因此会覆盖下一个元素(非浮动的元素) */
+					float: left;
+					background: #f66;
+				}
+				.main {
+					height: 200px;
+					/* 如果要隐藏被浮动元素覆盖的部分，使用overflow:hidden */
+					overflow: hidden;
+					background: #fcc;
+				}
+				.app{
+					width: 600px;
+					/* 不设置高度，只依靠子元素撑开高度 */
+					background-color: #00FFFF;
+					border: #000000 3px solid;
+					/* 对父元素可以使用overflow: hidden;清除浮动 */
+					overflow: hidden;
+				}
+				.one,.two{
+					/* 设置浮动，这样就撑不开父元素了！ */
+					float: left;
+					width: 100px;
+					height: 100px;
+					border: red 1px solid;
+					background-color: yellow;
+				}
+				
+		</style>
+	</head>
+	<body>
+		<!-- 自适应左右两栏 -->
+		<div class="aside"></div>
+        <div class="main"></div>
+		
+		
+		<!-- 清除内部浮动(子元素浮动的话撑不开父元素，需要overflow) -->
+		<div class="app">
+			<div class="one"></div>
+			<div class="two"></div>
+		</div>
+	</body>
+</html>

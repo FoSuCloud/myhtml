@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			body{
+				padding: 0;
+				margin: 0;
+			}
+			.header{
+				width: 100%;
+				height: 80px;
+				position: relative;
+				background-color: #eee;
+				padding: 0;
+				margin: 0;
+			}
+			.header__wrap{
+				width: 1200px;
+				height: 80px;
+				line-height: 80px;
+				text-align: center;
+				position: absolute;
+				top: 0;
+				bottom: 0;
+				left: 0;
+				right: 0;
+				margin: 0 auto;
+				
+
+			}
+			.header__logo{
+				position: absolute;
+				margin-left: 100px;
+				
+			}
+			.header__nav{
+				position: relative;
+				margin-left: 600px;
+				height: 80px;
+			}
+			a{
+				text-decoration: none;
+				color: #000000;
+			}
+			.header__nav-item{
+				float: left;
+				margin-left: 30px;
+				transition: all 1s;
+				position: relative;
+			}
+			/* 滑动门平滑特效！ */
+			
+			.header__nav-tip{
+				/* 注意这里的是固定高度的 */
+				width: 30px;
+				height: 2px;
+				background-color: #f01400;
+				color: #F01400;
+				position: absolute;
+				margin-left: 30px;
+				bottom: 15px;
+				/* left变化的时候，动画持续.5s */
+				transition: all .5s;
+			}
+			
+			/* 给按钮添加样式 */
+			.header__nav-item_custom_botton{
+				background-color: black;
+				border-radius: 3px;
+				width: 100px;
+				height: 50px;
+				line-height: 50px;
+				color: white;
+				position: absolute;
+				top: 0;
+				bottom: 0;
+			    right: 160px;
+				margin-top: auto;
+				margin-bottom: auto;
+				z-index: 3;
+			}
+		</style>
+	</head>
+	<body>
+		<header class="header">
+			<div class="header__wrap">
+				<div class="header__logo">我的手机</div>
+				<nav class="header__nav">
+					<a href="javascript:;" class="header__nav-item">首页</a>
+					<a href="javascript:;" class="header__nav-item">外观</a>
+					<a href="javascript:;" class="header__nav-item">配置</a>
+					<a href="javascript:;" class="header__nav-item">型号</a>
+					<a href="javascript:;" class="header__nav-item">说明</a>
+					<a href="javascript:;" class="header__nav-item 
+					 header__nav-item_custom_botton">立即购买</a>
+					<div class="header__nav-tip"></div>
+				</nav>
+			</div>
+			
+			
+			<script type="text/javascript">
+				window.onload=function(){
+					var navlist=document.querySelectorAll('.header__nav-item')
+					var navTip=document.querySelector('.header__nav-tip')
+					// console.log(navlist)Nodelist
+					var one=function(item,i){
+						// 获取class属性
+						var baseCls=navlist[i].getAttribute('class')
+						
+						item.onmouseover=function(){
+							// 获取元素宽度
+							// var tipWidth=document.defaultView.getComputedStyle(item,'').width
+							// 缺点在于:字太多的话,下划线不够宽,直接获取宽度也行,就是有点烦
+							// 所以干脆让字数多的变成按钮覆盖下划线
+							navTip.style.left=i*62+'px'				
+						}
+						item.onmouseout=function(){
+							navTip.style.left=0				
+						}
+					}
+					
+					for(var i=0;i<navlist.length;i++){
+						one(navlist[i],i)
+					}
+				}
+				
+
+			</script>
+		</header>
+	</body>
+</html>

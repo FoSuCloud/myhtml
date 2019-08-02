@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<!-- 
+		参考：https://tech.youzan.com/css-margin-collapse/
+		 外边距折叠(collapsing margins)
+			毗邻的两个或多个margin会合并成一个margin(选择数值大的margin作为外边距)，叫做外边距折叠。规则如下：
+			两个或多个毗邻的普通流中的块元素垂直方向上的margin会折叠
+			浮动元素/inline-block元素/绝对定位元素的margin不会和垂直方向上的其他元素的margin折叠
+			创建了块级格式化上下文的元素，不会和它的子元素发生margin折叠
+			元素自身的margin-bottom和margin-top相邻时也会折叠
+		 -->
+		<style type="text/css">
+			.one{
+				background-color: #000000;
+				height: 20px;
+				width: 100%;
+				margin: 0 0 10px;
+			}
+			.two{
+				margin: 20px 0 30px;
+			}
+			.child{
+				background-color: #008000;
+				height: 20px;
+				margin: 40px 0 30px;
+			}
+			.demo {
+				height: 30px;
+				background: red;
+			}
+			.margin-test {
+			    margin: 20px 0 30px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<div class="one">
+				
+			</div>
+			<!--父子元素margin折叠  -->
+			<div class="two">
+				<!-- 兄弟元素margin折叠 -->
+				<div class="child"></div>
+				<div class="child"></div>
+				<div class="child"></div>
+			</div>
+			
+			<!-- 自身外边距的折叠 -->
+			<div class="three">
+				<div class="demo"></div>
+				<div class="margin-test"></div>
+				<div class="demo"></div>
+			</div>
+		</div>
+		<!-- 防止外边距折叠 -->
+		<!-- 
+		浮动元素(脱离了普通文档流)不会与任何元素发生叠加，也包括它的子元素
+		创建了BFC的元素不会和它的子元素发生外边距叠加
+		绝对定位元素(脱离了普通文档流)和其他任何元素之间不发生外边距叠加，也包括它的子元素
+		inline-block元素和其他任何元素之间不发生外边距叠加，也包括它的子元素
+		普通流中的块级元素的margin-bottom永远和它相邻的下一个块级元素的margin-top叠加，除非相邻的兄弟元素clear
+		普通流中的块级元素（没有border-top、没有padding-top）的margin-top和它的第一个普通流中的子元素（没有clear）发生margin-top叠加
+		普通流中的块级元素（height为auto、min-height为0、没有border-bottom、没有padding-bottom）和它的最后一个普通流中的子元素（没有自身发生margin叠加或clear）发生margin-bottom叠加
+		如果一个元素的min-height为0、没有border、没有padding、高度为0或者auto、不包含子元素，那么它自身的外边距会发生叠加
+		 -->
+	</body>
+</html>

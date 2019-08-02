@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			.one>img{
+				/* 把此元素放置在父元素的中部 */
+				vertical-align: middle;
+				/* 把元素的顶端与行中最低的元素的顶端对齐 */
+				vertical-align: bottom;
+				/* 把元素的顶端与行中最高元素的顶端对齐 */
+				vertical-align: top;
+				display: none;
+			}
+			.two{
+				/* 这种情况下，vertical-align(垂直对齐方式)无效！因为顶部已经固定 */
+				vertical-align: middle;
+				vertical-align: bottom;
+				vertical-align: top;
+				vertical-align: text-bottom;
+				vertical-align: text-top;
+			}
+			/* 3.2解决办法：把父元素设为table属性 */
+			.three{
+				border: 1px solid red;
+				width: 300px;
+				height: 200px;
+				display: table;
+			}
+			.three>span{
+				/* 3.1直接使用vertical-align没有效果，因为只对作用对象为行内元素（含行内块），单元格，
+				对块级元素及其内的元素无效,而此时的文本在框里*/
+				vertical-align: middle;
+				/* 3.3子元素为表格，这样的话子元素就相当于在行内了！ */
+				display: table-cell;
+				/* vertical-align: bottom; */
+			}
+		</style>
+	</head>
+	<body>
+		<!-- vertical垂直，align直线 -->
+		<div id="app">
+			<!-- 1.只有一行文本 -->
+			<div class="one">
+				我没有说谎我就爱说黄<img src="../img/2.png" >我我我我
+			</div>
+			<!-- 2.多行文本 -->
+			<div class="two">
+				我没有说谎我就爱说黄我没有说谎我就爱说黄我没有说谎我
+				就爱说黄我没有说谎我就爱说黄我没有说谎我就爱说黄我没
+				我没有说谎我就爱说黄我没有说谎我就爱说黄我没有说谎我
+				就爱说黄我没有说谎我就爱说黄我没有说谎我就爱说黄我没
+				有说谎我就爱说黄我没有说谎我就爱说黄<img src="../img/2.png" >我我我我
+			</div>
+			<!-- 3.多行文本在父元素框里 -->
+			<div class="three">
+				<span>
+					我没有说谎我就爱说黄我没有说谎我就爱说黄我没有说谎我
+					就爱说黄我没有说谎我就爱说黄我没有说谎我就爱说黄我没
+					我没有说谎我就爱说黄我没有说谎我就爱说黄我没有说谎我
+					就爱说黄我没有说谎我就爱说黄我没有说谎我就爱说黄我没
+					有说谎我就爱说黄我没有说谎我就爱说黄我我我我
+				</span>
+			</div>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style>
+			/*  */
+			#one{
+				color: #f55;
+				background: #fcc;
+				width: 200px;
+				line-height: 100px;
+				text-align: center;
+				margin: 100px;
+			}
+			#two{
+				color: #f55;
+				background: #fcc;
+				width: 200px;
+				line-height: 100px;
+				text-align: center;
+				margin: 10px;
+			}
+			#three{
+				color: #f55;
+				background: #fcc;
+				width: 200px;
+				line-height: 100px;
+				text-align: center;
+				margin: 100px;
+			}
+			#four{
+				color: #f55;
+				background: #fcc;
+				width: 200px;
+				line-height: 100px;
+				text-align: center;
+				margin: 100px;
+			}
+			div{
+				/* 对子元素外面套一层容器，并且设置overflow: hidden;就可以清除重叠 */
+				overflow: hidden;
+			}
+		</style>
+	</head>
+	<body>
+		<!-- margin重叠 -->
+		<!-- 这个时候两个p元素(即使分开设置样式)属于同一个bfc,margin交叉处为100px -->
+		<p id="one">Haha</p>
+		<p id="two">Hehe</p>
+		
+		<!-- 解决方法：给一个元素套一个容器(这样两个P元素属于不同bfc)，然后设置overflow:hidden -->
+		<p id="three">Haha</p>
+		<div><p id="four">Hehe</p></div>
+	</body>
+</html>

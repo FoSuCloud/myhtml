@@ -1,0 +1,102 @@
+ <!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			.one{
+				width: 200px;
+				height: 200px;
+				border: #000000 1px solid;
+				/* padding-top: 50%; */
+				line-height: 200px;
+				/* text-align(设置水平对齐方式)这是水平居中 */
+				/* text-align: center; */
+			}
+			.two{
+				width: 300px;
+				border: 1px solid red;
+				text-align: left;
+				/* 设置相等的padding-top/padding-bottom使得垂直居中 */
+				padding-top: 30px;
+				padding-bottom: 30px;
+			}
+			/* 3.1当父元素固定时可以设置父元素display: table;表现为表格 */
+			.three{
+				width: 300px;
+				height: 200px;
+				border: 1px solid red;
+				display: table;
+			}
+			/* 3.2子元素表现为表格对象 */
+			.three>span{
+				text-align: right;
+				/* 3.3使用 vertical-align: middle;把此元素放置在父元素的中部*/
+				vertical-align: middle;
+				display:table-cell; 
+			}
+			.four{
+				border: 1px solid #0000FF;
+				width: 400px;
+				height: 400px;
+				position: relative;
+			}
+			.fourfour{
+				border: #000000 1px solid;
+				height: 200px;
+				width: 200px;
+				/* 浏览器计算外边距 */
+				margin: auto;
+				position: absolute;
+				/* 上下左右都要设为0，意味着content加上外边距就全覆盖父元素,所以才会居中 */
+				top: 0;
+				left: 0;
+				bottom: 0;
+				right: 0;
+			}
+			.five{
+				position: relative;
+				width: 200px;
+				height: 200px;
+				background-color: #00FFFF;
+			}
+			.fivefive{
+				position: absolute;
+				width: 100px;
+				height: 100px;
+				background-color: red;
+				/* 垂直居中 */
+				/* 本来top是顶部+100px,然后margin-top是-50px,最终结果就是100-50=50px */
+				top: 50%;
+				margin-top: -25%;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<!-- 1.单行文本垂直居中 -->
+			<div class="one">我想我需要时间</div>
+			<!-- 2.多行文本且父元素高度不确定 -->
+			<div class="two">
+			我想我需要时间我想我
+			需要时间我想我需要时
+			间我想我需要时间我想
+			我需要时间</div>
+			<!-- 3.多行文本且父元素高度固定 -->
+			<div class="three">
+				<span>我想我需要时间我想
+				我需要时间我想我需要时
+				间我想我需要时间我想
+				我需要时间</span>
+			</div>
+			<!-- 4.margin -->
+			<div class="four">
+				<div class="fourfour"></div>
+			</div>
+			<!-- 5. -  -->
+			<div class="five">
+				<div class="fivefive"></div>
+			</div>
+		</div>
+	</body>
+</html>
