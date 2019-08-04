@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			body{
+				background-color: #222229;
+				/* vh:相对于视窗的高度，vw:则是相对于视窗的高度 */
+				/* height:100vh == height:100%;
+				 当元素没有内容时候设置height:100vh，该元素会被撑开屏幕高度一致*/
+				min-height: 100vh;
+				/* 水平垂直居中 */
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+			.toggle-control{
+				position: relative;
+				display: block;
+				margin-bottom: 120px;
+				height: 100px;
+				cursor: pointer;
+			}
+			/* 绘制开关 */
+			.control {
+			  position: absolute;
+			  top: 0;
+			  left: 0;
+			  height: 50px;
+			  width: 100px;
+			  border-radius: 25px;
+			  background-color: darkgray;
+			  transition: background-color 0.15s ease-in;
+			}
+			/* 因为span没有checked事件，只有input才有，所以添加一个input */
+			input{
+				position: absolute;
+				top: 0;
+				left: 0;
+				height: 50px;
+				width: 100px;
+				border-radius: 25px;
+				/* 设置不透明度为0，也即是完全不可见 */
+				opacity: 0;
+				
+			}
+			/* 绘制圆形按钮 */
+			.control:before {
+			  content: "";
+			  position: absolute;
+			  left: 5px;
+			  top: 5px;
+			  width: 40px;
+			  height: 40px;
+			  border-radius: 25px;
+			  background: white;
+			  transition: left 0.15s ease-in;
+			}
+			/* 选中input后，背景颜色改变，小圆形也右移
+			 注意：再点击一次，状态不是checked之后，颜色和位置恢复正常*/
+			input:checked ~ .control{
+				background-color: #008000;
+			}
+			input:checked ~ .control:before{
+				left: 50px;
+			}
+			/* 虽然input元素不可见，但是依旧存在，而且和.control宽高一致
+			 所以点击.control元素所在的位置会触发冒泡事件，然后input:checked就发生了*/
+		</style>
+	</head>
+	<body>
+		<!-- label 元素不会向用户呈现任何特殊效果。不过，它为鼠标用户改进了可用性。
+		如果您在 label 元素内点击文本，就会触发此控件。就是说，当用户选择该标签时，
+		浏览器就会自动将焦点转到和标签相关的表单控件上 -->
+		<label class="toggle-control">
+			<input type="checkbox"/>
+			<span class="control"></span>
+		</label>
+	</body>
+</html>

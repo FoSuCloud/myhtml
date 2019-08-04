@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="app">
+			<ul>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+			</ul>
+		</div>
+		<script type="text/javascript">
+			// 1.只有for循环
+			function one(){
+				for(var i=0;i<5;i++){
+					console.log(i)
+					// 0,1,2,3,4
+				}
+			}
+			// one()
+			// 正常的for循环没有阻塞
+			
+			// 2.for循环+setTimeout
+			function two(){
+				for(var i=0;i<5;i++){
+					setTimeout(function(){
+						console.log(i)
+					},1000)
+					// 55555
+				}
+				/*原理:js是单线程异步的，而 setTimeout是耗时任务，需要放到任务队列中等待，
+				而for循环是在two函数调用之后放到执行栈中的，而且i是Var声明的，没有局部作用域
+				 因此首先执行var i ;然后执行i=0(把一个setTimeout放入任务队列),
+				 i=1(把一个setTimeout放入任务队列),
+				 i=2(把一个setTimeout放入任务队列),
+				 i=3(把一个setTimeout放入任务队列),
+				 i=4(把一个setTimeout放入任务队列);
+				 注意：执行完i=4，还会执行i++;此时i=5,然后不满足条件，for循环退出执行栈，
+				 执行栈为空，此时才放入setTimeout耗时任务到执行栈中
+				 所以setTimeout任务开始执行，共有5个setTimeout任务，而且此时的i为5，
+				 所以结果为5个5
+				 */
+			}
+			// two()
+			
+			// 3.for循环+setTimeInerval
+			function three(){
+				for(var i=0;i<5;i++){
+					setInterval(function(){
+						console.log(i)
+					},3000)
+				}//每三秒增加五个5
+				/* 原因:
+				 setInterval也属于耗时任务，浏览器会分配一个子线程，主线程还是首先执行for循环
+				 等到i++完毕，for循环退出执行栈再执行setInterval任务，但是此时的i=5,
+				 而且每次i++都会增加一个setInterval任务，所以一次性是增加5个五
+				 需要注意的一点是setInterval是每隔n毫秒执行一次，一直会执行,除非使用clearInterval来停止
+				 setTimeout是n毫秒后执行，执行完就没了
+				 */
+			}
+			// three()
+			
+			// 防止阻塞方法:
+			// 2.1.let局部作用域
+			function four(){
+				for(let i=0;i<5;i++){
+					// console.log('21312')
+					setTimeout(function(){
+						console.log(i)
+					},3000)
+					// 0,1,2,3,4
+				}
+				/*原理:
+				 let是ES6中声明变量的，声明的变量，只在let命令所在的代码块内有效
+				 也就是实现了ES没有的块作用域，每次执行i++，都会产生块作用域，
+				 而每一次循环的i其实都是一个新的变量，JS引擎会记住上一次的值，
+				 所以执行次序应该是 let i;i=0;
+				 let i;i++(上一轮是0，会记住值);
+				 let i;i++(上一轮是1，会记住值);
+				 let i;i++(上一轮是2，会记住值);
+				 let i;i++(上一轮是3，会记住值);
+				 setTimeout,setTimeout,setTimeout，setTimeout，setTimeout
+				 
+				 可能会有疑问啦，为什么setTimeout会记住i？
+				 因为setTimeout引用了let声明的变量，而let声明的变量，只在let命令所在的代码块内有效
+				 所以这个块作用域会一直存在，直到没有引用它的数为止，也就是垃圾回收机制的引用计数不为0
+				 该块作用域还有setTimeout在引用，所以块作用域里面的变量就不会被回收
+				 */
+			}
+			// four()
+			
+			// 2.2立即执行函数
+			for(var i=0;i<5;i++){
+				console.log('wait me');
+				// function(i)的i是形参
+				(function (i){
+					console.log('啥时候');
+					setTimeout(function(){
+						console.log(i)
+					},1000)
+				})(i)
+				// (function(){})(i)的i是实参
+				// 0,1,2,3,4
+				/* 原因：注意：实参和形参缺一不可
+				 执行次序应该是这样的:var i;
+				 i=0,(func(){})(0)把i传递到立即执行函数,函数执行，但是setTimeout是耗时任务，
+				 所以放到任务队列中，但是注意：此时生成了一个函数作用域，而函数还没执行完毕
+				 所以作用域没有被释放，setTimeout任务使用的变量向上寻找，找到的是函数形参，
+				 没有用到全局作用域的i,所以才会是0,1,2,3,4
+				 
+				 执行次序应该是这样的:var i;
+				 i=0,(func(){})(0)
+				 i=1,(func(){})(1)
+				 i=2,(func(){})(2)
+				 i=3,(func(){})(3)
+				 i=4,(func(){})(4)
+				 setTimeout(0),setTimeout(1),setTimeout(2),setTimeout(3),setTimeout(4)
+				 */
+			}
+			
+			// 2.3对于对象数组来说:增加属性
+			function six(){
+				var name=document.getElementsByTagName('li')
+				console.log(name)
+				for(var i=0;i<5;i++){
+					name[i].num=i;
+					// setTimeout(function(){
+					// 	console.log(name[i].num)
+					// },1000)
+					
+					/* 注意:这种方法没办法用到setTimeout,setInterval上
+					 用在事件绑定上可以
+					 */
+					
+					name[i].onclick=function(){
+						console.log(this.num)
+					}
+				}
+			}
+			six()
+			
+			
+			
+		</script>
+	</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			// 寻找字符串中第一个未重复的字符
+			function firstNonRepeat (str) {
+				var list=str.split('')
+				// 标记flag
+				var flag=list.some(item => {
+					var num=0  //统计不同次数
+					for(var i=0;i<list.length;i++){
+						if(item!=list[i]){
+							num++;
+						}
+					}
+					// console.log(num)
+					if(num===list.length-1){
+						console.log(item)
+						return true  //找到第一个就退出
+					}
+				})
+				if(!flag){
+					console.log("")
+				}
+			}
+			firstNonRepeat('aaabccc')     // 'b'
+			firstNonRepeat('aabccbd')     // 'd'
+			firstNonRepeat('aabxbcc')     // 'x'
+			firstNonRepeat('6666666')     // ''
+		</script>
+	</body>
+</html>

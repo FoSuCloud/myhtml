@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<!-- 防抖动和节流本质是不一样的。
+		防抖动是将多次执行变为最后一次执行，
+		节流是将多次执行变成每隔一段时间执行。 -->
+		
+		<input type="button" value="点我" id="btn">
+		<!-- 
+		想比较的话，就疯狂点十几秒鼠标，然后防抖只执行一次，而节流会执行多次 
+		 
+		 
+		 -->
+		<script type="text/javascript">
+			// 高频事件触发，但在n秒内只会执行一次，所以节流会稀释函数的执行频率
+			function strea(fn,wait=2000){
+				var flag=true;
+				// var和函数声明很早就执行了,而return里则是点击之后才会执行
+				return function(){
+					if(flag){
+						flag=false;
+						setTimeout(()=>{
+							fn.apply()
+							// 必须要等待wait毫秒才会改变flag
+							// 也就是说在wait毫秒之内的所有点击事件都没用,因为flag没改变
+							flag=true;
+						},wait)
+						
+					}
+				}
+			}
+			
+			function show(){
+				console.log('www')
+			}
+			
+			var btn=document.getElementById('btn')
+			btn.addEventListener('click',strea(show))
+			
+			
+			
+		</script>
+	</body>
+</html>

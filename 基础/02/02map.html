@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<!-- map函数：
+		 var new_array = arr.map(function callback(currentValue[, index[, array]]) 
+		 { // Return element for new_array }[, thisArg])
+		 
+		 parseInt函数：
+		 parseInt(string, radix)
+		 接收两个参数，第一个表示被处理的值（字符串），第二个表示为解析时的基数（相当于按照几进制解析）。
+		 -->
+		 <script>
+			 
+			 var arr=['1','2','3','3','3','14','25']
+			 /* 
+			 使用map函数的语法为:
+			 数组.map(回调函数)，map函数向回调函数传递的是数组中的值以及这个值所带有的索引
+			 
+			 */
+			 console.log(arr.map(parseInt))
+			 /* 
+			 结果  基数  原因
+			 1      0     radix为0时，且string参数不以“0x”和“0”开头时，按照10为基数处理
+			 NaN    1    基数为1，最大值应该小于1，但是出现了2，所以出错了无法解析返回NaN
+			 NaN    2    基数为2，最大值应该小于2，但是出现了3，所以出错了无法解析返回NaN
+			 NaN    3    基数为3，最大值应该小于3，但是出现了3，所以出错了无法解析返回NaN
+			 3      4      基数为4，最大值应该小于4，符合要求返回3
+			 9      5      基数为5，最大值应该小于5，符合要求,按照5进制进行解析得到 1*5+4=9
+			 17      6      基数为6，最大值应该小于6，符合要求,按照6进制进行解析得到 2*6+5=17
+			 */
+			 
+			 
+			 // 假设换一个回调函数
+			 // 使用匿名函数,可以只传递一个参数给匿名函数
+			 console.log(arr.map(function(data){ return parseInt(data)+3}))
+			 
+			 
+			 // 传递两个参数,第二个参数为索引
+			 console.log(arr.map(function(data,i){ if(i==3) return data}))
+			 // map函数返回的是一个数组,所以这种做法返回的是[undefined, undefined, undefined, "3", undefined, undefined, undefined]
+			 
+			 // 数组里面可以有多种类型的值
+			 console.log(arr.map(function(data,i){ if(i==3){return data}else{ return parseInt(data)+3}}))
+			 
+		 </script>
+		 
+		 
+	</body>
+</html>

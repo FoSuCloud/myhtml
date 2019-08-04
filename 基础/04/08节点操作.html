@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		
+		<div id="app">
+			<ul>
+				<li></li>
+				<li></li>
+			</ul>
+		</div>
+		<script type="text/javascript">
+			// 1.获取元素节点
+			var app=document.getElementById('app')
+			var ul=app.getElementsByTagName('ul')[0]
+			// console.log(ul)
+			// 2.添加元素节点
+			var myli=document.createElement('li')//2.1创建一个具体的元素
+			var second_li=document.createTextNode('I AM text')//2.2创建一个文本节点 
+			
+			// 3.1把元素添加入父元素中
+			ul.appendChild(myli)
+			app.appendChild(second_li)
+			
+			// 3.2移除元素节点
+			// app.removeChild(ul)
+			
+			// 3.3把节点插入到父节点的某个兄弟节点的前面
+			var span=document.createTextNode('我在父元素前面！！！')
+			// document.body.insertBefore(span,app)
+			
+			//3.4替换
+			app.replaceChild(span,ul)
+			
+		</script>
+	</body>
+</html>

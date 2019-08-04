@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<!-- ~通用兄弟选择器可以选择该元素"之后"(之前的没被选中的！)的同级兄弟元素，使用方法 ：本元素 ~ 兄弟元素标签 -->
+		<!-- +相邻兄弟选择器可以选择该元素之后的第一个兄弟元素(只有一个)，使用方法 ：本元素 + 兄弟元素标签 -->
+		<style type="text/css">
+			/* 选中自己之后的兄弟元素 */
+			.one_1:hover~span{
+				color: red;
+			}
+			/* 选中本身 */
+			.one_1:hover{
+				color: red;
+			}
+			
+			.two{
+				color: #aaa;
+				font-size: 60px;
+				/* 注意：需要设置flex布局和宽度，这样才能用row-reverse让选中的元素之后的元素变成之前的元素 */
+				display: flex;
+				flex-direction: row-reverse;
+				width: 200px;
+			}
+			.two>span:hover,.two>span:hover ~ span{
+				color: red;
+			}
+			
+			.three{
+				color: #2B333B;
+				font-size: 30px;
+			}
+			a{
+				text-decoration: none;
+			}
+			/* 本来选中的是第二个也就是4，但是使用+相邻兄弟选择器之后，选中的变成了第三个(3) */
+			.three>a:nth-child(2)+a{
+				color: red;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="one">
+			<span>一一</span>
+			<span class="one_1">一2</span>
+			<span>一3</span>
+			<span>一一</span>
+		</div>
+		
+		<div class="two">
+			<!-- 使用row-reverse之后，页面的排列是12345
+			 但是实际的HTML结构还是54321，所以5之后的兄弟元素四4321四个，加上他自己，才会是五颗星-->
+			<span title="5">*</span>
+			<span title="4">*</span>
+			<span title="3">*</span>
+			<span title="2">*</span>
+			<span title="1">*</span>
+		</div>
+		
+		<div class="three">
+			<a href="#">5</a>
+			<a href="#">4</a>
+			<a href="#">3</a>
+			<a href="#">2</a>
+			<a href="#">1</a>
+		</div>
+	</body>
+</html>

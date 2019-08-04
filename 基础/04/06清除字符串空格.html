@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			// 1.使用正则表达式
+			// \s表示的是空格
+			var one=new RegExp(/\s*/g)//1.1清除全部空格
+			var str='  sa  asda 231  '
+			console.log(str.replace(/\s*/g,""))//第一种方式
+			console.log(str.replace(one,""))//第二种方式
+			
+			// 1.2清除左边空格
+			console.log(str.replace(/^\s*/,""))
+			// 1.3清除右边空格
+			console.log(str.replace(/\s*$/,""))
+			// 1.4清除两边空格
+			console.log(str.replace(/^\s*||\s$/g,""))
+			
+			// 2.使用trim方法
+			console.log(str.trim())//2.1清除两边空格
+			console.log(str.trimLeft())//2.2清除左边空格
+			console.log(str.trimRight())//2.3清除右边空格
+			
+		</script>
+	</body>
+</html>

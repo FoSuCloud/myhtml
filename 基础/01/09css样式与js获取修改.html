@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<!-- 
+		 css样式有四种：内联式，内嵌式，链接式，导入式
+		 例子：
+		 1.内联式<div style="width:100px;height:100px;"></div>
+		 2.内嵌式：写在style标签，<style type="text/css">
+									div{ width:100px; height:100px }
+									</style>
+		 3.链接式:使用Link标签导入css文件:
+		 <link href="/static/css/main.css?v=1" type="text/css" rel="stylesheet" />
+		 4.导入式:使用@import导入css文件
+		 @import url("/static/css/main.css?v=1")
+		 -->
+		 <style type="text/css">
+/* 		 	#app{
+				color: yellow;
+			} */
+		 </style>
+	</head>
+	<body>
+		<!-- 注意：1.通过JS的style属性只能获取css的 内联样式
+		 2.要获取元素的完整的样式信息，必须使用 window 对象的 getComputedStyle 方法-->
+		<div id="app" style="width: 200px;"></div>
+		
+		<!-- 3.使用getComputedStyle 方法/currentStyle 属性可以获取链接式css文件 -->
+		<link rel="stylesheet" type="text/css" href="app.css"/>
+		<script type="text/javascript">
+			// 获取app元素
+			var app=document.getElementById('app');
+			// 1.通过JS的style属性只能获取css的 内联样式
+			// console.log(app.style.width)//200px,即使存在内嵌样式,也只能得到内联样式
+			
+			// var one=document.getElementById()
+			// 注意:3.在 IE8 以下浏览器中没有实现 getComputedStyle 方法，
+			// 但可以使用 IE 中每个元素有自己的 currentStyle 属性来获取样式
+			var sty=window.getComputedStyle(app,"")
+			// getComputedStyle此方法有2个参数，第一个参数为要获取计算样式的元素，第二个参数可以是null、
+			// 空字符串、伪类(如:before,:after)，这两个参数 都是必需的
+			console.log(sty.color)//rgb(255, 255, 0)
+			
+			// ie8以下:currentStyle 属性来获取样式
+			// console.log(app.currentStyle.color)
+			
+			// 4.用js的style设置css样式
+			// app.style.height='200px';
+			// app.style.backgroundColor='yellow';
+			
+		</script>
+	</body>
+</html>

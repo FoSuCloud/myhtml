@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			.app{
+				width: 300px;
+				height: 300px;
+				position: absolute;
+				left: 300px;
+				top: 300px;
+				background: url(../img/1.png);
+				/* 第一参数是水平阴影，第二个是垂直阴影 */
+				box-shadow: 30px 50px;
+				/* 默认是右下阴影，可以使用负号改变方向 */
+				box-shadow: -30px -50px;
+				/* 可以使用第三个参数设置模糊(阴影大小不变，从外缩进像素使得模糊) */
+				box-shadow: 30px 50px 10px;
+				/* 第四个参数可以让阴影边距增加，两个边距都增加 */
+				box-shadow: 30px 50px 0 10px;
+				/* 第五个参数设置阴影颜色 */
+				box-shadow: 30px 50px 0 10px blue;
+				/* 第六个参数是内阴影(边距方向相反，颜色不变，模糊和边距针对的都变成了背景) */
+				box-shadow: 30px 50px 0 10px blue inset;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="app"></div>
+	</body>
+</html>

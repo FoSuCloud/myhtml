@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+<!-- 垃圾回收机制(GC:Garbage Collection),执行环境负责管理代码执行过程中使用的内存 -->
+<!-- GC原理：垃圾收集器会定期找出那些不再继续使用的变量，然后释放其内存，
+ 注意：这个过程不是实时的，否则会比较耗资源，整个过程是按照固定的时间间隔来执行的-->
+	</head>
+	<body>
+		<script type="text/javascript">
+			function fn1() {
+				var obj = {name: 'hanzichi', age: 10};
+			}
+			function fn2() {
+			   var obj = {name:'hanzichi', age: 10};
+			   return obj;
+			}
+			var a = fn1();
+			var b = fn2();
+			console.log(fn1)
+			console.log(a)//undefied
+			console.log(b)
+			// fn1和fn2函数内部定义的都是局部变量
+			//当调用结束后,a指向的fn1函数的内存会被JS引擎中的垃圾回收机制自动释放
+			// 但是fn2被调用后,内部的变量被全局变量b所指向,所以该块内存不会被自动释放
+
+		</script>
+		<!-- 
+		 垃圾回收策略：标记清除(较为常用)和引用计数
+		 -->
+		 <!-- 1.标志清除:当变量进入环境时，将变量标记"进入环境"，当变量离开环境时，标记为："离开环境"。某一个时刻，垃圾回收器会过滤掉环境中的变量，
+		 以及被环境变量引用的变量，剩下的就是被视为准备回收的变量。 
+		 2.引用计数:引用计数是跟踪记录每个值被引用的次数.
+		 原理:就是变量的引用次数，被引用一次则加1，当这个引用计数为0时，被视为准备回收的对象。-->
+	</body>
+</html>

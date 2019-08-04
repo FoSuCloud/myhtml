@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<!-- 类型检测大致可以分为三种方式：typeof,instanceof,construtor -->
+		<script type="text/javascript">
+			// 1.typeof: typeof用以获取一个变量或者表达式的类型，
+			// 但是typeof一般只能返回如下几个结果：
+			// number,boolean,string,function（函数）,object（NULL,数组，对象）,undefined
+			console.log(typeof null)//object
+			var arr=new Array();
+			var arr1=[]
+			console.log(typeof arr)//object
+			console.log(typeof arr1)//object
+			// 1.1typeof遇到null,数组,对象时都会返回object类型
+			
+			// 2.所以当我们要判断一个对象是否是数组时
+			// 或者判断某个变量是否是某个对象的实例则要选择使用另一个关键语法instanceof
+			// 语法: 实例 instanceof 对象  
+			// 2.1数组
+			console.log( arr instanceof Array)//true
+			console.log( arr instanceof Object)//true
+			
+			// 2.2基本数据类型
+			var str='22'
+			console.log( str instanceof String)//false
+			console.log( str instanceof Number)//false
+			// 某个字符串不是String对象的实例
+			
+			// 2.3函数
+			function one(word){
+				this.word=word
+			}
+			var onon=new one('www')
+			// onon.__proto__={}
+			// 如果修改onon.__proto__的话，那么该实例就不属于one函数创建的了
+			// 但是{}还是属于Object,注意:修改为其他类型的变量就不可以!
+			console.log(onon instanceof one)//true
+			console.log(onon instanceof Object)//true
+			// 函数也属于对象
+			
+			console.log(onon.__proto__)
+			// 从这方面来讲,instanceof就是检测实例的__proto__是否指向某个函数
+			
+			
+			// 3.construtor 这是每个实例对象都拥有的属性,表示创建实例对象的对象
+			var str11='12231'
+			console.log(str11.constructor)//ƒ String() { [native code] }
+			console.log(str11.constructor===String)//true
+			// 优点:与nstanceof相比,返回的不是布尔值,而是数据类型
+			console.log(onon.constructor===one)//true
+		</script>
+	</body>
+</html>

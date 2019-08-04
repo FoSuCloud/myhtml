@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style>
+/* background-clip指定背景绘制区域，不指定的区域就不显示，但是不指定的区域还是存在的，只是空白罢了 */
+			#app{
+				background: url(../img/2.png);
+				padding: 50px;
+				border: 50px transparent solid;
+				margin: 10px;
+				width: 300px;
+				height: 300px;
+				/* 只显示内容部分 */
+				background-clip: content-box;
+				/* 内容+填充 */
+				/* background-clip: padding-box; */
+				/* 内容+填充+边框 */
+				background-clip: border-box;
+				position: relative;
+			}
+			/* 如果要实现透明等效果 */
+			#one{
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 300px;
+				height: 300px;
+				/* 在这里不可以加填充，否则子元素的位置为0是内容+填充 */
+				/* padding: 50px; */
+				/* 父元素透明，子元素不透明实现遮罩层 */
+				border: 50px rgba(0,0,0,.8) solid;
+			}
+			/* #one覆盖填充，#two覆盖边框 */
+			#two{
+				position: absolute;
+				top: -50px;
+				left: -50px;
+				width: 400px;
+				height: 400px;
+				/* 注意：要使用透明需要rgba，第四个参数是alpha透明 */
+				border: 50px rgba(0,0,0,.25) solid;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<span id="one"></span>
+			<span id="two"></span>
+		</div>
+	</body>
+</html>

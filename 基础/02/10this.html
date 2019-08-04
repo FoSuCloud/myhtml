@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<!-- 
+		this是函数运行时，在函数体内自动生成的一个对象，只能在函数体内部使用
+		 -->
+	</head>
+	<body>
+		<script type="text/javascript">
+			// 1.纯粹的函数调用
+			var a=1;//全局变量,相当于给window添加了a这个属性
+			function one(){
+				console.log(this.a)
+			}
+			one()
+			// 这是函数的最通常用法，属于全局性调用，因此this就代表全局对象
+			
+			
+			// 2.作为对象方法的调用
+			function two(){
+				console.log(this.b)
+			}
+			var obj={
+				b:2,
+				m:two
+			}
+			
+			obj.m();//调用对象的方法,此时的this指的是上级对象
+			
+			
+			// 3.作为构造函数调用
+			var x=3333;
+			function three(){
+				this.x=3
+			}
+			var mythree=new three();//这时，this就指这个新对象
+			console.log(mythree.x)//3
+			console.log(this.x)//3333,指的不是全局变量!
+			
+			
+			// 4.apply调用!!!
+			/* 
+			 apply()是函数的一个方法，作用是改变函数的调用对象。
+			 它的第一个参数就表示改变后的调用这个函数的对象
+			 */
+			var y=4444;//全局变量
+			function four(){
+				console.log(this.y)
+			}
+			// four()//全局性调用,4444
+			// four.apply();//4444,此时第一个参数为空,默认调用函数的对象是window
+			// 使用对象中的方法调用
+			var objfour={}
+			objfour.y=11;
+			objfour.w=four;
+			objfour.w.apply()//4444,指的是apply第一个参数指定的对象,默认是window
+			objfour.w.apply(objfour)//11,指的是apply第一个参数指定的对象,此时的对象是objfour
+			objfour.w()//11,指的是上级对象
+			
+		</script>
+	</body>
+</html>

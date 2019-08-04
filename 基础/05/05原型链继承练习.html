@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			// 问：能否通过f取到方法a，方法b?
+			var F = function(){};
+			Object.prototype.a = function(){console.log('a')};
+			Function.prototype.b = function(){console.log('b')};
+			var f = new F();
+			
+			// 推断1
+			console.log(F.prototype.__proto__===Object.prototype)//true
+			// 所以可以通过F函数获取方法a
+			F.prototype.__proto__.a();//a
+			// 推断2
+			console.log(f.__proto__===F.prototype)//true
+			f.__proto__.__proto__.a();//a
+			// 把指针去掉,f可以自动寻找该名称的方法
+			f.a();//a
+			
+			// 推断,Function是??
+			// Function函数与window外部创建得F函数的等级一样
+			console.log(Function.prototype.__proto__===Object.prototype)
+			// Function函数与window外部创建得F函数没有从属关系,两者的关联就在于Object.prototype
+			
+			// 推断
+			// console.log(f)
+			// console.log(F.prototype.constructor)//f(){}
+			// F与Function建立了联系
+			console.log(F.prototype.__proto__===Function.prototype.__proto__)//true
+			// f与Function建立了联系
+			console.log(f.__proto__.__proto__===Function.prototype.__proto__)//true
+			
+			// 但是Function的b属性不在Object建立,所以需要用到constructor指向Function函数本身
+			console.log(F.prototype.constructor===F)//true
+			console.log(Function.prototype.constructor===Function)//true
+			//constructor是每个原型对象拥有的属性，指向构造函数本身
+			// f.__proto__.__proto__.constructor指向Object
+			console.log(f.__proto__.__proto__.constructor===Object)//true
+			// 然后使用f.__proto__.__proto__.constructor.b()就会自动去寻找对应的方法
+			f.__proto__.__proto__.constructor.b()//b
+			f.__proto__.__proto__.constructor.a()//construtor后面的__proto__.__proto__有a方法
+			console.log(f.__proto__.__proto__)//construtor有__proto__,里面有b方法
+			// f.__proto__.constructor.b()//虽然也有结果,但是第一种才正确
+			f.constructor.b();//b
+			
+		</script>
+	</body>
+</html>

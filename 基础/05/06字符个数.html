@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			// 判断一个字符串中出现次数最多的字符，统计这个次数
+			var str='asdaduyafaas'
+			var arr=str.split('')
+			var set={}//保存键值
+			for(var i=0;i<arr.length;i++){
+				// 如果不存在该键
+				if(!set[arr[i]]){
+					set[arr[i]]=1
+				}else{
+					set[arr[i]]++;
+				}
+			}
+			// console.log(set)
+			// 求最大值
+			var max=0
+			var maxkey;
+			for(var key in set){
+				if(set[key]>max){
+					max=set[key]
+					maxkey=key
+				}
+			}
+			console.log("最多次数为:"+max+",字符为:"+maxkey)
+			
+			
+			
+			
+		</script>
+	</body>
+</html>

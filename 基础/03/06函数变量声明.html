@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<!-- 
+		 JS代码分为两个部分，声明阶段和编译阶段
+		 JS的编译阶段会找到所有的“声明”，并使用合适的作用域把他们关联起来，
+		 这就是词法作用域的核心内容；
+		 而包括变量声明、函数声明在内的所有的声明都会在编译阶段之前进行声明处理
+		 
+		 而在编译过程之前进行声明处理就好像把声明部分抬高到顶部，所以被叫做“声明提升”
+		 而声明提升时候，赋值和逻辑操作都在原地继续等待执行，没有发生改变！
+		 
+		 -->
+		 
+		 
+		 <script type="text/javascript">
+		 	// 1.变量的声明提升
+			// 1.1 常用情况
+			// var a=2;
+			// function foo(){
+			// 	console.log(a);//undefined
+			// 	var a=10;
+			// 	console.log(a);//10
+			// }
+			// foo();
+			
+			// 1.2相当于
+			// var a=2;
+			// function foo(){
+			// 	var a;//把函数内部的a变量提升到函数顶部,所以打印a的时候还没给a赋值
+			// 	console.log(a);//undefined
+			// 	a=10;//这个时候才给a赋值
+			// 	console.log(a);//10
+			// }
+			// foo();
+			
+			// 2.1 函数声明提升(定义函数有两种方式：函数声明和函数表达式)
+			// goo();
+			// function goo(){
+			// 	console.log('wwww')//www
+			// }
+			// // 2.1 函数声明方式 相当于
+			// function goo(){
+			// 	console.log('wwww')//www
+			// }
+			// goo();//函数声明被提升了
+			
+			// 2.2 函数表达式
+			// goo();//Uncaught TypeError: goo is not a function
+			// var goo=function(){
+			// 	console.log('eee')
+			// }
+			
+			// 2.2 错误原因:此时的函数表达式相当于
+			// var goo;//goo这个时候被声明提升了,但是是作为一个变量被声明提升了
+			// 
+			// goo();//goo使用调用函数的形式,但是此时的goo只是一个还没被赋值的变量,自然出错了
+			// 
+			// goo=function(){
+			// 	console.log('eee')
+			// }
+			/* 
+			 提升操作会优先进行函数的声明
+			  函数  会首先被提升  然后才是  变量  ，重复的变量声明会被忽略，
+			只剩下赋值操作，多个函数声明可以进行覆盖
+			 */
+			// 当函数和变量重名时
+			// ww();//asda
+			// console.log(ww);//输出整个函数的代码
+			// //当函数和变量重名时,使用函数
+			// 
+			// function ww(){
+			// 	console.log('asda')
+			// }
+			// 
+			// var ww=123
+			
+			// 对于es6来说,存在类class,
+			//但是类不存在变量提升,let命令也是不提升的
+			// new Foo(); // Uncaught ReferenceError: Cannot access 'Foo' before initialization
+			// class Foo {}
+			
+			
+			// 必须保证子类在父类之后定义。
+			  // let Foo = class {};//Foo是父类
+			  // class Bar extends Foo {//Bar是子类
+			  // }
+			  
+			  // 如果类存在声明提升,那么就相当于
+			  class Bar extends Foo {//Bar是子类
+			  }// Uncaught ReferenceError: Cannot access 'Foo' before initialization
+			  let Foo = class {};//Foo是父类
+			  // 
+			
+		 </script>
+	</head>
+	<body>
+	</body>
+</html>

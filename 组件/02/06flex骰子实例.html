@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<!-- 参考:http://www.ruanyifeng.com/blog/2015/07/flex-examples.html -->
+		<style type="text/css">
+			.one{
+				display: flex;
+				background-color: wheat;
+				border-radius: 5px;
+				width: 100px;
+				height: 100px;
+				/* 第一排 1 2 3 */
+				/* justify-content: flex-start;
+				justify-content: center;
+				justify-content: flex-end; */
+				/* 第二排 1 */
+				/* align-items: center; */
+				/* 第二排 2 */
+				/* align-items: center;
+				justify-content: center; */
+				/* 第二排 3 */
+				/* align-items: center;
+				justify-content: flex-end; */
+				/* 第三排 1 */
+				align-items: flex-end;
+				justify-content: flex-start;
+				/* 第三排 2 */
+				align-items: flex-end;
+				justify-content: center;
+				/* 第三排 3 */
+				align-items:flex-end;
+				justify-content:flex-end;
+			}
+			.item{
+				background-color: ghostwhite;
+				border-radius: 50%;
+				width: 28px;
+				height: 28px;
+				margin: 2px;
+			}
+			
+			.two{
+				display: flex;
+				width: 100px;
+				height:100px;
+				background-color:red;
+				border-radius:5px;
+				/* 1 */
+				/* justify-content: space-between; */
+				/* 2 */
+				/* flex-direction: column; */
+				/* justify-content: space-between; */
+				/* 3 */
+				/* flex-direction: column;
+				align-items: center;
+				justify-content: space-between; */
+				/* 4 */
+				flex-direction: column;
+				align-items:flex-end;
+				justify-content: space-between;
+			}
+			
+			.new_two{
+				display: flex;
+				width: 100px;
+				height:100px;
+				background-color:skyblue;
+				border-radius:5px;
+				/* 与3对应 */
+				justify-content: space-between;
+			}
+			.new_two>.item:nth-child(2){
+				/* 可覆盖父元素的align-items属性 */
+				/* 1 */
+				align-self: center;
+				/* 2 */
+				align-self: flex-end;
+				/* 3 */
+				align-items: flex-end;
+			}
+			
+			.three{
+				width: 100px;
+				height:100px;
+				background-color: rgba(0,0,255,.5);
+				display: flex;
+			}
+			.three>.item:nth-child(2){
+				align-self: center;
+			}
+			.three>.item:nth-child(3){
+				align-self: flex-end;
+			}
+			
+			.four{
+				width: 100px;
+				height: 100px;
+				background-color:rgba(25,0,0,.3);
+				display:flex;
+				flex-wrap: wrap;
+				justify-content: flex-end;
+			    align-content: space-between;
+			}
+			
+			.new_four{
+				width: 100px;
+				height: 100px;
+				background-color:rgba(255,0,0,.3);
+				display: flex;
+				flex-wrap: wrap;
+				/* align-items属性定义项目在交叉轴上如何对齐 */
+				/* align-content属性定义了多根轴线的对齐方式。如果项目只有一根轴线，该属性不起作用 */
+				align-content: space-between;
+				/* align-content:space-between：与交叉轴两端对齐，轴线之间的间隔平均分布。 */
+				/* align-items没有space-between选项 */
+			}
+			.new_four>.column{
+				display: flex;
+				/* flex-basis属性定义了在分配多余空间之前，项目占据的主轴空间（main size） */
+				/* 可以设为跟width或height属性一样的值（比如350px），则项目将占据固定空间 */
+				flex-basis: 100%;
+				justify-content: space-between;
+			}
+			
+			.six{
+				width: 100px;
+				height: 100px;
+				background-color: rgba(0,0,25,.5);
+				display: flex;
+				flex-wrap:wrap;
+				/* 1 */
+				/*align-content: space-between; */
+				/* 2 */
+				flex-direction: column;
+				align-content:space-between;
+			}
+			
+			.new_six{
+				width: 100px;
+				height: 100px;
+				background-color: rgba(0,150,0,.5);
+				display: flex;
+				flex-wrap:wrap;
+			}
+			.new_six> .row{
+				display:flex;
+				flex-basis:100%;
+			}
+			.new_six> .row:nth-child(2){
+				justify-content: center;
+			}
+			.new_six> .row:nth-child(3){
+				justify-content: space-between;
+			}
+			.seven{
+				width: 100px;
+				height: 100px;
+				background-color: rgba(0,0,255,.5);
+				display: flex;
+				flex-wrap:wrap;
+			}
+			
+		</style>
+	</head>
+	<body>
+		<!-- 一个骰子 -->
+		<div class="one">
+		  <span class="item"></span>
+		</div>
+		<!-- 兩個骰子 -->
+		<div class="two">
+		  <span class="item"></span>
+		  <span class="item"></span>
+		</div>
+		<!-- 还是两个骰子，但是要对称 -->
+		<div class="new_two">
+		  <span class="item"></span>
+		  <span class="item"></span>
+		</div>
+		<!-- 三个骰子 -->
+		<div class="three">
+			<span class="item"></span>
+			<span class="item"></span>
+			<span class="item"></span>
+		</div>
+		<!-- 四个骰子 -->
+		<div class="four">
+			<span class="item"></span>
+			<span class="item"></span>
+			<span class="item"></span>
+			<span class="item"></span>
+		</div>
+		<!-- 四个骰子新 -->
+		<div class="new_four">
+			<div class="column">
+				<span class="item"></span>
+				<span class="item"></span>
+			</div>
+			<div class="column">
+				<span class="item"></span>
+				<span class="item"></span>
+			</div>
+		</div>
+		<!-- 六个骰子 -->
+		<div class="six">
+			<span class="item"></span>
+			<span class="item"></span>
+			<span class="item"></span>
+			<span class="item"></span>
+			<span class="item"></span>
+			<span class="item"></span>
+		</div>
+		<!-- 六个骰子新 -->
+		<div class="new_six">
+			<div class="row">
+				<span class="item"></span>
+				<span class="item"></span>
+				<span class="item"></span>
+			</div>
+			<div class="row">
+				<span class="item"></span>
+			</div>
+			<div class="row">
+				<span class="item"></span>
+				<span class="item"></span>
+			</div>
+		</div>
+		<!-- 九个骰子 -->
+		<div class="seven">
+			<span class="item"></span>
+			<span class="item"></span>
+			<span class="item"></span>
+			<span class="item"></span>
+			<span class="item"></span>
+			<span class="item"></span>
+			<span class="item"></span>
+			<span class="item"></span>
+			<span class="item"></span>
+		</div>
+	</body>
+</html>

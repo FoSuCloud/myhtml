@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			.app{
+				width: 200px;
+				height: 200px;
+				border: #FF1493 10px solid;
+/* border-radius可以有1-4个参数，按照顺时针的顺序，左上角，右上角，右下角，左下角 */
+				/* border-radius: 10px; */
+				/* border-radius: 10px 1px 20px 1px; */
+				/* 当三个值的时候是左上角、  右上角和它的对角(左下角)   、 右下角*/
+				border-radius: 20px 0 20px;
+				/* 当两个值的时候是两个对角：左上角+右下角，右上角+左下角 */
+				border-radius: 20px 0;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="app"></div>
+	</body>
+</html>

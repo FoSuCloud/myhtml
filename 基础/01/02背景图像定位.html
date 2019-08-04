@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+/* background-origin属性指定background-position的相对位置 */
+			#one{
+				width: 300px;
+				height: 300px;
+				/* 需要设置no-repeat否则看不出位置变化 */
+				background: url(../img/2.png)no-repeat 50px 100px;
+				/* 在内容区显示，填充不显示，为空白 */
+				background-clip: content-box;
+				padding: 50px;
+				border: yellow 50px solid;
+				position: relative;
+				/* 此时background的50px 100px是相对于内容 */
+				background-origin: content-box;
+				/* 相对于填充 */
+				background-origin: padding-box;
+				/* 相对于边框 */
+				background-origin: border-box;
+			}
+			#two{
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 300px;
+				height: 300px;
+				border: deeppink 50px solid;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="one">
+			<div id="two"></div>
+		</div>
+		
+	</body>
+</html>

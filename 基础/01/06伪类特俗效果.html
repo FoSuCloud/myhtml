@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			/* 第一种伪类是锚伪类 */
+			/* 
+			 在支持 CSS 的浏览器中，链接的不同状态都可以不同的方式显示，
+			 这些状态包括：活动状态，已被访问状态，未被访问状态，和鼠标悬停状态。
+			 */
+			/* 未访问和已访问但是在这里不起作用？ */
+			/* 未访问 */
+			/* #btn:link{
+				color: aqua;
+			} */
+			/* 已访问 */
+			/* #btn:visited{
+				color: cornflowerblue;
+			} */
+			/* 鼠标移动到该区域 */
+			#btn:hover{
+				color: #FF1493;
+			}
+			/* 选定该区域 */
+			#btn:active{
+				color: #FFFF00;
+			}
+			
+			/* :first-child 伪类 */
+			.two>p:first-child{
+				/* 这句话值得是class为two的元素的第一个p元素！！！ */
+				color: #FF1493;
+			}
+			li:first-child{
+				/* 第一个li元素 */
+				color: #FFFF00;
+			}
+			li:first-child p{
+				/* 第一个li元素的所有p元素 */
+				color: bisque;
+			}
+			
+			q:lang(no)
+			   {
+	/* :lang 类为属性值为 no 的 q 元素定义引号的类型： */
+			   quotes: "~" "~"
+			   }
+		</style>
+	</head>
+	<body>
+		<!-- 锚伪类 -->
+		<div class="one">
+			<input id="btn" type="button" value="伪类" />
+		</div>
+		
+		<!-- 使用 :first-child 伪类来选择元素的第一个子元素 -->
+		<div class="two">
+			<p>These are the necessary steps:</p>
+			<ul>
+			<li>intert Key <p>clockwise</p></li>
+			<li>Turn key <p>clockwise</p></li>
+			<li>Push accelerator</li>
+			</ul>
+			<p>Do <em>not</em> push the brake at the same time as the accelerator.</p>
+		</div>
+		
+		<!-- :lang伪类 -->
+		<div class="three">
+			<p>文字<q lang="no">段落中的引用的文字</q>文字</p>
+		</div>
+	</body>
+</html>

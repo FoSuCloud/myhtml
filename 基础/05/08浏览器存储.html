@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<!-- 
+		 webStorage和cookie都是用于浏览器端存储的缓存数据
+		 参考链接:https://blog.csdn.net/Donovan_W/article/details/51027444
+		 -->
+		<script type="text/javascript">
+			/* 不管是sessionStorage，还是localStorage，可使用的API都相同，常用的有如下几个方法：
+ 保存数据：localStorage.setItem( key, value );      sessionStorage.setItem( key, value );
+ 读取数据：localStorage.getItem( key );     sessionStorage.getItem( key );  
+ 删除单个数据：localStorage.removeItem( key );     sessionStorage.removeItem( key );
+ 删除所有数据：localStorage.clear( );     sessionStorage.clear( );
+ 得到某个索引的key：localStorage.key( index );     sessionStorage.key( index );
+			 */
+			// 查看现有localStorage缓存数据
+			console.log(window.localStorage);
+			// 保存数据
+			localStorage.setItem("one","1");
+			// 获得特定的localStorage缓存数据
+			console.log(localStorage.getItem("one"));
+			// 删除某个数据
+			localStorage.removeItem("one")
+			console.log(window.localStorage);
+		</script>
+<!-- 
+ Cookie是由服务器端生成，发送给User-Agent（一般是浏览器），
+ 浏览器会将Cookie的key/value保存到某个目录下的文本文件内，
+ 下次请求同一网站时就发送该Cookie给服务器（前提是浏览器设置为启用cookie）
+ -->
+ <!-- cookie限制：
+1.Cookie是绑定在特定的域名下的，当设定一个cookie之后再给创建它的域名发送请求时，都会包含这个cookie，这个限制确保了储存在cookie中的信息只能让批准的接受者访问，而无法被其他域访问
+2.每一个域的cookie的总数都是有限的，数量因浏览器而异
+3.浏览器对于cookie的尺寸也是有限制的，大多数浏览器都有大约4096B的长度限制！ 
+
+cookie缺点：Cookie的大小是受限的，并且每次你请求一个新的页面的时候Cookie都会被发送过去，这样无形中浪费了带宽，
+另外cookie还需要指定作用域，不可以跨域调用-->
+
+
+
+<!-- Web Storage是HTML5引入的一个非常重要的功能，在前端开发中经常用到，可以在客户端本地存储数据，类似HTML4的cookie，但可实现功能要比cookie强大的多，
+cookie大小被限制在4KB，Web Storage官方建议为每个网站5MB
+ 
+ Web Storage分为localStorage,sessionStorage
+ 
+ 1.sessionStorage
+以域名为单位进行数据划分
+同域下的所有页面一起共享这些数据
+对数据的改动会导致同时共享这些数据的其他页面触发storage事件
+ 
+ 2.lcalstorage
+ 以每个“顶级页面（top-level browsing context）”为单位
+在所有同域的“子页面”中共享这些数据（对数据的改动会触发storage事件）
+为所有同域的以下“顶级页面”拷贝这些数据（通过超链接新打开的页面、通过脚本新打开的页面）
+
+3.注意！！！
+sessionStorage将数据保存在session中，浏览器关闭也就没了；
+而localStorage则一直将数据保存在客户端本地，
+除非主动删除数据，否则数据是永远不会过期的
+ -->
+ 
+ <!-- 
+  Web Storage与Cookie相比存在的优势：
+(1)、存储空间更大：cookie为4kb,Web Storage一般为5mb。
+(2)、存储内容不会发送到服务器：当设置了Cookie后，Cookie的内容会随着请求一并发送的服务器，这对于本地存储的数据是一种带宽浪费。而Web Storage中的数据则仅仅是存在本地，不会与服务器发生任何交互。
+(3)、更多丰富易用的接口：Web Storage提供了一套更为丰富的接口，如setItem,getItem,removeItem,clear等,使得数据操作更为简便。cookie需要自己封装。
+(4)、独立的存储空间：每个域（包括子域）有独立的存储空间，各个存储空间是完全独立的，因此不会造成数据混乱
+  -->
+	</body>
+</html>

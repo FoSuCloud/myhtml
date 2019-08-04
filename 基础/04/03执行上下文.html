@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<!-- 参考链接:https://blog.csdn.net/yucihent/article/details/79768210 -->
+		<!-- 
+		EC : 执行上下文
+        ECS : 执行环境栈
+        VO ： 变量对象
+        AO ： 活动对象
+        scope chain ：作用域链
+		-->
+	</head>
+	<body>
+		<script type="text/javascript">
+			// 1.全局上下文被认为是window对象的范围,也可以称为整个文件的最外围
+			var a=1;
+			function one(){
+				var b=2;
+				function two(){
+					var c=3;
+					function three(){
+						var d=4;
+					}
+				}
+			}
+			
+			// 变量a和函数one可以被认为是全局上下文的内容
+			// 而one函数的执行上下文是变量b和two函数
+			// 而two函数的执行上下文是变量c和three函数
+			// 而three函数的执行上下文是变量d
+			
+			// 由于js是单线程,首先会把全局上下文压入ECS中,然后把one的执行上下文压入ECS中
+			//再把two的执行上下文压入ECS中,最后把three的执行上下文压入ECS中
+			
+			// ECS是执行环境栈,栈是后进先出的
+			function foo(i){
+				if(i==3){
+					return ;//直接结束
+				}
+				foo(i+1);//i+1后继续执行函数
+				console.log(i)
+			}
+			// foo(0);//2,1,0
+			
+			// 该过程可以写成这样:
+			// 首先压入ECS的是全局上下文,把foo(0)压入ECS中
+			// 写成立即执行函数的样子
+			(function one(i=0){
+				// if(i==3){
+				// 	return ;
+				// }  //这部分暂时没用,所以就不写了
+				foo_one(i+1)//1
+				function foo_one(i){
+					foo_two(i+1)//2
+					function foo_two(i){
+						foo_three(i+1)//3
+						function foo_three(i){
+							if(i==3){//此时为3
+								return ;//直接结束不打印了!
+							}
+							i++;//4
+							console.log(i)
+						}
+						console.log(i)//2
+					}
+					console.log(i)//1
+				}
+				console.log(i)//0
+			})();
+			// 压入ECS的顺序是全局上下文,one,foo_one,foo_two,foo_three
+			// 出栈的顺序则正好相反
+			
+			
+			// variable变量
+			// VO变量对象: 创建执行上下文时与之关联的会有一个变量对象，该上下文中的所有变量和函数全都保存在这个对象中
+			//AO活动对象:进入到一个执行上下文时，此执行上下文中的变量和函数都可以被访问到，可以理解为被激活
+			
+		/*EC的建立过程:
+		 建立阶段：(函数被调用，但是还未执行函数中的代码)
+                        1. 创建arguments，变量，函数 (VO)
+                        2. 建立作用域链
+                        3. 确定this的值
+             执行阶段：变量赋值，函数引用，执行代码
+		 */
+		// 这里指的是执行上下文有VO,作用域链,this
+		executionContextObj = {  
+           variableObject: { /* 函数中的arguments对象, 参数, 内部的变量以及函数声明 */ },  
+           scopeChain: { /* variableObject 以及所有父执行上下文中的variableObject */ },  
+           this: {}  
+        }
+
+		// 例子:创建阶段
+		// fooExecutionContext = {  
+  //           variableObject: {  
+  //               arguments: {  
+  //                   0: 22,  
+  //                   length: 1  
+  //               },  //arguments对象
+  //               i: 22,  //变量
+                // c: pointer to function c (),//通过函数名指向内存地址
+        //         a: undefined,  //变量
+        //         b: undefined  
+        //     },  
+        //     scopeChain: { ... },  
+        //     this: { ... }  
+        // } 
+		
+		// 例子:执行阶段
+		// fooExecutionContext = {  
+  //           variableObject: {  
+  //               arguments: {  
+  //                   0: 22,  
+  //                   length: 1  
+  //               },  
+  //               i: 22,  
+  //               c: pointer to function c(),
+  //               a: 'hello',  
+  //               b: pointer to function privateB()  
+  //           },  
+  //           scopeChain: { ... },  
+  //           this: { ... }  
+  //       }
+		
+		// 从一个方面来说,变量提升是因为执行上下文的创建阶段把声明的变量初始化为undefined,
+		// 把函数名作为属性指向所在的内存地址,
+		//并且函数会覆盖同名变量的声明,后声明的函数会覆盖前声明的函数
+		function foo() {
+            console.log(f1);    //f1() {}
+            console.log(f2);    //undefined
+			console.log(f3);    //根据函数名指向内存地址ƒ f3(){}
+            
+            var f1 = 'hosting';
+            var f2 = function() {}  //这是函数表达式,分为var f2  ; f2=function(){}
+            function f1() {}  //会覆盖同名变量
+			
+			function f3(){}  //这是函数声明语句
+        }
+        foo();
+
+
+
+		</script>
+	</body>
+</html>

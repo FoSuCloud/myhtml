@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<!-- 参考:http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html -->
+		<!-- Flex 是 Flexible Box 的缩写，意为"弹性布局"，用来为盒状模型提供最大的灵活性
+		注意：Webkit 内核的浏览器，必须加上-webkit前缀才能使用flex布局。
+		 
+		 使用flex布局的元素也被称为容器，它的所有子元素都自动成为容器成员，使用flex项目
+		 -->
+		 <!-- 
+		 容器默认存在两根轴：水平的主轴（main axis）和垂直的交叉轴（cross axis）。
+		 主轴的开始位置（与边框的交叉点）叫做main start，结束位置叫做main end；
+		 交叉轴的开始位置叫做cross start，结束位置叫做cross end
+		 项目默认沿主轴排列。单个项目占据的主轴空间叫做main size，占据的交叉轴空间叫做cross size
+		 
+		 flex属性是flex-grow, flex-shrink 和 flex-basis的简写，默认值为0 1 auto。后两个属性可选
+		 
+		 -->
+		<style>
+			.one {
+			  display: flex;
+			  display: -webkit-flex;
+			  background-color: #F0f0f0;
+			  width: 1200px;
+			  
+			}
+			.one .oneone{
+			  height: 100px;
+			}
+			.oneone:first-child{ 
+			  background-color: #F5DE25; 
+			  width: 100px;
+			  flex-grow: 2;
+			  /* 如果所有项目的flex-grow属性都为1，则它们将等分剩余空间（如果有的话）。
+			  如果一个项目的flex-grow属性为2，
+			  其他项目都为1，则前者占据的剩余空间将比其他项多一倍
+			  所以在这里的话，1200-100-200=900,900/3=300，剩下600和300，
+			  但是！600+100=700,300+200=500！记住是剩余空间！
+			  */
+			}
+			.oneone:last-child{ 
+			  background-color: #90D9F7; 
+			  width: 200px;
+			  flex-grow: 1;
+			}
+			
+			.two{
+				display: flex;
+				width: 300px;
+				height: 100px;
+			}
+			.twotwo{
+				background: #0000FF;
+				width: 100px;
+				margin: 10px;
+				flex-shrink: 1;
+			}
+			.twotwoha{
+				background: #0000FF;
+				width: 100px;
+				margin: 10px;
+				flex-shrink: 0;
+			}
+			
+			
+			.three{
+				width: 400px;
+				display: flex;
+				/* flex-wrap: nowrap;说明不可换行,即使超出本父容器的宽度 */
+				flex-wrap: nowrap;
+				/* flex-wrap: wrap;说明可换行，且第一行在上方 */
+				flex-wrap: wrap;
+				/* flex-wrap: wrap-reverse; 第一行在下方*/
+				flex-wrap: wrap-reverse;
+				background-color: whitesmoke;
+			}
+			.thr{
+				width: 100px;
+				margin-right: 10px;
+				height: 100px;
+				background-color: skyblue;
+			}
+			
+			
+			.four{
+				display: flex;
+				width: 300px;
+				height: 300px;
+				background-color: whitesmoke;
+				/* 即使父元素的宽度不能容纳所有子元素，那就默认等比例缩小 */
+				flex-direction: row;
+				flex-direction: row-reverse;
+				flex-direction: column;
+				flex-direction: column-reverse;
+			}
+			.fo{
+				width: 100px;
+				margin: 10px;
+				height: 100px;
+				background-color: #00FFFF;
+			}
+			.fo:last-child{
+				background-color: red;
+			}
+			
+			.five{
+				width: 400px;
+				height: 400px;
+				background-color: blanchedalmond;
+				display: flex;
+				justify-content: flex-start;
+				justify-content: flex-end;
+				justify-content: center;
+				/* space-between：两端对齐，项目之间的间隔都相等 */
+				justify-content: space-between;
+				/* space-around：每个项目两侧的间隔相等。所以，项目之间的间隔比项目与边框的间隔大一倍。 */
+				justify-content:space-around;
+			}
+			.myfive_one{
+				background-color: #0000FF;
+				width: 100px;
+				height: 100px;
+			}
+			.myfive_two{
+				width: 150px;
+				height: 100px;
+				background-color: red;
+			}
+			.myfive_three{
+				width: 50px;
+				height: 100px;
+				background-color: #0000FF;
+			}
+			
+			.six{
+				width: 400px;
+				height: 400px;
+				background-color: rgba(0,0,0,.5);
+				display: flex;
+				align-items: flex-start;
+				align-items: flex-end;
+				align-items: baseline;
+				align-items: center;
+				/* 默认模式stretch */
+				align-items: stretch;
+			}
+			.six_one{
+				width: 50px;
+				height: 100px;
+				background-color: red;
+			}.six_two{
+				width: 100px;
+				height: 100px;
+				background-color: green;
+			}.six_three{
+				width: 150px;
+				height: 100px;
+				background-color: blue;
+			}
+			
+			
+			.seven{
+				display: flex;
+				width: 400px;
+				height: 200px;
+				background-color: whitesmoke;
+			}
+			.seven_one{
+				order: 1;
+				width: 100px;
+				height: 100px;
+				background-color: #0000FF;
+				margin-right: 10px;
+			}.seven_two{
+				/* 数值越小，排列越靠前，默认是0 */
+				order: 0;
+				width: 100px;
+				height: 100px;
+				background-color: red;
+				margin-right: 10px;
+			}.seven_three{
+				order: 1;
+				width: 100px;
+				height: 100px;
+				background-color: #0000FF;
+				margin-right: 10px;
+			}
+		</style>
+	</head>
+	<body>
+		<!-- 1.flex-grow
+		 如果所有项目的flex-grow属性都为1，则它们将等分剩余空间（如果有的话）。
+		 如果一个项目的flex-grow属性为2，
+		 其他项目都为1，则前者占据的剩余空间将比其他项多一倍
+		 -->
+		<div class="one">
+			<div class="oneone"></div>
+			<div class="oneone"></div>
+		</div>
+		
+		<!-- 2.flex-shrink
+		如果所有项目的flex-shrink属性都为1，当空间不足时，都将等比例缩小。
+		如果一个项目的flex-shrink属性为0，其他项目都为1，则空间不足时，前者不缩小。 
+		 -->
+		<div class="two">
+			<div class="twotwo"></div>
+			<div class="twotwo"></div>
+			<div class="twotwoha"></div>
+			<div class="twotwo"></div>
+		</div>
+		
+		<!-- 3.flex-warp -->
+		<div class="three">
+			<div class="thr"></div>
+			<div class="thr"></div>
+			<div class="thr"></div>
+			<div class="thr"></div>
+		</div>
+		
+		<!-- 4.flex-direction属性决定主轴的方向（即项目的排列方向） -->
+		<div class="four">
+			<div class="fo"></div>
+			<div class="fo"></div>
+			<div class="fo"></div>
+			<div class="fo"></div>
+		</div>
+		
+		<!-- 5.justify-content属性定义了项目在主轴上的对齐方式 -->
+		<div class="five">
+			<div class="myfive_one"></div>
+			<div class="myfive_two"></div>
+			<div class="myfive_three"></div>
+		</div>
+		
+		<!-- 6.align-items属性定义项目在交叉轴上如何对齐 -->
+		<div class="six">
+			<div class="six_one">基线一基线一基线一</div>
+			<div class="six_two">基线一</div>
+			<div class="six_three">基线一</div>
+		</div>
+		
+		
+		<!-- 7.order属性定义项目的排列顺序。数值越小，排列越靠前，默认为0 -->
+		<div class="seven">
+			<div class="seven_one"></div>
+			<div class="seven_two"></div>
+			<div class="seven_three"></div>
+		</div>
+	</body>
+</html>

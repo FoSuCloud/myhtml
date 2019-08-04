@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<!-- 上一节也说了内存泄漏的常用解决方法是手动给不再被引用的对象赋空值 -->
+		<!-- 但是每次都要赋空值太麻烦，因此ES6中诞生了弱引用数据类型weakmap,weakset -->
+		<script type="text/javascript">
+			var vmap=new WeakMap();
+			var obj={name:'111',age:111}
+			vmap.set(obj,new Array(5*1024*1024))//数据大点好观察
+			// vmap.get(obj)
+			// 观察可以看http://www.ruanyifeng.com/blog/2017/04/memory-leak.html
+			// obj=null;//可以在chorme浏览器中观察内存变化,有无null
+			/* 没有null，obj变量没有被释放，vmap中的obj对应的数组也就没有被释放，内存也就大了
+			  把变量obj改为null,那么就没有对该变量的引用，那么vmap是弱引用也就不再引用obj，也就不存在这数组了*/
+			console.log(vmap)
+			// 虽然vmap也用到了变量obj,但是这是弱引用,不会被垃圾回收机制计算引用次数
+			// 所以把外部obj设为null就可以了,这个obj变量(引用次数为0了)就可以被回收了
+		</script>
+	</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			.menu{
+				width: 100px;
+				height: 50px;
+				background-color: thistle;
+				position: relative;
+			}
+			.my_menu{
+				display: none;
+				list-style: none;
+				padding: 0;
+				margin: 0;
+				width: 100px;
+				height: 120px;
+			}
+			/* 使用子元素选择器，选中父元素之后，该子元素样式改变 */
+			.menu:hover>.my_menu{
+				display: block;
+				background-color: #0000FF;
+				color: whitesmoke;
+				position: absolute;
+				bottom: -120px;
+			}
+			.my_menu>li{
+				height: 30px;
+				line-height: 30px;
+				font-size: 20px;
+				text-align: center;
+			}
+			.my_menu img{
+				width: 30px;
+				height: 20px;
+				padding-top: 5px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="menu">
+			<ul class="my_menu">
+				<li><img src="../img/2.png" >意义</li>
+				<li><img src="../img/2.png" >尔尔</li>
+				<li><img src="../img/2.png" >完全</li>
+				<li><img src="../img/2.png" >钱维</li>
+			</ul>
+		</div>
+	</body>
+</html>

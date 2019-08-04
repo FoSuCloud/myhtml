@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<!-- /* 
+		protoytpe是一个非常有用的属性，表示了一个类的prototype属性的集合，
+		 当使用new来生成实例对象，prototype里面的属性就会成为实例对象的属性
+		 */ -->
+	</head>
+	<body>
+		<script type="text/javascript">
+			
+			// 1.私有变量和私有函数
+			function one(){
+				var name='ww'//1.函数内部的是私有变量和私有函数,不会被外部使用,也看不出来
+				var age=33
+// 在函数内定义的变量和函数如果不对外提供接口，那么外部将无法访问到，也就是变为私有变量和私有函数
+			}
+			console.log(one.name)//one
+			console.log(one.age)//undefined
+			
+			// 2.实例变量和实例函数
+			function two(){
+				this.twoname=[],
+				this.twoage=function(){}
+			}
+			// 对于父类来说,访问不到实例变量和实例函数
+			console.log(two.twoname)//undefined
+			console.log(two.twoage)//undefined
+			// 对于实例对象来说,可以访问得到实例变量和实例函数
+			var mytwo=new two();
+			console.log(mytwo.twoname)//[]
+			console.log(mytwo.twoage)//ƒ (){}
+			// 但是对于实例变量和实例函数,需要注意的是
+			// 即使某个实例改变了变量或者函数的值,但是另一个实例不会改变,每个实例都是独立的
+			// 每个实例的内存都是独立的,也因此会导致内存过大,万一有上千个该实例,那就浪费空间
+			var twowo=new two();
+			// 实例一改变变量
+			mytwo.twoname.push('222')
+			console.log(mytwo.twoname)//['222'],实例一改变了
+			console.log(twowo.twoname)//[],实例二没有因为实例一对变量的改变而改变
+			
+			
+			// 3.直接方式:静态变量、函数
+			/* 当定义一个函数后通过 “.”为其添加的属性和函数，通过对象本身仍然可以访问得到，但是其实例却访问不到，
+			这样的变量和函数分别被称为静态变量和静态函数
+			 */
+			one.myone='21323'
+			console.log(one.myone)//函数可以访问得到
+			
+			var newone=new one();//实例对象访问不到父类的静态变量和静态函数
+			console.log(newone.myone)//undefined
+			
+			// 4.prototype为一个特定类声明通用的变量或者函数(实例和父类通用的变量/函数)
+			// 使用 函数.prototype.属性名=obj  创建prototype属性
+			one.prototype.name='我是prototype创建的属性'
+			one.prototype.age='我是prototype创建的age'
+			// 默认情况下prototype属性会默认获得一个constructor(构造函数)属性，
+			// 这个属性是一个指向prototype属性所在函数的指针
+			console.log(one.prototype)
+			// one函数会自动获得一个prototype属性,这个prototype属性也是一个对象,
+			// 会自动获得constructor属性,而这个属性正好指向one函数
+			
+			
+			// 当调用构造函数创建一个实例的时候，实例内部将包含一个内部指针
+			// （很多浏览器这个指针名字为__proto__）指向构造函数的prototype
+			console.log(newone.__proto__)
+			// 这个连接存在于实例和构造函数的prototype之间，而不是实例与构造函数之间。
+			
+			// 由于每个实例的__proto__指针都指向函数的prototype属性,因此共享函数内部的
+			// prototype属性,每个实例对prototype属性里面的变量/函数的修改调用都会对其他
+			// 实例对变量/函数的调用产生影响
+			var newonetwo=new one(); //第二个实例
+			// 对于第一个实例
+			console.log(newone.__proto__.name)//我是prototype创建的属性
+			newone.__proto__.name='我被修改啦~'//正确的修改方式__proto__.name
+			// 实例不存在name属性,结果的得到是因为从实例的__proto__指针指向的prototype属性去寻找值才找到
+			// 如果还是没有找到则继续递归prototype的prototype对象，直到找到为止，如果递归到object仍然没有则返回错误
+			console.log(newone.name)//我被修改啦
+			console.log(newonetwo.name)//我被修改啦
+			// 当使用第一个实例指向父类的prototype属性修改变量,其他实例调用这个变量
+			// 得到的就是第一个实例修改后的值
+			
+			
+			
+			// 但是需要注意, 实例.属性="" 这样是添加/修改实例自己的实例变量/函数
+			// 只有自己本实例可以访问到
+			newone.name='weqwewqeqw'
+			// 对于本实例来说,之前需要使用__proto__指针找父类的prototype属性对应的变量,
+			// 现在给实例添加了同名的变量,实例在自己属性中就找到了该属性,也就不从指针中找了
+			console.log(newone.name)
+			
+			console.log(newone.__proto__)//没有被修改!!!
+			console.log(newonetwo.name)//我被修改啦
+		</script>
+	</body>
+</html>

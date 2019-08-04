@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width,initial-scale=1" />
+		<meta charset="utf-8">
+		<title></title>
+		
+		<!-- http://www.ruanyifeng.com/blog/2015/07/flex-examples.html -->
+		<style type="text/css">
+			span{
+				width: 50px;
+				height:50px;
+				background-color: rgba(25,0,0,.5);
+				margin-right: 10px;
+			}
+			.one{
+				display: flex;
+				width: 200px;
+				height: 100px;
+			}
+			.new_one{
+				/* 网格布局的重点就在于自动缩放 */
+				flex-shrink: 1;
+			}
+			
+			.two{
+				display: flex;
+				width: 1200px;
+				/* width: 200px; */
+				/* 两种情况下，第二个子元素的宽高百分比都不变 */
+				height: 100px;
+			}
+			.new_two{
+				width: 40%;
+				/* 选择flex-grow:1,flex-shrink:1的子元素会随着父元素的宽高自适应变化宽高，即使不是40% */
+				height: 100px;
+				flex-grow: 1;
+				flex-shrink: 1;
+			}
+			.new_two:nth-child(2){
+				/* flex-grow:0;不会自适应放大，只会使用默认宽高 */
+				flex-grow:0;
+				/* flex-shrink: 0;不会自适应缩放，而是使用默认宽高 */
+				flex-shrink: 0;
+			}
+			
+			
+			.three{
+				width: 600px;
+				height: 200px;
+				background-color: rgba(0,0,200,.6);
+				display: flex;
+				flex-wrap: wrap;
+			}
+			.header,.footer{
+				flex-basis: 100%;
+				height: 25%;
+				background-color: yellow;
+			}
+			.body{
+				flex-basis: 100%;
+				height: 50%;
+				display: flex;
+			}
+			.body>.new_three{
+				width: 40%;
+				height: 100%;
+				background-color: whitesmoke;
+				margin: 0;
+			}
+			.body>.new_three:nth-child(2){
+				width: 60%;
+				flex-grow: 0;
+				flex-shrink: 0;
+				background-color: #0000FF;
+			}
+			
+		</style>
+	</head>
+	<body>
+		<!-- 1.最简单的网格布局，就是平均分布。在容器里面平均分配空间，
+		跟上面的骰子布局很像，但是需要设置项目的自动缩放 -->
+		<div class="one">
+			<span class="new_one"></span>
+			<span class="new_one"></span>
+			<span class="new_one"></span>
+			<span class="new_one"></span>
+		</div>
+		
+		<!-- 2.某个网格的宽度为固定的百分比，其余网格平均分配剩余的空间 -->
+		<div class="two">
+			<span class="new_two"></span>
+			<span class="new_two"></span>
+			<span class="new_two"></span>
+			<span class="new_two"></span>
+		</div>
+		
+		<!-- 3.圣杯布局（Holy Grail Layout）指的是一种最常见的网站布局。页面从上到下，分成三个部分：头部（header），躯干（body），尾部（footer）。
+		其中躯干又水平分成三栏，从左到右为：导航、主栏、副栏 -->
+		<div class="three">
+			<div class="header"></div>
+			<div class="body">
+				<span class="new_three"></span>
+				<span class="new_three"></span>
+				<span class="new_three"></span>
+			</div>
+			<div class="footer"></div>
+		</div>
+	</body>
+</html>

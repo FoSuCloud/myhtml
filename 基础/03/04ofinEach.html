@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		
+		<script type="text/javascript">
+			<!-- 1.forEach遍历数组，而不是遍历对象哦，
+			// 而且在遍历的过程中不能被终止,必须每一个值遍历一遍后才能停下来 -->
+			
+			var arr=[1,2,4,66,8];
+			// 给数组添加属性,看看属性会不会被遍历
+			arr.dd='love'
+			
+			// arr.forEach(item => {
+			// 	console.log(item)
+			// })
+			
+			// forEach不会遍历属性
+			
+			// 2.of循环遍历对象的值，是遍历键值对后面的那一个value，
+			//与for in遍历key相反
+			// for(var i of arr){
+			// 	console.log(i)
+			// }
+			// of不会遍历属性
+			
+			// 3.in循环遍历对象的key，是键值对前面的那一个
+			for(var i in arr){
+				console.log(i)
+			}
+			// in会遍历属性,遍历的是属性的键,没有遍历属性指代的数据
+			
+		</script>
+	</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			function camelCase (str) {
+			  // 把单词分开
+			  // str=str.split(' ')
+			  // 由于还有 - 的影响,所以要用正则
+			  str=str.split(/\s|-/g)
+			  // of遍历对象的值,in遍历键(有时指的就是index)
+			  var result=str[0].toLowerCase();
+			  // for(var mystr of str){
+				 //  // 截取首字母大写,然后再拼接
+				 //  result+=mystr.substring(0,1).toUpperCase()+mystr.substring(1)
+			  // }
+			  for(var i=0;i<str.length;i++){
+				  if(i!=0){
+					  // substring截取首字母大写,然后再拼接
+					   result+=str[i].substring(0,1).toUpperCase()+str[i].substring(1).toLowerCase()
+				  }
+			  }
+			  console.log(result)
+			  
+			}
+			camelCase('hey guys')           // 'heyGuys'
+			camelCase('HELLO-world')        // 'helloWorld'
+			camelCase('oh  mY---gOd')       // 'ohMyGod'
+
+		</script>
+	</body>
+</html>

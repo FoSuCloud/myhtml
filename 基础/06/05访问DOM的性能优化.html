@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<!-- DOM操作是非常昂贵的，贵在哪里呢？
+		 1.访问DOM
+		 2.重绘重排-->
+	</head>
+	<body>
+		<div class="one">
+		</div>
+		<div class="two">
+		</div>
+		<div class="three">
+			<ul class="three_ul">
+				<li></li>
+				<li></li>
+				<li></li>
+			</ul>
+		</div>
+		<script type="text/javascript">
+			// 1.访问DOM
+			// JS和DOM就像是两座岛屿,JS每次去DOM岛屿都要交过路费,去的多了自然就交的钱多了
+			// 但是我们又不能不去访问DOM,所以就要设法减少访问
+			// 减少访问主要体现在for循环中
+			
+			// 1.1错误示范
+			console.time(0);//0是计时器id
+			for(var i=0;i<50;i++){
+				document.querySelector('.one').innerHTML+='i';
+			}
+			console.timeEnd(0);//结束计时,输出时间
+			// 0: 1.228759765625ms
+			
+			
+			// 1.1正确示范
+			console.time(1)
+			var num_one='';
+			var two=document.querySelector('.two');
+			for(var i=0;i<50;i++){
+				num_one+='i';
+			}
+			two.innerHTML=num_one;
+			console.timeEnd(1);//0.082763671875ms
+			
+			// 虽然与错误示范相比,正确示范多创建了一个变量,但是JS对DOM的访问减少了49次
+			// 所以最终输出结果一致,但是时间相差较多
+			
+// 2.html集合类似数组，但是跟数组还是不一样的,document.getElementsByTagName('a') 
+// 返回的html集合。是实时更新的，即后面代码修改了DOM，会反映在这个html集合里面
+			
+			// 2.1 document.getElementsByTagName()获取到的hml集合会实时更新length
+			var three_li=document.getElementsByTagName('li')
+			var three_ul=document.querySelector('.three_ul')
+			console.log(three_li.length);//3
+			var my_li=document.createElement('li');
+			three_ul.appendChild(my_li);
+			console.log(three_li.length);//4
+			// 注意要使用document.getElementByTagName()来获取集合才能实时更新length
+			// 也正因为document.getElementByTagName()获取到的集合length会实时更新
+			// 所以消耗大,JS不止会访问一次DOM,因此要少使用
+			
+			
+			// 2.2错误示范
+			console.time(2)
+			var mystr='';
+			for(var i=0;i<three_li.length*1000;i++){
+				// 每次都要重新访问一次three_li.length,JS就要多跑几次,消耗大
+				mystr+=i;
+			}
+			// console.log(mystr)
+			console.timeEnd(2);//4.63916015625ms
+			
+			// 2.2正确示范
+			console.time(3);
+			var new_str='';
+			for(var i=0,len=three_li.length*1000;i<len;i++){
+				new_str+=i;
+			}
+			// console.log(new_str);
+			console.timeEnd(3)//0.575927734375ms
+			
+			// 正确示范虽然多声明了一个变量,却在每次for循环的时候不需要比较i与three_li.length,
+			// 只需要与变量len比较,减少了JS访问DOM操作的次数,因此时间少
+			
+			// 但是需要注意的是,在DOM操作次数不多的时候,两者使用方法的时间相差不多或者错误示范可能耗时更少
+		</script>
+	</body>
+</html>

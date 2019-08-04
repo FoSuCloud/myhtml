@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width,initial-scale=1" />
+		<meta charset="utf-8">
+		<title></title>
+		<style>
+			a {
+			  color: #aaa;
+			  text-decoration: none;
+			  padding: 0 7px;
+			  font-size: 45px;
+			}
+			.rating {
+			  width: 300px;
+			  margin: 0 auto;
+			  /* 记住：这里是倒序，很重要！所以选第一个会变成选中第四个，因为是第四个，所以它后面同级的元素只有第五个！ */
+			  display: flex;
+			  flex-direction: row-reverse;
+			}
+			/* a:hover ~ a将当前元素和它之后的兄弟元素都选中 
+			注意：除了a:hover ~ a还有a:hover,所以选中第五个也会出现一个星星，就是本身*/
+			a:hover,a:hover ~ a{
+			  color: orange;
+			  cursor: pointer;
+			}
+		  </style>
+
+	</head>
+	<body>
+		<div class="rating">
+		  <a href="#5" title="Give 5 stars">★</a>
+		  <a href="#4" title="Give 4 stars">★</a>
+		  <a href="#3" title="Give 3 stars">★</a>
+		  <a href="#2" title="Give 2 stars">★</a>
+		  <a href="#1" title="Give 1 stars">★</a>
+		</div>
+
+	</body>
+</html>

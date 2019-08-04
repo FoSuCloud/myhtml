@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			.menu{
+				width: 100px;
+				height: 50px;
+				background-color: thistle;
+				position: relative;
+			}
+			.my_menu{
+				display: none;
+				list-style: none;
+				padding: 0;
+				margin: 0;
+			}
+			.my_menu_active{
+				display: block;
+				width: 100px;
+				height: 120px;
+				background-color: #0000FF;
+				color: whitesmoke;
+				position: absolute;
+				bottom: -120px;
+			}
+			.my_menu_active>li{
+				height: 30px;
+				line-height: 30px;
+				font-size: 20px;
+				text-align: center;
+			}
+			.my_menu img{
+				width: 30px;
+				height: 20px;
+				padding-top: 5px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="menu">
+			<ul class="my_menu">
+				<li><img src="../img/2.png" >意义</li>
+				<li><img src="../img/2.png" >尔尔</li>
+				<li><img src="../img/2.png" >完全</li>
+				<li><img src="../img/2.png" >钱维</li>
+			</ul>
+		</div>
+		
+		<script type="text/javascript">
+			var my_menu=document.querySelector('.menu');
+			var my_ul=document.querySelector('.my_menu');
+			my_menu.onmouseover=function(){
+				var baseCls=my_ul.getAttribute('class')
+				my_ul.setAttribute('class',baseCls+' '+'my_menu_active');
+			}
+			my_menu.onmouseout=function(){
+				var baseCls=my_ul.getAttribute('class')
+				my_ul.setAttribute('class',baseCls.replace('my_menu_active','').trim());
+			}
+		</script>
+	</body>
+</html>

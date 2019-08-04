@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			var param=location.href
+			// console.log(param)//这样就获取到了URL地址
+			
+			// 虚构一个地址来练习相关代码
+			param='http://www.runoob.com/jquery/misc-trim.html?channelid=12333&name=xiaoming&age=23'
+			
+			// 拆分链接
+			var arr=param.split('?')
+			// console.log(arr)//只要第二部分
+			
+			var obj={}
+			// console.log(arr[1].split('&'))//获得参数键值
+			arr[1].split('&').forEach(item=>{
+				var ne=item.split('=')
+				// console.log(ne)
+				obj[ne[0]]=ne[1]
+			})
+			console.log(obj)
+			console.log(obj.name)
+			
+		</script>
+	</body>
+</html>

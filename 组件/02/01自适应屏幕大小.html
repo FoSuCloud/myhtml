@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<!-- 1.网页自适应屏幕宽度需要首先添加下面这一行代码 -->
+		<meta name="viewport" content="width=device-width,initial-scale=1" />
+		<!-- viewport是网页默认的宽度和高度,width=device-width表示网页宽度默认等于屏幕宽度
+		 原始缩放比例（initial-scale=1）为1.0，即网页初始大小占屏幕面积的100%-->
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			body,ul{
+				padding: 0;
+				margin: 0;
+			}
+			/* 2.由于网页会根据屏幕宽度调整布局，所以不能使用绝对宽度的布局，
+			也不能使用具有绝对宽度的元素，例如CSS代码不能指定像素宽度，只能使用百分比宽度 */
+			.one{
+				/* 要自适应屏幕的话，那么相应的宽度就要使用百分比 */
+				width: 50%;
+				height: 100px;
+				background-color:rgba(0,0,1,0.7);
+			}
+			/* 3.字体也不能使用绝对大小（px），而只能使用相对大小（em） */
+			.one_p{
+				font-size: 1em;
+				color: whitesmoke;
+			}
+			/* 4."流动布局"的含义是，各个区块的位置都是浮动的，不是固定不变的
+			 不过也可以使用flex布局，但是可能需要提前设定flex-wrap,还有flex-direction是否需要改变*/
+			.two{
+				width: 80%;
+				height: 100px;
+				background-color:rgba(233,0,0,.1);
+				
+			}
+			.two_left{
+				width: 20%;
+				height: 100px;
+				background-color: rgba(0,0,100,.8);
+				float: left;
+			}
+			/* float的好处是，如果宽度太小，放不下两个元素，后面的元素会自动滚动到前面元素的下方，
+			不会在水平方向overflow（溢出），避免了水平滚动条的出现 */
+			.two_right{
+				/* width: 90%; */
+				width: 50%;
+				height: 100px;
+				background-color: rgba(0,100,0,.8);
+				float: right;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="one">
+			<span class="one_p">第一个</span>
+		</div>
+		<div class="two">
+			<div class="two_left"></div>
+			<div class="two_right"></div>
+		</div>
+	</body>
+</html>

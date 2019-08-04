@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<!-- 参考链接:https://www.cnblogs.com/yakun/p/3932026.html
+		 http://www.ruanyifeng.com/blog/2017/04/memory-leak.html-->
+	</head>
+	<body>
+		<!-- 内存泄露是指一块被分配的内存既不能使用，又不能回收，直到浏览器进程结束
+		C#和Java等语言采用了自动垃圾回收方法管理内存，几乎不会发生内存泄露
+		 浏览器中也是采用自动垃圾回收方法管理内存，但由于浏览器垃圾回收方法有bug，会产生内存泄露。-->
+		 <div id="one">
+			 <input type="button"value="点我移除" id="onebtn"/>
+		 </div>
+		 <script type="text/javascript">
+		 //1.事件导致的内存泄漏:当页面中元素被移除或替换时，若元素绑定的事件仍没被移除会发生内存泄漏 
+				var btn=document.getElementById('onebtn')
+				var divone=document.getElementById('one')
+				// btn.onclick是对该匿名函数唯一的引用,这个引用不消除,那么该匿名函数就不会被垃圾回收机制回收
+				// btn.onclick=function(){
+				// 	// 使得绑定的元素没用啦!
+				// 	divone.innerHTML=""
+				// }
+				// 此时div#one元素内容为空,但是点击事件依旧存在,就发生了内存泄漏
+				
+				/* 
+				 当指定点击事件的时候，btn指向一个包含自身属性的引用函数，
+				 而函数内部也隐式的引用了外部的变量，含有btn，所以就形成了一个循环
+				 */
+				
+				// 1.2对于事件来说，要先手工移除事件，不然会存在内存泄露
+				btn.onclick=function(){
+					// 先让绑定事件失效
+					btn.onclick=null
+					divone.innerHTML=""
+				}
+				
+				// 2.变量导致的内存泄漏
+				var arr=[2,32,2,2]
+				// [2,32,2,2]数组是一个值,而arr是对这个数组的唯一一个引用,后面也没有需要用到arr,
+				// 但是arr还是会占用内存造成内存泄漏
+				// 解决方案:不用的话就设为空
+				arr=null
+				
+				//3.闭包造成的内存泄漏:闭包可能会导致在不经意间创建循环引用。因为函数是必须保存在内存中的对象，
+				// 所以位于函数执行上下文中的所有变量也需要保存在内存中
+				function one(){
+					var obj={name:111};
+					function two(){
+						console.log(obj)//two函数中引用变量obj
+					}
+					obj.fn=two;//obj变量中添加属性引用函数two
+					return two;
+				}
+				one()()//obj与two函数都没被释放!
+				
+				// 3.2 隐式引用导致的内存泄漏
+				function outerFn() {
+					var outerVar = {};
+					function innerFn() {
+						console.log('hello');
+						console.log(this)
+					}
+					outerVar.fn = innerFn;
+					return innerFn;
+				};
+				outerFn()()
+				// 此时innerFn函数没有再勾搭变量了,但是还是会造成内存泄漏
+				// 因为innerFn函数还是会隐式的引用outerFn内部的变量
+				// 就像普通函数也可以引用外部的变量一样,存在隐式的引用!!!
+			
+		 </script>
+	</body>
+</html>

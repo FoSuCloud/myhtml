@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			// 1.数组去重
+			var arr=[1,6,1,2,3,4,3]
+			var set={}
+			var tem=[]
+			for(var i=0;i<arr.length;i++){
+				if(!set[arr[i]]){
+					set[arr[i]]=1
+					// tem.push(arr[i])
+				}
+			}
+			console.log(tem)
+			
+			// 2.indexOf
+			for(var i=0;i<arr.length;i++){
+				// 如果找不到的话就返回-1
+				if(tem.indexOf(arr[i])===-1){
+					tem.push(arr[i])
+					console.log(tem.indexOf(arr[i]))
+				}
+			}
+			console.log(tem)
+		</script>
+	</body>
+</html>

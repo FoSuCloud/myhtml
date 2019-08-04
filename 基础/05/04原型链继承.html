@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+		// 原型链继承就是把父类的实例作为子类的原型
+		function Person (name) {
+            this.name = name;//实例变量
+        };
+        //对原型进行扩展
+        Person.prototype.getName = function () {   
+            return this.name;
+        };
+        // 子类
+        function child (age) {
+            this.age = age;
+        };
+        
+        child.prototype = new Person('老明');   //这一句是关键 //通过构造器函数创建出一个新对象，把老对象的东西都拿过来。
+
+        child.prototype.getAge = function () {
+            return this.age;
+        };
+
+        var result = new child(22);
+		console.log(result);  //此时是child函数的实例,有age属性
+        console.log(result.getName());  //老明　　//调用了从Person原型中继承来的方法(继承到了当前对象的原型中)　　
+        console.log(result.getAge());   //22 　　//调用了从child原型中扩展来的方法
+        console.log(result.__proto__);  //__proto__指针指向的是父类的prototype属性,只有name属性,没有age属性
+        console.log(result.__proto__.getAge());   //undefined,因为返回的是实例变量,this指向
+			
+		//可以重写从父类继承来的方法,会优先调用自己的。	
+	    child.prototype.getName = function () {   
+	           console.log(222);
+	    };
+		result.getName();//222
+		// 因为此时不需要this指向age,所以可以使用result.__proto__.getName()的方式
+		result.__proto__.getName();//222
+		
+		</script>
+	</body>
+</html>

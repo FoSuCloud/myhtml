@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<!-- 
+		 call,apply的作用:都是为了解决改变 this 的指向
+		 -->
+		<script type="text/javascript">
+			 let a = {
+				value: 1
+			}
+			function getValue(name, age) {
+				console.log(name)
+				console.log(age)
+				console.log(this.value)
+			}
+			// 第一个参数都是this的指向
+			getValue.call(a, 'yck', '24')
+// 第二个参数:call 可以接收一个参数列表，apply 只接受一个参数数组
+			getValue.apply(a, ['yck', '24'])
+			// 注意:这两个参数可以没有
+		</script>
+	</body>
+</html>

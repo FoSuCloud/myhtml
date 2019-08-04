@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			const s = new Set();
+
+			[2, 3, 5, 4, 5, 2, 2].forEach(x => s.add(x));
+
+			// in遍历的是对象的key,但是set中现在只有值,所以使用of遍历对象的值
+			// for (let i of s) {
+			//   console.log(i);
+			// }
+			for (let i of s) {
+			  console.log(i);
+			}
+			// console.log(typeof s)
+			// console.log(s)
+		</script>
+	</body>
+</html>

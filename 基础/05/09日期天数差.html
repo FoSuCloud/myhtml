@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			// 计算日期差:思路就是使用毫秒
+			function dateup(dateone,datetwo){
+				// console.log(typeof dateone)
+				if(dateone.constructor===String){
+					var list=dateone.split('-')
+					dateone=new Date(list[0],list[1],list[2])
+				}
+				if(datetwo.constructor===String){
+					var list=datetwo.split('-')
+					datetwo=new Date(list[0],list[1],list[2])
+				}
+				// 转为毫秒
+				// console.log(Math.abs(dataone-datetwo))//可以直接计算!
+				return parseInt(Math.abs(dateone-datetwo)/(60*60*24*1000))
+			}
+			console.log(dateup(new Date(2016,4,16),new Date(2016,4,22)))
+			console.log(dateup("2016-03-17","2016-03-03"))
+			console.log(dateup("2016-03-17",new Date(2016,4,22)))
+			
+		</script>
+	</body>
+</html>

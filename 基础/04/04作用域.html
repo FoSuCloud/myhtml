@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			// 1.函数内部可以访问函数外部的变量(全局变量)
+			var a=3;
+			(function(){
+				// 不声明,不赋值,直接使用全局变量
+				console.log(a)//此时使用的是全局变量
+			})()
+			
+			
+			var b=33;
+			(function(){
+				// 修改全局变量
+				b++;//34
+				console.log(b)//34
+			})()
+			console.log(b);//44，全局变量确实被修改了!
+			
+			(function(){
+				p=5;//不加var,虽然在函数内部，但是此时就是声明了全局变量!
+			})()
+			console.log(p)//5,函数外部可以使用
+			
+			// 2.函数内部赋值同名变量
+			var c=11;
+			(function(){
+				var c=88;//虽然使用了var,但是变量是在函数内部声明的,作用域在函数内部
+				console.log(c)//88,此时使用的是函数作用域的变量
+			})()
+			
+			/* 
+			1.作用域包括静态作用域和动态作用域，静态作用域也叫词法作用域，javascript采用的是静态作用域。 
+			2.  js中作用域是指可访问变量，对象，函数的集合，也就是调用它们能生效的代码区块。
+			在ES5中没有块级作用域(ES6有)，只有全局作用域和函数作用域，可以模仿块级作用域。
+			 */
+			
+			
+			// 模仿块作用域,
+			// 没有块级作用域，但是有if()，for()等块语句，在块语句内部定义的变量会保留在它们已经存在的作用域内
+			
+			// 2.1在全局作用域中模仿块作用域
+			if(true){
+				var word='hello world'
+				console.log(word)
+			}
+			console.log(word);//此时if语句块定义的变量可以在全局作用域使用
+			
+			// 2.2在函数作用域模拟块作用域
+			(function(){
+				if(true){
+					var hello='mylove'
+					console.log(hello)
+				}
+			})()
+			// 在函数作用域中使用if语句块定义的变量不可以在全局作用域使用
+			console.log(hello)//hello is not defined
+			
+			
+		</script>
+	</body>
+</html>

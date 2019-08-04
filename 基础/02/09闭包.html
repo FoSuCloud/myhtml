@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<!-- 
+		 Javascript语言的特殊之处，就在于函数内部可以直接读取全局变量
+		 另一方面，在函数外部自然无法读取函数内的局部变量
+		 本文参考:https://www.cnblogs.com/xiangqianjin/p/6595115.html
+		 -->
+	</head>
+	<body>
+		<script type="text/javascript">
+		    /* 
+			由于在Javascript语言中，只有函数内部的子函数才能读取局部变量，
+			因此可以把闭包简单理解成“定义在一个函数内部的函数”。(在本质上，闭包就是将函数内部和函数外部连接起来的一座桥梁)
+			但是广义的闭包指的是每一个函数
+			*/
+		   
+		   // 闭包作用1.读取函数内部的变量
+		   function one(){
+			   var name='www';
+			   function one_one(){
+				   return name
+			   }
+			   return one_one;//返回该函数内部的一个子函数给变量
+		   }
+		   var result_one=one();//变量此时指向了one_one函数
+		   console.log(result_one());//调用result_one也就等于调用了one_one函数
+		   
+		   
+		   // 它的最大用处有两个，一个是前面提到的可以读取函数内部的变量，
+		   //另一个就是让这些变量的值始终保持在内存中
+		   // 闭包作用2:让这些变量的值始终保持在内存中
+		   function two(){
+			   var num=1;
+			   function two_one(){
+				   num++;
+				   console.log(num);
+			   }
+			   return two_one
+		   }
+		   var result_two=two();
+		   result_two();//2
+		   result_two();//3
+		   result_two();//4
+		   // 建立另一个指向函数two的变量
+		   var result_two_two=two();
+		   result_two_two();//2
+		   
+		   // 查看第一个变量的num
+		   result_two();//5!!!
+		   // 第一个变量的num没有被覆盖,也就是没被垃圾回收机制回收,这些变量始终保存在内存中
+		   
+		   
+		   //注意:如果不使用var,let,const声明变量的话,那么该变量无论在什么作用域都是全局变量
+		   function three(){
+			   three_name='yiyi'
+			   function three_one(){
+				   return three_name
+			   };
+			   return three_one
+		   }
+		   var result_three=three();//正常调用,这一步的目的是为了给全局变量three_name赋值
+		   // console.log(result_three())
+		   console.log(three_name)//直接可使用
+		   
+		   
+		   // 对象里面使用闭包情况一.
+		   var age="我是全局变量外面的!";
+		   
+		   var objone={
+			   age:22,
+			   getage:function(){
+				   console.log(this.age)
+			   }
+		   }
+		   objone.getage()//22,使用同对象里面的变量
+		   
+		   // 对象里面使用闭包情况二.
+		   var objtwo={
+				   age:32,
+				   getage:function(){
+					   return function(){
+						   // console.log(this)//window
+						   console.log(this.age)
+					   }
+				   }
+		   }
+		   // objtwo.getage()//此时得到的是return后面的内容,没有输出
+		   console.log(objtwo.getage())
+		   objtwo.getage()();//此时输出的变量是全局变量,this指的是window!!!
+		   // 原因:此时是立即执行函数!相当于 function(){}()
+		   
+		   // 下面就是一个立即执行函数.语法:(function 函数名(){})()
+		   // 注意函数名一般是默认没有,另外两个括号都可以传参
+		   (function four(){
+			   console.log(this.age)
+		   })();
+		   // 立即执行函数的外部参数指的是window
+		</script>
+	</body>
+</html>

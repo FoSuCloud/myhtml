@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="app">
+			<input type="text" placeholder="输入名称" v-model="madd"/>
+			<input type="button"  value="添加" @click="add" />
+			<!-- 
+			 当我们从头部开始添加的时候，如果不使用key指定一个唯一的标识，那么
+			 复选框的√就会变化，所指向的就不是之前的内容了
+			 
+			 原因:1.不使用key的时候，每次渲染页面，节点位置不变，内容会全部更新了
+			 2.使用key的时候，每次渲染页面，节点位置可能改变，内容可能更新部分或者没跟新
+			 也就是使用key的时候，√指向的是节点的唯一的key，不会发生“状态错位”
+			 
+			 -->
+			<h3 v-for="item in msg" :key="item">
+				<input type="checkbox" />
+				{{item}}
+				<input type="button" value="删除" @click="del(item.name)"/>
+			</h3>
+		</div>
+		
+		<script src="../vue.js"></script>
+		<script type="text/javascript">
+		     new Vue({
+				 el:'#app',
+				 data:{
+					 madd:'',
+					 msg:[
+						 {name:'ww'},
+						 {name:'werew'},
+						 {name:'weww'},
+						 {name:'werww'},
+						 {name:'3213'}
+					 ]
+				 },
+				 methods:{
+					 del(name){
+						 this.msg.some( (item,i) => {
+							 if(item.name==name){
+								 this.msg.splice(i,1)
+							 }
+						 })
+					 },
+					 add(){
+						 if(this.madd){
+							 this.msg.unshift({name:this.madd})
+						 }
+					 }
+				 }
+			 })
+		
+		
+		</script>
+	</body>
+</html>
