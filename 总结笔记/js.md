@@ -5,10 +5,10 @@
 * 布尔值为false的只有:`null,undefined,"",false,0,NaN`
 
 ## 2.js事件的三个阶段
-* 1.首先事件从根节点流向目标节点，途中会经过各级DOM节点，在各个节点上触发捕获事件，还没有流到目标节点的这段时间被称为捕获阶段
-* 2.当事件从根节点流到目标节点就触发目标节点的事件，这个阶段称为目标阶段
+1.首先事件从根节点流向目标节点，途中会经过各级DOM节点，在各个节点上触发捕获事件，还没有流到目标节点的这段时间被称为捕获阶段
+2.当事件从根节点流到目标节点就触发目标节点的事件，这个阶段称为目标阶段
 * `捕获阶段的主要任务是建立传播路经，等到了冒泡阶段就沿着这个路径流向根节点`
-* 3.当事件在目标节点上被触发之后不会停止，而是会沿着捕获阶段建立的传播路径一层层流向根节点，触发节点的事件
+3.当事件在目标节点上被触发之后不会停止，而是会沿着捕获阶段建立的传播路径一层层流向根节点，触发节点的事件
 * `注意:我们平时一般只阻止冒泡事件，因为捕获阶段默认是不触发事件的(或者说触发的是捕获的事件)，而冒泡事件是默认触发的`
 
 ## 3.clientHeight,offsetHeight,scrollHeight
@@ -51,7 +51,7 @@
 ```
 
 ## 5.this指向(与原型链继承区分开)
-* 1. `隐式window调用函数`，举个例子:
+1. `隐式window调用函数`，举个例子:
 ```
 	function fn(){
 		var a=1111111;
@@ -61,7 +61,7 @@
 	fn();
 ```
 * 函数执行结果为4，因为此时相当于 `window.fn()`,也即是window对象去调用fn函数,his指向的也就是调用函数的对象此时就是window
-* 2. `变量表达式调用函数`，举个例子
+2. `变量表达式调用函数`，举个例子
 ```
 	var obj={
 		fn:function (){
@@ -73,7 +73,7 @@
 	var obj1=obj.fn;//obj1仅仅指代fn函数
 	obj1();//此时相当于window.obj1();所以this指向的还是window
 ```
-* 3.`函数嵌套`,举个例子
+3.`函数嵌套`,举个例子
 ```
 	function fn(){
 		var a=1111111;
@@ -85,7 +85,7 @@
 	var a=4;
 	fn();//1.此时相当于window.fn()
 ```
-* 4.`点击事件`
+4.`点击事件`
 ```
 document.addEventListener('click', function(e){
     console.log(this);
@@ -96,7 +96,7 @@ document.addEventListener('click', function(e){
 ```
 * `document.addEventListener('click'function(){})其实就相当于obj.function(),就是对象调用方法，所以第一个This指的即是document这个对象`
 * `但是setTimeout(function(){})定时器函数没有被document当做方法调用，还是函数调用的形式,相当于window.setTmeout(),所以setTimeout()函数里面的this一般指的都是window`
-* 5.`html元素对象`
+5.`html元素对象`
 ```
 	<span id="app">点我</span>
 
@@ -110,7 +110,7 @@ document.addEventListener('click', function(e){
 
 ## 6.call,apply,bind指定调用函数的对象
 * 想要指定调用函数的对象，可以使用`call,apply,bind`，`通过调用方法的形式调用函数`
-* 1. 语法:function.call(obj),obj是调用函数的对象,相当于 obj.function,也就是相当于window.function一样把函数当做了方法来调用
+1. 语法:function.call(obj),obj是调用函数的对象,相当于 obj.function,也就是相当于window.function一样把函数当做了方法来调用
 ```
 		function fn2(){
 			var a=1111111;
@@ -136,7 +136,7 @@ var obj1={
 * 例子:`函数调用形式: fn() == fn.call(null) 指向的都是window`
 * `函数带参数时: fn(a,b) == fn.call(null,44,3) 第一个参数依旧是null代表指向window,其余参数都是原函数所需要的参数`
 
-* 2. apply接受两个参数，第一个参数是要绑定给this的值，第二个参数是一个`参数数组`。当第一个参数为null、undefined的时候，默认指向window
+2. apply接受两个参数，第一个参数是要绑定给this的值，第二个参数是一个`参数数组`。当第一个参数为null、undefined的时候，默认指向window
 * `call与apply的区别就在于apply只有两个参数，且第二个参数必须是参数数组，而call的参数不是参数数组`
 * 举个例子:
 ```
@@ -174,7 +174,7 @@ var obj1={
 ```
 
 
-* 3. bind: `和call很相似，第一个参数是this的指向，从第二个参数开始是接收的参数列表`
+3. bind: `和call很相似，第一个参数是this的指向，从第二个参数开始是接收的参数列表`
 * `bind方法的区别在于bind方法不会立即执行，而是返回了一个改变执行上下文this指向后的函数，而原函数的this没有被改变，依旧指向window`
 * 举个例子:
 ```
@@ -190,8 +190,8 @@ var obj1={
 	
 ```
 
-* 4. `在 ES6 的箭头函数下, call 和 apply 将失效，因为箭头函数体内的 this 对象, 就是定义时所在的对象, 而不是使用时所在的对象`
-* 5. [参考链接](https://www.jianshu.com/p/bc541afad6ee)
+4. `在 ES6 的箭头函数下, call 和 apply 将失效，因为箭头函数体内的 this 对象, 就是定义时所在的对象, 而不是使用时所在的对象`
+5. [参考链接](https://www.jianshu.com/p/bc541afad6ee)
 
 
 ## 7.深拷贝与浅拷贝
@@ -215,7 +215,7 @@ var obj1={
 * [数组方法slice splice](https://blog.csdn.net/rsylqc/article/details/45113859)
 
 ## 8.this指向(与原型链继承区分开)
-* 1. `隐式window调用函数`，举个例子:
+1. `隐式window调用函数`，举个例子:
 ```
 	function fn(){
 		var a=1111111;
@@ -225,7 +225,7 @@ var obj1={
 	fn();
 ```
 * 函数执行结果为4，因为此时相当于 `window.fn()`,也即是window对象去调用fn函数,his指向的也就是调用函数的对象此时就是window
-* 2. `变量表达式调用函数`，举个例子
+2. `变量表达式调用函数`，举个例子
 ```
 	var obj={
 		fn:function (){
@@ -398,7 +398,7 @@ var obj1={
 			console.log(i);
 		} ,1000);
 	}
-``
+```
 
 ## 11.undifned与报错
 ```
@@ -488,6 +488,191 @@ var obj1={
 * 注意:直接修改const的常量的值会报错  `b={age:2},	console.log(b);//Missing initializer in const declaration`
 * `常量指的是在程序正常运行过程中不能被修改的值。它的值不能通过二次赋值来改变，同时也不能被再次声明`		
 
+## 16.基本数据类型string与String对象
+```
+		var str1='i am string';//基本数据类型string
+		var str2=new String('i am String对象');
+		//使用new String()方式得到的是String对象
+		console.log(str1);
+		console.log(str2);//数组
+		console.log(str1.length);
+		//虽然基本数据类型string不是数组,但是js执行该语句的时候会把它包装成一个String对象,所以string才具有length属性
+```
+
+## 17.数组的各个方法
+* 1. join(param),以`数组的每一项组起一个字符串`，以参数作为分隔符，如果省略的话就用,逗号作为分隔符
+* ` arr=[1,2,3]  console.log(arr.join('e')) => 1e2e3e`
+* `创建重复字符串数组  new Array(3).join(abc) => abcabcabc`,意味着创建了有三项的数组，然后每一项以abc作为分隔符
+* 2. push => 添加到末尾, pop删除末尾元素; shift 删除数组头部元素, unshift添加元素到头部
+* 3. sort()默认是从小到大排序,`会改变原数组`
+* `arr=[33,2,4] ; console.log(arr.sort()) => [2,33,4]; console.log(arr) => [2,33,4];`
+* 可以看到原数组被改变了，而且排序有问题，这是因为`默认转化为字符串进行排序`了,解决方法，使用parseInt()自定义一个排序函数
+* 4. reverse()方法是把数组顺序颠倒(无论大小排序)
+* 5. concat()将数组或者值`逐个添加到原数组`中去，返回结果，`不改变原数组的值`,注意二维数组
+```
+	var arr=[33,2,4] ;
+	console.log(arr.concat(5));//[33,2,4,5]
+	console.log(arr.concat([3,44]));//[33,2,4,3,44]
+	console.log(arr.concat(5,[3,44]));//[33,2,4,5,3,44]
+	console.log(arr.concat([3,44,[5,6,7,8]]));//二维数组[33,2,4,3,44,[5,6,7,8]]
+```
+* 6. slice():返回从原数组中指定开始下标到结束下标之间的项组成的新数组,不会改变原数组
+* ` var arr=[33,2,4] ;console.log(arr.slice(1));//[2,4]  ; console.log(arr); [33,2,4]`
+* 7. splice()可以实现插入删除替换,`会改变原数组的值`;删除:输入两个参数(0,2)表示删除0,1下标两个值;
+* 插入/替换:第一参数是下标，第二参数是删除的项数，第三参数及后面的是插入的值
+* 如果是替换的话就输入三个参数(0,1,3),就是把下标为0的数删除，然后插入3；如果是(0,0,4)那就是在下标为0的值那里直接插入4
+* `注意:返回的是删除的值，当然，原数组也改变了`
+* 8. indexOf(从数组开头查找),lastIndexOf(表示从数组末尾开始查找)接收两个参数,索引，还有可选的参数(表示起点位置的索引),
+* 太多了。。。[慢慢看吧](https://www.cnblogs.com/obel/p/7016414.html)
 
 
+## 18.children与childNodes
+* 对于DOM元素，children指的是DOM Object类型的子对象，不包括tag之间隐式存在的TextNode;
+* childNodes指的是DOM Object类型的子对象，以及tag之间隐式存在的TextNode
+`对于 div{span}  使用children,tagname输出span;使用childNodes,tagname输出undefined,span,undifned`
+
+## 19.js null的一个bug
+* `typeof null => object; js的其他基本数据类型都是对应的类型`
+```
+console.log(typeof null);//object
+console.log(typeof 1);//number
+console.log(typeof undefined);//undefined
+console.log(typeof '11');//string 
+console.log(typeof true);//boolean
+```
+
+## 20.函数执行完毕之后?
+```
+	function output(str){
+		console.log(str);
+	};
+	
+	output(typeof (function(){
+		output('hello world');
+	})());
+	// 任何函数执行完一次，如果没有 return 返回值和声明变量接受返回值，都会立即消失，永远找不到值！
+	//所以在立即执行函数执行完毕之后，typeof 之后的代码相当于为空,所以就是相当于未赋值
+	//如果在output('hello world');后面添加一个return 'i am'则会打印string
+```
+
+## 21.隐式类型转换
+* [记得去看!](https://blog.csdn.net/itcast_cn/article/details/82887895)
+```
+	// 隐式类型转换一:  转换成string类型,只要+加号两边有一个是字符串,那就会都转换为字符串
+	// 字符串连接符+,转换为string仅在使用加号且两边至少有一个字符串的时候才有用
+	console.log('2'+'33');//233
+	console.log(2+'33');//233
+	console.log(2+'true');//2true
+	// 注意,加号两边都是数字..则自然不需要转换
+	console.log(2+33);//35
+	
+	
+	
+	// 隐式类型转换二:转换成number类型
+	// 自增自减运算符,算术运算符,> < >> << 
+	// 2.1加号,只要加号两边都不是字符串,那么统一转换为number类型
+	console.log(1+true);//2
+	console.log(1+false);//1
+	console.log(1+null);//1
+	console.log(1+undefined);//NaN
+	console.log(1+NaN);//NaN
+	
+	// NaN,undefined转换为number类型是NaN
+	
+	// 2.2关系运算符,转换为number类型
+	console.log(1>true);//false 
+	console.log(1>=true);//true 
+	console.log(1>null);//true 
+	console.log(1>undefined);//false,undefined=>NaN
+	console.log(1>NaN);//false,NaN=>NaN
+	
+	console.log('2'>'1');//true,关系运算符两边都是字符串的时候,此时不是按照Number()形式转换为数字,而是按照字符串的unicode编码进行比较
+	console.log('2'>'11');//true,uniconde编码比较
+	console.log('2'>11);//false,当关系运算符只有一边是字符串的时候,会使用Number()形式转换然后再比较
+	
+	// null,undefined,NaN之间的比较按照特定的规则!
+	console.log(null==null);//true
+	console.log(undefined==undefined);//true
+	console.log(NaN==NaN);//true,NaN和任何数比较都是NaN 
+	
+	console.log(null>undefined);//false
+	console.log(null==undefined);//true
+	
+	// 2.3 复杂数据类型转换成number 
+	// 2.3.1 先使用valueOf()取得原始值；
+	// 2.3.2 如果原始值不是number类型则使用toString方法获取字符串类型,
+	// 2.3.3 然后把string类型转换为number类型运算
+	
+	console.log(['1,2']=='1,2');
+	//true ,此时的运算经过了valueOf(),toString()运算,最后再对两个字符串进行unicode编码比较
+	console.log(['1,2'].valueOf());//"1,2"
+	console.log("1,2".toString());//1,2
+	console.log(typeof  "1,2".toString());//string
+	
+	var a={};
+	console.log(a.valueOf());//{}
+	console.log({}.toString());//[object Object]
+	console.log({}=='[object Object]');//true,
+	// 关系运算符两边都是字符串的时候,此时不是按照Number()形式转换为数字,而是按照字符串的unicode编码进行比较
+	
+	// b变量同时为1,2,3？
+	var b={
+		i:0,
+		valueOf:function(){
+			// 相当于重写了b变量的valueOf()方法,每次调用都自增1
+			return ++b.i;
+		}
+	};
+	//关系运算符两边都是字符串的时候,此时不是按照Number()形式转换为数字,而是按照字符串的unicode编码进行比较
+	// console.log(b=='1');//true;
+	// console.log(b=='2');//true;
+	// console.log(b=='3');//true;
+	
+	if(b==1 && b==2 && b==3){
+		console.log(b);//此时的b.i为3,因为调用了三次valueOf()方法
+	}
+	
+	
+	// 隐式类型转换三:转换成boolean类型,逻辑非运算符!
+	// !改变true,false ; !!则是单纯的转换为boolean类型
+	console.log(!"");//true,
+	console.log(!!"");//false
+	console.log(![]);//false
+	console.log(!![]);//true
+	console.log(!![]==0);//false,先把!![]转换为布尔值,也就是true
+	console.log(![]==0);//true,先把![]转换为布尔值,也就是false
+	console.log([]==true);//false,因为此时[]返回的是valueOf,toString()转换之后的字符串"",""转换为number就是0
+	
+	// 注意,在boolean类型转换中,null,""空字符串,undefined,0,-0,NaN,false,document.all()会被转换为false
+	//  []虽然在复杂类型转换中,经过valueOf(),toString()会转换为空字符串;
+	// 但是对于布尔转换来说,还是会转换为true;使用![] => false; !![]=>true 
+	// 对于空对象来说,经过valueOf(),toString()会转换为[object Object], !!{} => true; !{} => false 
+	console.log(!!{});//true 
+	console.log(!![]);//true 
+	console.log(!{});//false 
+	
+	console.log([]==0);//true,先转为""再转换为0
+	console.log(![]==0);//true
+	
+	console.log(![]==[]);//true,![]转换为布尔值是false再转为数字为0,[]转换为数字为0
+	
+	// 注意:对于两边都是对象来说,他们都是引用类型,不会转换为number;而引用类型的值存储在堆中,栈中存储的是地址,而==比较的就是他们的地址,因为两个[]是不一样的,所以地址不一样,返回false 
+	console.log([]==[]);//false 
+	console.log(function(){}==function(){});//false 
+	// 同理
+	console.log({}=={});//对象存储的堆地址不同,所以返回false 
+	console.log(!{}=={});//!{}转换为boolean类型是false,但是和[]不同的是，{}经过valueOf(),toString转换之后是[obejct Object];返回false
+```
+
+## 22.错误的函数表达式
+```
+var f = function g() {
+        return 23;
+    };
+typeof g();//报错
+<!-- 如果是 -->
+typeof g;//undefined,因为这样仅仅是查询该变量的类型并没有去使用，而g();则是去调用该函数，但是该函数并不存在，所以报错
+```
+* var a=function b(){};这种函数声明方式是错误的，因为函数已经被变量a所引用了，又给函数命名为b,这样是错误的！
+* 这样做的结果就是b();这种调用得不到结果,因为并不存在这个函数，所以调用的后果就是报错
 
