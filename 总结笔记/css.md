@@ -1,5 +1,9 @@
 ## 1.选择器权重
 * 内联 权重1000 ;ID 选择器 权重：100; 类 伪类 属性选择器 权重：10 ; 元素选择器 权重：1 
+* 属性选择器权重10，a[href] {color:red;}，只对有href属性的a标签应用该样式
+* 通用选择器（*），子选择器（>）和相邻同胞选择器（+）并不在这四个等级中，所以他们的权值都为0
+* +兄弟择器需要选择紧邻某个元素之后`一个元素`，而且两者有相同的父元素，如 .one+p{color:red}; .one和p元素的父元素为div
+* ~兄弟选择器选择某个元素之后的`所有兄弟节点`。
 * 除!important 外，内联权重最大！
 
 ## 2.line-height,font-size,vertical-align
@@ -21,4 +25,20 @@
 * 创建BFC块级格式化上下文有几种方式: 1. float的值不是none; 2. position的值不是relative,static；3. display的值是inline-block、table-cell、flex、table-caption或者inline-flex； 4.`最常用的是overflow:hidden，这也是创建一个块级格式化上下文`
 * 1. 引用场景`margin外边距折叠`:当我们创建一个结构为 : div-{ p p} 其中p元素有margin：10px的时候，我们两个p元素的边距不是预计的20px而是10px,因为发生了`margin外边距折叠`,解决这个问题可以用BFC，因为此时的两个p元素同属于一个块级元素(div是块级元素),同时p元素也是块级元素，所以就是一个块级元素中嵌套着两个块级元素,由于两个p块级元素是在div块级元素里面的,所以margin范围也在div中，而两个p元素的margin范围不在自己的范围内，所以也会发生margin外边距重叠的问题，而给p元素嵌套一个div就可以让p元素的margin处于自己的范围内，所以解决方法就是 ： div{p div{p}}，然后第一个p元素与子元素的div就会有20px的边距，因为子元素的div宽高已经包括了内在的p元素的margin范围
 * 2. `父元素高度坍塌`:例子结构为 div{div,div},给子元素div设置浮动，然后给子元素div设置宽高，然后给父元素div设置一个背景色，可以发现父元素的背景不包括子元素，因为子元素浮动脱离了文档流，然后父元素没有设置高度，所以父元素没有包裹住的元素，因此父元素就产生了`高度坍塌`，如果要让父元素包裹住子元素的话，有两种方式，第一种是`给父元素一个浮动`，那么我们就会发现父元素会包裹住子元素，并且宽度不再是独占一行了，因为此时的父元素仅仅是一个宽高依靠子元素撑开的块级格式化上下文；第二种方式:`给父元素使用overflow:hidden清除浮动`，overflow:hidden本质上就是寻找子元素的高度，然后计算出父元素的高度，因为得到了父元素的高度，那么自然也就撑开了高度；在另一种场景中，如果我设置父元素的高度，然后设置overflow:hidden,那么父元素的高度只能是这么多，超出的子元素部分就会隐藏掉
+
+## 5.flex-basis
+* `content-width-flx-basis`,当有content,width属性的时候，flx-basis默认为width的大小；当有content,没有width属性的时候，flx-basis默认为content大小
+* 当设置了width,flex-basis的时候，宽度为flx-basis的设置值；flex非常适用用于响应式网页设计，特别是使用max-width,min-width可以限制最大最小宽度，flex-grow,flex-shrink设置扩大缩小比例
+
+## 6.utf8/gbk
+* gbk编码是国内使用较多的编码，但是`只能用于简体中文`
+* utf-8编码是国际上用的多的编码，可以识别简体中文，繁体中文，日文，韩文，英文，阿拉丁文等语言
+
+## 7.link和@import的区别
+1.link是xhtml标签，没有兼容性问题，而@import是css2.1才被提出的，低版本的浏览器不支持
+2.link支持加载css,js，而@import只能加载css
+3.link加载的内容是和页面一起加载的，而@import加载的内容要页面加载之后才被加载
+
+
+
 
