@@ -21,3 +21,23 @@
 <span style="width: 1000px;background: rgba(7,17,27,.5);height: 100px;">内联的不可置换元素设置宽高是没用的，如span</span>
 <img src="../小米/img/after/2.png" style="width: 300px;">
 ```
+
+## 4.h5新增元素
+1. article元素:代表文档，页面或者应用程序中独立的，完整的，可以独立被外部引用的内容；
+2. aside元素:代表页面或者文章的附属信息部分
+3. nav元素:用作页面导航的连接组,h5中不要用menu元素代替nav元素,menu元素使用在发出命令的菜单中，是一个交互的元素
+4. section元素:用于对网站或者应用程序页面上的内容进行分块
+5. header元素:定义文档的页眉，介绍内容
+6. footer内容:定义文档的页脚
+7. figure元素:用作文档中插图的图像,标签规定独立的流内容
+8. figcaption:figcaption元素可以被添加到figure标签内部，包含了对图片的完整说明
+
+## 5.h5废除元素
+1. 能被css代替的元素:basefont,big,center,font,s,strike,tt,u
+2. 不再使用frameset框架,fraameset,frame,noframes。h5只支持iframe框架
+
+## 6.标签语义化
+* h5的语义化是对文本内容和意义的补充说明，也就是告诉我们这一块内容是什么意义；至于内在样式，以及表现由css来执行
+
+## 7.响应式网页设计
+* 响应式网页设计就是一个网站能够兼容多个终端，而不是为每个终端做一个特定的版本。这样，我们就可以不必为不断到来的新设备做专门的版本设计和开发了。
