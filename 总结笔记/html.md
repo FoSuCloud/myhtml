@@ -59,3 +59,12 @@
 * 根据有无窗口，Html元素又可以分为有窗口元素，无窗口元素，有窗口元素的优先级大于无窗口元素
 1. 有窗口元素:select object frames等
 2. 无窗口元素:剩下的
+
+## 10.DHTML
+* DHTML(dynamic html)是指动态html，是相对传统的静态html而言的。
+* dynamic html其实是css,html4.0,js的组合，并不是一门新的语言，DHTML是一种让页面具有动态特性的艺术
+* DHTML不是W3C的标准，而是网景公司和微软用来描述4.x代浏览器应该支持的技术
+
+## 11.xhtml
+* xhtml可拓展超文本标记语言和html类似，也是一门标记语言，不过更加严格
+* XHTML在2000年成为W3C的一个标准，但是与html相比，xhtml还是太小众了
