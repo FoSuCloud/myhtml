@@ -68,3 +68,29 @@
 ## 11.xhtml
 * xhtml可拓展超文本标记语言和html类似，也是一门标记语言，不过更加严格
 * XHTML在2000年成为W3C的一个标准，但是与html相比，xhtml还是太小众了
+
+## 12.table元素
+* tr指的是行
+* td/th指的是一个单元格，th就是td的加粗形式(header嘛，所以大点粗点)
+* table元素默认有三个样式：border指的是元素格之间的边缘线；cellspacing指的是单元格之间的间隙；cellpadding指的是单元格内部的内边距
+
+## 13.修改月份
+```
+	var date=new Date('2019-05-16');
+	console.log(date);//May
+	// 修改月份第一种方式
+	date.setMonth(5);//修改为6月
+	// 在月份中是以0为起始索引的,所以5指的就是6月!
+	console.log(date);//June
+	
+	// 第二种方式
+	date.setDate(30);
+	// 如果这个月只有30天,那么setDate(1~30)指的都是直接修改日期中的日就可以了
+	// 但是如果设置的n>30,那么就会到下一个月啦!
+	console.log(date);
+	//  下个月几号=n-30,如果是40-30,那么就是下一个月10号!
+	date.setDate(40);
+	console.log(date);
+```
+
+
