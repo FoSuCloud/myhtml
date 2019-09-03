@@ -71,7 +71,7 @@
 
 ## 12.table元素
 * tr指的是行
-* td/th指的是一个单元格，th就是td的加粗形式(header嘛，所以大点粗点)
+* td/th指的是一个单元格，`th就是td的加粗形式(header嘛，所以大点粗点)`
 * table元素默认有三个样式：border指的是元素格之间的边缘线；cellspacing指的是单元格之间的间隙；cellpadding指的是单元格内部的内边距
 
 ## 13.修改月份
