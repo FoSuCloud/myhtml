@@ -76,6 +76,36 @@
 ## 11.box-shadow/outline/border
 1. box-shadow：阴影，大小`不会`影响到原来的元素大小，例子:`box-shadow:10px 10px blue`
 2. outline:轮廓,大小也`不会`影响到原来的元素大小，例子:`outline:10px solid red`，而且随着focus会有相应的出现效果，随着blur会有离开效果
+* `一个很重要的应用:在输入框input中使用outline:0 使得输入框被聚焦不会出现聚焦的效果`
 3. border:边框，大小会影响到原来的元素大小,例子:`border:1px solid green`
+
+## 12.animation-timing-function
+1. linear：animation-timing-function
+2. ease 默认：动画以低速开始，然后加快，在结束前变慢。
+3. ease-in：动画以低速开始。
+4. ease-out：动画以低速结束。
+5. ease-in-out：动画以低速开始和结束
+6. cubic-bezier(n,n,n,n)：	在 cubic-bezier 函数中自己的值。可能的值是从 0 到 1 的数值。
+
+## 13.css百分比参考问题
+1. `padding参考的也是父元素的宽度`,margin,width,text-indent`参考父元素的宽度`
+2. height,`参考父元素高度`
+3. line-height,font-size,`参考父元素属性`
+
+
+## 14.css的calc()函数
+* calc() 函数用于动态计算长度值。`但是兼容性有要求，所以尽量少用吧`
+1. 需要注意的是，运算符前后都需要保留一个空格，例如：width: calc(100% - 10px)；
+2. 任何长度值都可以使用calc()函数进行计算；
+3. calc()函数支持 "+", "-", "*", "/" 运算；
+4. calc()函数使用标准的数学运算优先级规则；
+
+## 15.css盒子透明
+* 对于盒子来说，margin和padding都会有背景透明，不同的是，`margin透明颜色取决于父元素；padding透明颜色取决于自己的颜色`
+
+## 16.scoped
+* `vue组件中的style标签标有scoped属性时表明style里的css样式只适用于当前组件元素 `
+* 所以我们之前在vue项目中存在同名的class,id类名时才会发生样式混乱，样式被复用啦!
+
 
 
