@@ -73,6 +73,7 @@
 * tr指的是行
 * td/th指的是一个单元格，`th就是td的加粗形式(header嘛，所以大点粗点)`
 * table元素默认有三个样式：border指的是元素格之间的边缘线；cellspacing指的是单元格之间的间隙；cellpadding指的是单元格内部的内边距
+* 还有个元素是caption
 
 ## 13.修改月份
 ```
@@ -92,5 +93,34 @@
 	date.setDate(40);
 	console.log(date);
 ```
+
+## 14.h5的媒体标签
+* audio:音频文件
+* video:视频文件
+* embed:定义嵌入的内容
+* track:为媒体文件定义外部文本轨道，`用来规定字幕等文件，当媒介播放时是可见的`
+
+## 15.canvas标签
+* canvas是html5新增的标签，只是一个图形容器，没有自己的绘制方法，需要js调用它的api来绘图
+* canvas标签必须设置宽高，这是默认宽高，还必须设置class,id这些来让js找到这个dom对象，从而操作这个对象的api
+* 注意:`js获取到了dom对象之后，想要操作canvas对象绘图还必须加上getContext('2d')或者3d;`
+```
+	var can=document.getElementsByClassName('can')[0];
+	var cancon=can.getContext('2d');
+	// 填充的样式
+	cancon.fillStyle='red'
+	// 填充的矩形,x,y坐标+宽高(优先级算是高于canvas标签内设的宽高，意思是显示的矩形大小由这里决定，但是实际的canvas元素所占宽高没有改变，还是之前的那么多)
+	cancon.fillRect(0,0,80,200);
+```
+
+
+## 16.标题
+* `网页最上层的标题用title;文章最上层的标题用h1`
+
+## 17.head标签必要的是title标签
+* 按照标准来说"title"是必须需要的标签，但是浏览器因为很多前端编码并不规范，所以在没有的情况下有时并不影响，或者是再删除<title>之后，只是加载之前的缓存界面；但是<meta>是编码说明，删去会有很大麻烦，但是理论上来说，你如果是按照该浏览器默认的编码方式的文档，则不会有错。
+	
+
+
 
 
