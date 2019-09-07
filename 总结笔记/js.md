@@ -214,193 +214,8 @@ var obj1={
 * [深拷贝浅拷贝](https://blog.csdn.net/qq_41635167/article/details/82943223)
 * [数组方法slice splice](https://blog.csdn.net/rsylqc/article/details/45113859)
 
-## 8.this指向(与原型链继承区分开)
-1. `隐式window调用函数`，举个例子:
-```
-	function fn(){
-		var a=1111111;
-		console.log(this.a);//4
-	};
-	var a=4;
-	fn();
-```
-* 函数执行结果为4，因为此时相当于 `window.fn()`,也即是window对象去调用fn函数,his指向的也就是调用函数的对象此时就是window
-2. `变量表达式调用函数`，举个例子
-```
-	var obj={
-		fn:function (){
-			var a=1111111;
-			console.log(this.a);//4
-		}
-	}
-	var a=4;
-	var obj1=obj.fn;//obj1仅仅指代fn函数,跟2.2对比一下
-	obj1();//此时相当于window.obj1();所以this指向的还是window
-```
-* 2.2 `立即执行函数`
-```
-	var obj={
-		fn:function (){
-			console.log(this);//4
-		}
-	}
-	obj.fn();//fn,不是window ，因为调用fn方法的对象1有了，是obj
-	(obj.fn)();//fn,不是window
-	// 因为不是表达式,没有使用window.变量的形式来调用,而是作为函数方法来调用了
-```
-* 3.`函数嵌套`,举个例子
-```
-	function fn(){
-		var a=1111111;
-		function fn2(){
-			console.log(this.a);//4
-		}
-		fn2();//2.注意这里不是fn.fn2(),这里隐式表达的是window.fn2();
-	}
-	var a=4;
-	fn();//1.此时相当于window.fn()
-```
-* 4.`点击事件`
-```
-document.addEventListener('click', function(e){
-    console.log(this);
-    setTimeout(function(){
-        console.log(this);
-    }, 200);
-}, false);
-```
-* `document.addEventListener('click'function(){})其实就相当于obj.function(),就是对象调用方法，所以第一个This指的即是document这个对象`
-* `但是setTimeout(function(){})定时器函数没有被document当做方法调用，还是函数调用的形式,相当于window.setTmeout(),所以setTimeout()函数里面的this一般指的都是window`
-* 5.`html元素对象`
-```
-	<span id="app">点我</span>
 
-	var app=document.getElementById('app');
-	app.addEventListener('click',function(){
-		console.log(this);//<span id="app">点我</span>
-	})
-```
-* 当我们使用html元素绑定函数的形式时，函数是被html元素所调用，所以this指向的是html元素
-
-
-## 9.call,apply,bind指定调用函数的对象
-* 想要指定调用函数的对象，可以使用`call,apply,bind`，`通过调用方法的形式调用函数`
-* 1. 语法:function.call(obj),obj是调用函数的对象,相当于 obj.function,也就是相当于window.function一样把函数当做了方法来调用
-```
-		function fn2(){
-			var a=1111111;
-			console.log(this.a);//4
-		}
-		var b={a:4,p:444};
-		fn2.call(b);
-```
-* call 方法第一个参数是要绑定给this的值，后面传入的是一个参数列表。`当第一个参数为null、undefined的时候，默认指向window`
-* 例子:`对象包裹着函数  obj1.fn2() == obj1.fn2.call(obj1),此时fn2函数的this指向的都是obj1`
-```
-var obj1={
-				a:111111,
-				fn2:function (){
-					console.log(this.a);//11111
-				}
-			}
-			obj1.fn2();
-			obj1.fn2.call(obj1);
-			var a=4;
-			obj1.fn2.call(null);//此时fn2函数的this指向的是window
-```
-* 例子:`函数调用形式: fn() == fn.call(null) 指向的都是window`
-* `函数带参数时: fn(a,b) == fn.call(null,44,3) 第一个参数依旧是null代表指向window,其余参数都是原函数所需要的参数`
-
-* 2. apply接受两个参数，第一个参数是要绑定给this的值，第二个参数是一个`参数数组`。当第一个参数为null、undefined的时候，默认指向window
-* `call与apply的区别就在于apply只有两个参数，且第二个参数必须是参数数组，而call的参数不是参数数组`
-* 举个例子:
-```
-	function fn(a,b){
-		console.log(this.name+a+b);
-	}
-	var obj={name:'我是对象'};
-	fn.call(obj,2,3);
-	fn.apply(obj,[33,22]);//使用数组
-	
-	function fn2(c){
-		console.log(c)
-	}
-	fn2.apply(null,[4]);//只有一个参数时也是用数组
-	// fn2.apply(null,4);//不使用数组,报错
-```
-* apply,call可以借用其他对象的方法或属性
-```
-	var person=function (){
-		this.name='我是要被借用的属性';//3.此时相当于me.name
-	}
-	
-	var Human=function (){
-		person.call(this);//2.把该函数的实例me作为调用person函数的对象
-		// console.log(this.name);
-		this.getname=function(){
-			console.log(this.name);//5.此时this指的是调用该方法的me,所以也即是me.name
-		}
-	}
-	
-	var me=new Human();//1.me是Human函数实例
-	// me();//虽然可以出现结果，但是会报错me is not a function
-	me.getname();//所以实例调用函数还是调用函数内部属性或者方法吧
-	// 4.调用方法
-```
-
-
-* 3. bind: `和call很相似，第一个参数是this的指向，从第二个参数开始是接收的参数列表`
-* `bind方法的区别在于bind方法不会立即执行，而是返回了一个改变执行上下文this指向后的函数，而原函数的this没有被改变，依旧指向window`
-* 举个例子:
-```
-	var person=function (a,b,c){
-		console.log(this.name+a+b+c)
-	}
-	
-	var obj={name:'my'}
-	var boy=person.bind(obj,33);//bind方法不会立即执行
-	console.log(boy);//bind方法返回的是原函数
-	boy('i','love','qiqi');//返回的是 my33ilove
-	// 我们之前使用bind方法传递的参数虽然不全,但是依旧会覆盖后面传递的参数,因为优先级更高
-	
-```
-
-* 4. `在 ES6 的箭头函数下, call 和 apply 将失效，因为箭头函数体内的 this 对象, 就是定义时所在的对象, 而不是使用时所在的对象`
-* 5. [参考链接](https://www.jianshu.com/p/bc541afad6ee)
-
-
-## 10.解决setTimeout定时器在for循环错误的三个办法
-```
-	// 1.创建i变量的副本
-	function me(i){
-		// 箭头函数体内的 this 对象, 就是定义时所在的对象, 而不是使用时所在的对象;
-		setTimeout( ()=> {
-			console.log(i);
-		} ,1000);
-	}
-	for(var i=0;i<5;i++){
-		me(i);
-	}
-	
-	// 2.使用闭包
-	for(var i=0;i<5;i++){
-		function you(i){
-			setTimeout( ()=> {
-				console.log(i);
-			} ,1000);
-		}
-		you(i);
-	}
-	
-	// 3.使用let作用域
-	for(let i=0;i<5;i++){
-		setTimeout( ()=> {
-			console.log(i);
-		} ,1000);
-	}
-```
-
-## 11.undifned与报错
+## 8.undifned与报错
 ```
 	// 1.调用对象未声明的属性会undifned
 	var user={};
@@ -416,7 +231,7 @@ var obj1={
 ```
 
 
-## 12.闭包保存变量内存
+## 9.闭包保存变量内存
 * 闭包会保存闭包内部使用的变量，不会立马释放内存
 ```
 	function Foo(){
@@ -436,11 +251,11 @@ var obj1={
 	// f2();//0 ,和f1使用的变量不一样,所以i依旧为0
 ```
 
-## 13.js的数字
+## 10.js的数字
 * 在JavaScript中，`基本数据类型的变量都是存储为八字节8Bytes`,`而引用数据类型存储的是对对象的引用地址`
 * `换句话说，js中没有int,float,double之分`
 
-## 14.js中的同名变量/函数优先级
+## 11.js中的同名变量/函数优先级
 * `变量声明<函数声明<变量赋值`
 * 也就是函数声明可以覆盖同名的变量声明,但是函数声明没办法覆盖被赋值之后的变量,赋值变量反而会覆盖函数,但是需要注意变量赋值的顺序
 ```
@@ -480,7 +295,7 @@ var obj1={
 	console.log(a);//而在此时，变量a已经被赋值了，而变量赋值会覆盖函数声明，所以打印变量a
 ```
 
-## 15.let.const
+## 11.let.const
 * 举个例子，`for(let i=0;i<10;i++){}    在花括号之外！  console.log(i) `输出 " i not defined" 因为let存在块级作用域，当在它的作用域外使用它的时候是不行，然后全局作用域又没有定义过i,所以not defined
 * `const 的值是基本数据类型的时候不可以被修改，但是const的值是引用数据类型的话，可以修改对象属性`
 * const a=3;a=4; console.log(a);//输出为 TypeError,因为const的值都是常量，常量不可以被直接改变值
@@ -488,7 +303,7 @@ var obj1={
 * 注意:直接修改const的常量的值会报错  `b={age:2},	console.log(b);//Missing initializer in const declaration`
 * `常量指的是在程序正常运行过程中不能被修改的值。它的值不能通过二次赋值来改变，同时也不能被再次声明`		
 
-## 16.基本数据类型string与String对象
+## 12.基本数据类型string与String对象
 ```
 		var str1='i am string';//基本数据类型string
 		var str2=new String('i am String对象');
@@ -499,7 +314,7 @@ var obj1={
 		//虽然基本数据类型string不是数组,但是js执行该语句的时候会把它包装成一个String对象,所以string才具有length属性
 ```
 
-## 17.数组的各个方法
+## 13.数组的各个方法
 * 1. join(param),以`数组的每一项组起一个字符串`，以参数作为分隔符，如果省略的话就用,逗号作为分隔符
 * ` arr=[1,2,3]  console.log(arr.join('e')) => 1e2e3e`
 * `创建重复字符串数组  new Array(3).join(abc) => abcabcabc`,意味着创建了有三项的数组，然后每一项以abc作为分隔符
@@ -516,7 +331,7 @@ var obj1={
 	console.log(arr.concat(5,[3,44]));//[33,2,4,5,3,44]
 	console.log(arr.concat([3,44,[5,6,7,8]]));//二维数组[33,2,4,3,44,[5,6,7,8]]
 ```
-* 6. slice():返回从原数组中指定开始下标到结束下标之间的项组成的新数组,不会改变原数组
+* 6. slice():返回从原数组中指定开始下标到结束下标之间的项组成的`新数组`,不会改变原数组
 * ` var arr=[33,2,4] ;console.log(arr.slice(1));//[2,4]  ; console.log(arr); [33,2,4]`
 * 7. splice()可以实现插入删除替换,`会改变原数组的值`;删除:输入两个参数(0,2)表示删除0,1下标两个值;
 * 插入/替换:第一参数是下标，第二参数是删除的项数，第三参数及后面的是插入的值
@@ -526,12 +341,12 @@ var obj1={
 * 太多了。。。[慢慢看吧](https://www.cnblogs.com/obel/p/7016414.html)
 
 
-## 18.children与childNodes
+## 14.children与childNodes
 * 对于DOM元素，children指的是DOM Object类型的子对象，不包括tag之间隐式存在的TextNode;
 * childNodes指的是DOM Object类型的子对象，以及tag之间隐式存在的TextNode
 `对于 div{span}  使用children,tagname输出span;使用childNodes,tagname输出undefined,span,undifned`
 
-## 19.js null的一个bug
+## 15.js null的一个bug
 * `typeof null => object; js的其他基本数据类型都是对应的类型`
 ```
 console.log(typeof null);//object
@@ -541,7 +356,7 @@ console.log(typeof '11');//string
 console.log(typeof true);//boolean
 ```
 
-## 20.函数执行完毕之后?
+## 16.函数执行完毕之后?
 ```
 	function output(str){
 		console.log(str);
@@ -555,7 +370,7 @@ console.log(typeof true);//boolean
 	//如果在output('hello world');后面添加一个return 'i am'则会打印string
 ```
 
-## 21.隐式类型转换
+## 17.隐式类型转换
 * [记得去看!](https://blog.csdn.net/itcast_cn/article/details/82887895)
 ```
 	// 隐式类型转换一:  转换成string类型,只要+加号两边有一个是字符串,那就会都转换为字符串
@@ -598,7 +413,7 @@ console.log(typeof true);//boolean
 	console.log(null>undefined);//false
 	console.log(null==undefined);//true
 	
-	// 2.3 复杂数据类型转换成number 
+	// 2.3 复杂数据类型(不是基本数据类型，所以用法不一样)转换成number 
 	// 2.3.1 先使用valueOf()取得原始值；
 	// 2.3.2 如果原始值不是number类型则使用toString方法获取字符串类型,
 	// 2.3.3 然后把string类型转换为number类型运算
@@ -614,6 +429,17 @@ console.log(typeof true);//boolean
 	console.log({}.toString());//[object Object]
 	console.log({}=='[object Object]');//true,
 	// 关系运算符两边都是字符串的时候,此时不是按照Number()形式转换为数字,而是按照字符串的unicode编码进行比较
+	
+	//`数组与对象遇到加法`
+	console.log([1,2]+1);// 相等于数组使用valueOf()再使用toString() =》 '1,2'+'1' => '1,22' 
+	console.log({a:11}+2);// [objct Object]2
+	console.log([1,2]+[2,1]);// '1,22,1'
+	
+	// `空格遇到加法`
+	console.log(('b'+'a'+ +'a'+'a').toLowerCase());//banana
+	// 首先字符串拼接 'ba'+(' '+'a')+'a',(' '+'a')里面的空格不知道为什么会转换为NaN,NaN加任何数都是NaN,所以括号里面转换为NaN
+	// 然后就变成了baNaNa,再使用toLowerCase()就可以转换为小写
+	
 	
 	// b变量同时为1,2,3？
 	var b={
@@ -664,7 +490,7 @@ console.log(typeof true);//boolean
 	console.log(!{}=={});//!{}转换为boolean类型是false,但是和[]不同的是，{}经过valueOf(),toString转换之后是[obejct Object];返回false
 ```
 
-## 22.错误的函数表达式
+## 18.错误的函数表达式
 ```
 var f = function g() {
         return 23;
@@ -677,7 +503,7 @@ typeof g;//undefined,因为这样仅仅是查询该变量的类型并没有去�
 * 这样做的结果就是b();这种调用得不到结果,因为并不存在这个函数，所以调用的后果就是报错
 
 
-## 23.改变计时器this指向
+## 19.改变计时器this指向
 * 计时器定时器默认的this指向是window,但是我们需要在计时器里面使用vue实例作为this,那么就需要改变计时器的this指向
 1. 使用箭头函数
 ```
@@ -717,14 +543,14 @@ typeof g;//undefined,因为这样仅仅是查询该变量的类型并没有去�
 	},1000)
 ```
 
-## 24.isNaN方法
+## 20.isNaN方法
 * 对任何不能转换为数值的值使用 isNaN()都会返回true,否则返回false
 
-## 25.in表示索引，下标
+## 21.in表示索引，下标
 * `对于  1 in [1]来说，1这个数的确在数组中，但是in索引的是下标，该数组只有一个数，所以下标最大为0，因此是错误的,返回false`
 * ` 1 && 2>1 虽然没有加括号，但是先判断 2>1，所以返回true`
 
-## 26.严格模式下禁止this关键字指向全局对象
+## 22.严格模式下禁止this关键字指向全局对象
 ```
 function Foo(){'use strict'
 console.log(this.location);
@@ -732,4 +558,52 @@ console.log(this.location);
 Foo()
 ```
 * 所以改代码返回的是`TypeError`
+
+## 23.js进制
+* JavaScript 会把`前缀为 0x` 的数值常量解释为十六进制。0x12 => 18
+* 一些 JavaScript 版本会把带有`前导零`的数解释为八进制。017 => 15
+* [进制转换](https://blog.csdn.net/lk188/article/details/4317459)
+
+## 24.js由es,dom,bom组成
+* JavaScript包括三个部分：ECMAScript、DOM和BOM
+* ECMAScript是JavaScript的规格，标准，定义了脚本语言的所有属性、方法和对象
+* DOM是文档对象模型，是 HTML 和 XML 的应用程序接口(API)，把整个页面规划成由节点层级构成的树形文档
+* BOM是浏览器对象模型，主要处理浏览器窗口和框架，浏览器对象有window,history,location,screen
+* [JS组成](https://blog.csdn.net/J080624/article/details/72840954)
+
+## 25.var声明重申！
+```
+		// 第一步:在全局作用域 var c=d=10;
+		// // var c=d=10;
+		// // 相当于
+		// var c;
+		// d=10;
+		// c=d;
+		// console.log(c);//10
+		// console.log(d);//10
+		
+		// 第二步:在全局作用域没有报错,但是在函数作用域会报错
+		var b;//在函数内部直接使用 b=5;就相等于 还要在函数外部使用var b
+		function one(){
+			// var a=b=5;
+			// 相等于
+			var a;
+			b=5;//相当于定义了全局变量
+			a=b;//从右开始赋值,所以是先 b=5,再 a=b
+			// console.log(a);//在函数内部可以访问到a变量为5
+		}
+		// one();
+		// console.log(b);
+		// console.log(a);//但是在函数外部访问函数内定义的a变量却报错,所以我们之前记错啦!
+		// var声明的变量可以在块作用域外访问到,但是不可以在函数作用域外部访问到
+		
+		// 第三步:在块级作用域
+		{
+			var e=f=20;
+		}
+		console.log(e);//20
+		console.log(f);//20
+		// 在全局作用域访问var声明的变量没有错
+```
+
 
