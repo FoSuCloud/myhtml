@@ -117,4 +117,98 @@
 6. 表格元素可继承：border-collapse。
 7. 可以继承的属性很少，只有`颜色，文字，字体间距行高对齐方式，和列表的样式`可以继承
 
+## 18.圣杯布局与双飞翼布局
+* 圣杯布局和双飞翼布局都是把中间一栏先放前面，让文档流先解析
+* 圣杯布局三栏使用左浮动float:left,注意三栏的父元素使用padding:0 100px有左右填充(这是左右栏的位置)，左边使用margin-left:-100%向左边移动100%宽度(一个middle大小)，右边使用margin-right:-100%向右移动一个middle大小(位于adding-right位置)
+* `注意:此时左边栏还有左填充的位置，所以需要把左边栏加上position:relative,left:100px`
+* `但是难以理解，所以左右都使用margin-left，左边移动父元素宽度，也就是左边移动到最左边，而右边使用marin-left:自己的宽度，移动到最右边`
+* 可以看做都是从第一行的padding边缘开始移动，以右边缘接触子元素的左边距(出现颜色的地方)
+```
+	<div class="one">	
+		<div class="middle"></div>
+		<div class="left"></div>
+		<div class="right"></div>
+	</div>
+```
+* css样式
+```
+	.one{
+			padding: 0 100px;
+		}
+		.middle,.left,.right{
+			height: 50px;
+			float: left;
+		}
+		.middle{
+			//这里的width:100%的确是占据了整个屏幕宽度，但是content部分需要减去padding部分宽度
+			width: 100%;
+			background: red;
+		}
+		.left{
+			width:100px;
+			background: green;
+			margin-left: -100%;
+			position: relative;
+			left: -100px;
+		}
+		.right{
+			width: 100px;
+			background: blue;
+			margin-left: -300px;
+			position: relative;
+			left: 300px;
+		}
+```
+* `圣杯布局需要一定的宽度才会是三栏布局(否则换行)，也就是左宽度*2+右宽度，因为左宽度需要左移一个父元素content宽度也就是左边至少可以覆盖content，然后才可以left移动到padding位置，而右边的话直接覆盖padding位置就可以了`
+---
+* `双飞翼布局:和圣杯布局的区别就在于双飞翼布局对中间一栏使用嵌套，对父元素不使用padding,对中间一栏使用margin，然后左右两栏还是使用margin-left移动，但是不需要left相对定位了`
+```
+		.one{
+			height: 50px;
+		}
+		.container,.left,.right{
+			height: 50px;
+			float: left;
+		}
+		.container{
+			width: 100%;
+		}
+		.middle{
+			background: #FF0000;
+			margin: 0 300px 0 200px;
+			height: 50px;
+		}
+		.left{
+			width: 200px;
+			background: green;
+			margin-left: -100%;
+		}
+		.right{
+			width: 300px;
+			background: #00F;
+			margin-left: -300px;
+		}
+```
+* html
+```
+ <div class="one">	
+		<div class="container">
+			<div class="middle"></div>
+		</div>
+		<div class="left"></div>
+		<div class="right"></div>
+	</div>
+```
 
+## 19.media queries
+* media queries的条件:`设备类型，设备像素比，设备高度,设备宽度，设备宽高比`。
+* `width指的是浏览器宽度,device-width指的是设备最大宽度，不会随浏览器宽度变化而变化`
+* media queries有两种使用方法,一种是:`link标签引入css文档，在这里判断media`，还有一种是`style标签中使用@media使用不同的样式`
+* media queries有`and,or,not关键字负责逻辑`;媒体类型有`all,print,screen媒体类型`
+* 例子:`有and关键字才能有与条件`
+```
+	<link rel="stylesheet" type="text/css" media="screen and (min-width:600px)" href="one.css"/>
+	<link rel="stylesheet" type="text/css" media="all and (max-width:500px)" href="two.css"/>
+```
+* [参考](https://www.cnblogs.com/asqq/archive/2012/04/13/2445912.html)
+* [MDN重要！](https://developer.mozilla.org/zh-CN/docs/Web/Guide/CSS/Media_queries)
