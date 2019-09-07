@@ -91,7 +91,7 @@
 1. `padding参考的也是父元素的宽度`,margin,width,text-indent`参考父元素的宽度`
 2. height,`参考父元素高度`
 3. line-height,font-size,`参考父元素属性`
-
+* 虽然是参考父元素，但是不一定是`继承属性`
 
 ## 14.css的calc()函数
 * calc() 函数用于动态计算长度值。`但是兼容性有要求，所以尽量少用吧`
@@ -107,5 +107,14 @@
 * `vue组件中的style标签标有scoped属性时表明style里的css样式只适用于当前组件元素 `
 * 所以我们之前在vue项目中存在同名的class,id类名时才会发生样式混乱，样式被复用啦!
 
+## 17.继承属性与不可继承属性
+* html元素可以从父元素中继承一部分属性，即使该元素没有定义这个属性
+1. 不可继承属性:background,display,margin,border,padding,`height`,min-height,float,clear,position
+2. 所有元素可继承:visibility,cursor
+3. 内联元素可继承：letter-spacing、word-spacing、white-space、line-height、color、font、font-family、font-size、font-style、font-variant、font-weight、text-decoration、text-transform、direction。
+4. 终端块状元素可继承：text-indent和text-align。
+5. 列表元素可继承：list-style、list-style-type、list-style-position、list-style-image。
+6. 表格元素可继承：border-collapse。
+7. 可以继承的属性很少，只有`颜色，文字，字体间距行高对齐方式，和列表的样式`可以继承
 
 
