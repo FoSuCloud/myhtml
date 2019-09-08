@@ -627,3 +627,57 @@ Foo()
 9. split():分割字符串，不会改变原字符串
 10. replace('a',1):替换字符串中相应的值，例如把a字符替换成1，`会改变原字符串的值!!!`
 * [参考](https://www.cnblogs.com/zhangxin2540/p/7054835.html)
+
+## 27.数组遍历方法
+* 如果数组中存在空值?`那么无论是map,forEach还都不会作用到空值,filter的话是筛选出数值所以也是没用`
+```
+	var arr=new Array(3);
+		// console.log(arr);
+		arr[0]=3;
+		var result=arr.map((item) => {
+			// console.log(item)// ["1", empty × 2]
+			return '1'
+		})
+		console.log(result)
+		arr.forEach(function(item,index){
+			arr[index]='1'
+		})
+		console.log(arr)// ["1", empty × 2]
+```
++ `map,filter都是返回一个新的数组，map返回一个映射后的新数组，filter返回符合条件的数组部分`
++ `forEach其实是利用数组的值进行操作，但是可以使用arr[index]='1'这种赋值方式改变原数组`
+1. map:普通式:var new_arr=arr.map(function(item){	return	item });还可以使用箭头函数使得this指向外部对象;还可以使用ar.map(function(){},obj)`指定this指向的对象`
+2. forEach
+3. filter
+* [参考](https://www.cnblogs.com/pengshengguang/p/9807831.html)
+
+## 28.js对象封装方法
+```
+function Student(name,age,sex){
+			this.name=name;
+			this.age=age;
+			this.sex=sex;
+		}
+		
+		// 给函数原型添加方法
+		Student.prototype={
+			constructor:Student,//应该要声明构造器
+			printAge:function(){
+				console.log(this.age)
+			},
+			printName:function(){
+				console.log(this.name)
+			},
+			printSex:function(){
+				console.log(this.sex)
+			}
+		}
+		// 实例化(先给原型添加方法再实例化对象，否则实例化之后的对象没有该方法)
+		var stu=new Student('张三',22,'男');
+		stu.printAge();//通过原型链去查找方法,stu._proto_ => Student.prototype
+		stu.printName();
+		stu.printSex();
+```
+* [参考](https://www.cnblogs.com/libin-1/p/6178003.html)
+
+
