@@ -212,3 +212,28 @@
 ```
 * [参考](https://www.cnblogs.com/asqq/archive/2012/04/13/2445912.html)
 * [MDN重要！](https://developer.mozilla.org/zh-CN/docs/Web/Guide/CSS/Media_queries)
+
+
+## 20.盒子模型
+* 标准W3C盒子模型
+`content的宽度不包括padding,border`
+* IE经典盒子模型
+`content的宽度包括padding,border`
+* 例子:
+`一个div容器,content:200px,border:1px,padding:10px,margin:20px;`
+* 对于W3C标准盒子模型来说,`容器占据的宽度为content+(border+padding+margin)*2=200+(1+10+20)*2=262`，`盒子的实际宽度width为content+border+padding=222px`
+* 对于IE经典盒子模型来说,`容器占据的宽度为content(因为IE盒子模型的content就包含了padding+border)+margin*2=240px`,`IE盒子的实际宽度width为content=200px`
+---
+* `<div style="width:100px;height="100px;border:10px;padding:10px;"></div>`
+* 对于W3C标准盒子模型,`实际宽度`为 100+(10+10)*2=140px
+* 对于IE怪异盒子模型,`实际宽度`为content(包括了padding+border)=100px
+---
+* `实际中，仅仅设置padding:1px，padding是无效的，不会出现宽度，至少要设置边框样式如solid`
+
+## 21.border
+1. border:none表示没有边框样式，也就不会对该元素渲染边框，不会在这里消耗内存
+2. border:0表示边框宽度为0，`虽然还是在浏览器上看不到边框，但是浏览器还是会对边框进行渲染，消耗内存`
+3. `如border:1px,我们仅仅设置边框大小是不会显示出边框的，还必须设置边框的样式`
+4. `我们使用border:none就是不存在边框，浏览器不会对边框进行渲染，宽度也就不存在了，没有实际宽度，宽度为0的说法是错误的!!!`
+
+
