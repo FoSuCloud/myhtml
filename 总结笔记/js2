@@ -1,0 +1,54 @@
+## promise对象三种状态
+1. 异步操作未完成(pending)
+2. 异步操作已完成(resolved)
+3. 异步操作失败(rejected)
+* promise对象的状态变化情况只有两种，`从pending到resolved`,`从pending到rejected`
+
+## 微任务
+1. 例子:
+```
+	// 虽然setTimeout在前面,但是这是异步任务
+	setTimeout(function(){
+		console.log(3)
+	},0)
+	
+	// 虽然promise也是异步任务,但是promise是微任务,在本轮循环中执行,而setTimeout是宏任务,在下一轮任务中执行
+	new Promise(function(resolve,reject){
+		resolve(2)
+		// resolve执行成功后会把参数传递给then,然后就可以打印了
+	}).then(console.log)
+
+	// 这是同步任务,解析到这里就执行,所以首先执行这个
+	console.log(1)
+```
+2. `对于js来说，有同步操作和异步操作，解析script标签内容的时候，先执行同步操作，再执行异步操作，但是任务又分为宏任务和微任务`
+3. 异步任务(操作)指的是不进入主线程，而进入任务队列(task queue)的任务，只有任务队列通知主线程，某个异步任务可以执行了，异步任务才会进入主线程
+4. `所有的同步任务都在主线程中执行，形成了执行栈`，除了主线程还有一个任务队列，只要异步任务有了结果，就在任务队列中放置一个事件
+5. `所谓回调函数就是被主线程挂起来的代码，当主线程开始执行异步任务的时候，其实就是执行回调函数，所以必须指定回调函数`
+6. 主线程从任务队列中读取异步任务的过程是循环不断的，所以也被称为`事件循环(event loop)`
+7. `除了异步任务，任务队列还可以放置定时器事件(setTimeout,setInterval),定时器事件不属于异步任务，但是都是被放在任务队列中的`
+8. 但是我们说了存在`宏任务与微任务`
+* 宏任务一般是:整体代码script,setTimeout,setInterval
+* 微任务:promise，process.nextTick
+* `在我们首次执行完整体代码script的时候相当于第一次执行宏任务，执行完宏任务之后会先去执行微任务，然后再去执行下一轮宏任务(在例子中，setTimeout就是下一轮要被执行的宏任务，而promise属于本轮结束后立刻被执行的微任务，所以先执行promise的then函数再执行定时器任务)`
+
+## hasOwnProperty
+* obj.hasOwnProperty('val')方法是判断该对象obj中是否有val属性或者方法(`不能检测原型链中是否有该属性或者方法`)
+* obj1.isPrototypeOf(obj2)方法是判断`obj2对象的实例是否在obj1对象的原型链中`
+
+## Math
+1. Math.round(11.5)==>12,Math.round(-11.5)==> -11
+2. Math.max(..args),可以接受多个参数(`不支持直接传递一个数组，但是apply回调函数会把数组处理为一连串参数，所以可以使用apply传递数组`)，返回最大值，使用回调函数可以是`Math.max.call(1,3,2,5);Math.max.apply([5,3,2,7])`
+```
+	console.log(Math.max(2,3,542,55,4))
+	console.log(Math.max.call(null,35,656,23,76))
+	console.log(Math.max.apply(null,[5,3,12,7,23]))
+```
+3. -Math.ceil函数的用法Math.ceil(x) -- 返回`大于等于数字参数的最小整数`(取整函数)，对数字进行上舍入
+```
+	console.log(Math.ceil(6.5));//7
+	console.log(Math.ceil(6.3));//7
+	console.log(Math.ceil(6.7));//7
+	console.log(Math.ceil(-6.7));//-6
+	console.log(Math.ceil(-6.1));//-6
+```
