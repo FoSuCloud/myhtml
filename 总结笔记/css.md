@@ -237,3 +237,96 @@
 4. `我们使用border:none就是不存在边框，浏览器不会对边框进行渲染，宽度也就不存在了，没有实际宽度，宽度为0的说法是错误的!!!`
 
 
+## box-sizing(控制元素的解析模型是W3C标准盒子模型还是IE怪异盒子模型)
+1. 使用`content-box`表示使用W3C标准盒子模型，实际宽度=content+padding+border
+2. 使用`border-box`表示使用IE怪异盒子模型，实际宽度=content,content就是content+padding+border的宽度了
+```
+	.one{
+		box-sizing: content-box;
+		width: 200px;
+		border: 10px solid green;
+		padding: 5px;
+		margin: 20px;
+		background: red;
+		height: 200px;
+	}
+```
+* 使用`box-sizing:content-box时，width=content+padding+border,也就是width=230px`
+* 使用`box-sizing:border-box时，width=content,此时的content内部包含了padding和border,所以width=200px`
+
+## css3新增伪类
+1. :checked单选框或者复选框被选中
+2. :enabled表示可用表单控件
+3. :disabled表示`禁用`表单控件
+
+## css3新增特性
+1. 透明度opacity和颜色RGBA
+2. 文字阴影text-shadow
+3. 盒子模型阴影box-shadow
+4. 背景图片background-image
+
+
+## 不可读表单控件
+* 在网页制作中，经常会用到表单控件，但是有时候我们希望表单是`不可修改的或者是禁用的`
+1. `input readonly="readonly"`表示控件是只读的，`用户和键盘不可以修改控件的值，但是程序员可以通过js来修改，而且提交表单时这个控件的值也会提交到服务器，也就是说对服务器是可见的`
+2. `input disabled="disabled"`表示控件是被禁用的，`用户不可以修改控件的值，也不会随着表单提交给服务器，所以对服务器是不可见的，但是程序员依旧可以修改这个控件!`
+
+## div水平居中
+```
+	.one{
+		border: 1px solid red;
+		margin: 0 auto;
+		width: 100px;
+		height: 100px;
+	}
+```
+
+## 浮动元素水平垂直都居中
+```
+	.one{
+		border: 1px solid red;
+		width: 100px;
+		height: 100px;
+		float: left;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		margin: -50px 0 0 -50px;
+	}
+```
+
+## 非浮动元素绝对定位水平垂直居中
+```
+`.one{
+	border: 1px solid red;
+	width: 100px;
+	height: 100px;
+	position: absolute;
+	<!-- 不设置margin:auto的话就会默认优先left,top为0，那么错了，所以必须让外边距自由 -->
+	margin: auto;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+}
+```
+
+## 元素的border是由三角形组合而成!
+1. 使用border画出三角形
+```
+.two{
+	border-top:40px solid red;
+	border-left: 40px solid transparent;
+	border-right: 40px solid transparent;
+	border-bottom: 40px solid transparent;
+	width:0;
+	height:0;
+}
+```
+2. `transparent表示的是全透明黑色，相等于rgba(0,0,0,0)，也就是隐藏其他三个方向的元素border,显示出元素的border是由三角形构成的`
+3. 另外需要给元素设置宽度高度为0，排除掉宽高影响
+4. `当设置了宽度和高度之后，border的三角形就消失了`
+
+## 为什么要初始化css样式
+* 因为不同浏览器对一些标签的默认值是不同的，所以需要提前设定好默认值，例如*{padding:0,margin:0}
+
