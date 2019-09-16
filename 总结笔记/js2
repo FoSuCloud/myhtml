@@ -86,3 +86,11 @@
 		console.log('1'+item)
 	})
 ```
+
+## 鼠标移入移出
+1. `ie浏览器`:有onmouseenter,onmouseleace属性，表示鼠标移入和鼠标移出，`不会冒泡`
+2. `其他浏览器`:有onmouseover,onmouseout属性，表示鼠标移入和鼠标移出，`会冒泡`
+
+## js的继承
+* 有六种:`原型链继承，构造函数继承，组合继承，原型式继承，组合式继承，寄生组合式继承`
+* [参考](https://www.cnblogs.com/Leophen/p/11401734.html)
