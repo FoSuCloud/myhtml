@@ -52,3 +52,37 @@
 	console.log(Math.ceil(-6.7));//-6
 	console.log(Math.ceil(-6.1));//-6
 ```
+## of,in,forEach
+```
+	// 1. in方法可以遍历对象和数组,遍历对象的键,遍历数组的下标
+	var obj={
+		name:11,
+		age:77,
+		sex:'男'
+	}
+	var arr=[4,2,6,2]
+	// 1.1 遍历对象的键
+	for(i in obj){
+		console.log(i);//打印属性(键)
+	}
+	// 1.2 使用in来遍历数组,遍历的是下标
+	for(k in arr){
+		console.log(k)
+	}
+
+	// 使用of方法来遍历数组的值,注意不能遍历对象
+	// 2.1打印值,不能使用of打印对象的值,但是of可以遍历数组的值
+	for(j of arr){
+		console.log(j)
+	}
+
+
+	// forEach可以遍历数组,不可以遍历对象
+	// 3.1错误,forEach不能遍历对象,只能遍历数组
+	// arr.forEach( item => console.log(item))
+
+	// 3.2 除非使用Object.keys().forEach()就可以遍历对象了
+	Object.keys(obj).forEach(item => {
+		console.log('1'+item)
+	})
+```
