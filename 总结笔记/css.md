@@ -330,3 +330,20 @@
 ## 为什么要初始化css样式
 * 因为不同浏览器对一些标签的默认值是不同的，所以需要提前设定好默认值，例如*{padding:0,margin:0}
 
+## visibility:hidden,display:none,opacity:0
+1. 渲染上的区别: display:none后的元素在页面上彻底消失，渲染树也不渲染;visibility:none后的元素虽然也会消失，但是依旧占据着空间，所以只会导致重绘不会导致重排(reflow);opacity:0 虽然也是看不到元素，但是元素没有消失，还存在，空间也依旧被占有，只是看不见罢了，所以也不会触发重排(reflow)
+2. 事件绑定上的区别:display:none 元素彻底消失，不会触发绑定事件(点击没反应); visibility:hidden 无法触发点击事件,因为`元素也是消失了，只是空间依旧被占据`罢了;opacity:0 可以触发点击事件，因为元素没有消失，只是看不见罢了
+3. 动画属性的差异: display:none 完全不会被transition束胸影响，元素立即消失； visibility:hidden 元素消失的时间和transition属性设置的时间一样，但是没有动画效果；opacity:0 会出现正常的动画效果
+
+## 选择器叠加
+* 例子: 对h3标签的id选择器和class选择器进行叠加，权重也会叠加
+```
+<div class="one">
+	<h3 id="two" class="twoclass">我是红色</h3>
+</div>
+.one h3#two.twoclass{
+	color: red;
+}
+```
+`虽然使用了id选择器，但是还是可以加上class选择器一起叠加使用`
+
