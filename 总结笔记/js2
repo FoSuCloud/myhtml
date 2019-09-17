@@ -123,3 +123,45 @@ o.__proto__=Base.prototype
 Base.call(o)
 ```
 * [参考](https://blog.csdn.net/blueblueskyhua/article/details/73135938)
+
+## isNaN,parseInt函数
+```
+	// 1. isNaN()函数用来判断一个数是否是NaN;
+	// 只有一个值是NaN或者能被转换为NaN的时候才返回true 
+	console.log(isNaN('e'));//true,因为e可以被转换为NaN 
+	console.log(isNaN('11'));//false,因为字符串可以被转换为数字,不能被转为NaN 
+	console.log(isNaN(null));//false,因为null可以被转换为0,不能被转为NaN 
+	console.log(isNaN(NaN));// true,NaN返回true
+	
+	// 2. parseInt(string,raix)函数有两个参数
+	// 2.1 注意:string字符串只会被解析从第一个字符开始直到不是数字的字符部分
+	console.log(parseInt('223'));//223
+	// 2.2 当字符串中间存在非数字,那么就只解析前面是数字的部分字符
+	console.log(parseInt('22e3'));//22
+	// 2.3 如果字符串中第一个字符就不是数字,那么返回NaN 
+	console.log(parseInt('e21'));//NaN
+	
+	// 对于parseInt()函数还有一个易考点,就是利用数组的下标,还记得parseInt()函数的第二个参数吗？
+	// 2.4 parseInt()函数的第二个参数指的就是进制,这个参数小于2或者大于36的时候,都会返回NaN 
+	console.log(parseInt(1,1));//NaN ,因为第二个参数是1表示1进制<2,所以错误
+	console.log(parseInt(1,2));//1,因为表示二进制 =2,在范围内
+	// 2.5 我们一般都是省略这个参数的,这个时候就是默认为10进制
+	console.log(parseInt(99));//99
+	// 2.6 我们第二个参数使用0的时候也是使用十进制
+	console.log(parseInt(99,0));//99
+	// 2.7 如果第一个参数前缀使用0x/0X则表示使用16进制
+	console.log(parseInt(0x99));//153=16*9+9
+	console.log(parseInt(0x99,10));//如果第一个参数使用了0x表示十六进制,那么第二个参数设置了值也无效
+	
+	// 2.8 看一个实例,对于数组
+	var arr=[1,2,3,2,5];
+	console.log(arr.map(parseInt));//[1, NaN, NaN, 2, NaN]
+	// arr.map方法就是对于数组arr里面的每一项都去使用方法里面的函数,最后返回新数组
+	// 因为map方法会有索引,所以实际上就是 
+	parseInt(1,0);//1,因为0表示十进制
+	parseInt(2,1);//1进制<2，所以错啦!
+	parseInt(3,2);// 2进制,但是3不在0——2范围内(3应该改为11),所以不符合2进制要求
+	parseInt(2,3);//符合,因为三进制是0-3,而2在范围内
+	parseInt(5,4);//4进制不包括5,所以NaN
+```
+
