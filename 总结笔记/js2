@@ -165,3 +165,39 @@ Base.call(o)
 	parseInt(5,4);//4进制不包括5,所以NaN
 ```
 
+## 暂时性死区(temporal dead zone)
+* js引擎在扫描代码的时候，如果发现`var 声明就把声明放到所在作用域的顶部`，`如果是let/const声明 就把声明语句放到暂时性死区，只有等到执行变量声明之后变量才会从tdz中移出，移出之后才能被正常访问`
+
+## 模板字面量``
+1. 多行字符串不需要用 + 加号隔开了，直接换行就可以
+2. 变量嵌入字符串中也不需要用加号了，直接用 ${}
+3. 可以在反字符串中进行简单的逻辑运算
+
+## 默认参数也存在暂时性死区
+```
+	<!-- 1. -->
+	function one(a=b,b=5){
+		console.log(a,b)
+	}
+	// one();//ReferenceError: Cannot access 'b' before initialization
+	// 2.相等于
+	// let a=b;
+	// let b=5;
+	// console.log(a,b);//ReferenceError: Cannot access 'b' before initialization
+	
+	<!-- 3.使用var声明提前 -->
+	var c=d;
+	var d=5;
+	console.log(c,d);//undefined 5 因为var存在声明提前
+	
+	<!-- 4.改变顺序就不会出错 -->
+	function two(a=5,b=a){
+		console.log(a,b)
+	}
+	// two();//5 5
+```
+
+## 默认参数值
+* es6中新增了默认参数值，例如time(a,b=3,callback){},当我们使用time(1,2,3)时，b=2。当我们使用`time(1,2)时，a=1,b=2,callback=undefined`。
+* 注意！当我们使用undefined，`time(1,undefined,function(){})的时候，b不变`，因为`使用undefined相当于没有赋值`，所以b还是使用默认值。
+* 当我们使用null,time(1,null,function(){})的时候，b不使用默认值，因为此时`b使用传递过来的合法值null `
