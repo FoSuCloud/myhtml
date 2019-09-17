@@ -104,3 +104,22 @@
 2. text node文本节点:在html中的文本内容都是text nodes
 3. comment注释节点:comments属于注释节点
 4. document节点:可以说`是一种节点格式，但是节点数的根节点也是document`
+
+## 创建对象(还不懂)
+1. Object.create(obj,propertiesObject)：`obj是新创建的对象的原型`，`propertiesObject是新创建的对象的名称或者属性`
+* Object.create的实现方式
+```
+Object.create=function(o){
+	var F=function(){};
+	F.prototype=o;
+	return new F()
+}
+Object.create是内部定义一个对象，并且让F.prototype对象 赋值为引进的对象/函数 o，并return出一个新的对象
+```
+2. new func();实际上就是
+```
+var o=new Object();
+o.__proto__=Base.prototype
+Base.call(o)
+```
+* [参考](https://blog.csdn.net/blueblueskyhua/article/details/73135938)
