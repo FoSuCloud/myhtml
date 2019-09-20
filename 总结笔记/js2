@@ -219,3 +219,81 @@ Base.call(o)
 * 阻止默认事件:event.preventDafault();
 3. 但是火狐浏览器不太一样,虽然火狐也是使用W3C标准的用法，但是注意火狐使用的`event一定是要从参数中传递过来的`
 
+## js字符串方法
+1. charAt:返回指定索引的字符
+2. charCodeAt:返回指定索引出的unicode字符
+3. indexOf:判断一个出现在字符串中的索引，如果不存在索引则返回1
+4. lastindexOf:返回一个字符最后一次出现在字符串中的索引，没有则返回-1
+5. concat:拼接两个字符串，`返回新字符串,也就可以深拷贝`，不影响旧的字符串
+6. substr(n,m):从索引n开始，截取`m个字符`，返回截取的字符，不影响旧的字符串
+7. substring(n,m):从索引n开始，截取到`索引为m`的地方，返回截取的字符，不影响旧的字符串；
+`注意:如果n>m，那么就改为从m开始，截取到索引n的字符，如果n/m是负数那就会被改为0`
+8. slice(n,m):slice和substring一样,n/m都是索引，返回截取的字符，都不会影响到旧的字符串
+`不同之处在于，slice会把负数作为从尾部开始数起,如str.slice(1,-4)表示从索引为1的字符截取到索引为4的字符;str.slice(-3,-1)表示从索引为-3的字符截取到索引为-1的字符，第一个索引必须是在第二个索引左边的！`
+[参考](https://www.cnblogs.com/langu/p/3518605.html)
+9. split():分割字符串，不会改变原字符串
+10. replace('a',1):替换字符串中相应的值，例如把a字符替换成1，`会改变原字符串的值!!!`
+* [参考](https://www.cnblogs.com/zhangxin2540/p/7054835.html)
+
+## js数组方法
+1. splice(index,howmany,value)`会改变原来的数组`:表示从索引index那个值开始，删除howmany个数,然后用value替换在howmany个数的位置
+`要和slice(n,m)区别开，例子 var arr=['i','am','love','you','haha'] arr.splice(1,2,'hello') =》["i", "hello", "you", "haha"]`
+`index,howmany都是必须项，howmany可以为0，表示不删除元素，只在Index索引位置添加元素 如:arr.splice(1,0,'hello') => ["i", "hello", "am", "love", "you", "haha"]`
+`可以使用splice(index,howmany)删除元素不添加元素,arr.splice(1,2) =>["i", "you", "haha"]`
+2. sort,reverse方法会`改变原数组`
+```
+var arr=[5,2,6,44,77];
+console.log(arr.sort());
+console.log(arr);//数组在原数组上进行排序，不生成副本
+// 所以使用sort()方法后的旧数组改变了!
+
+// 使用reverse()方法后的原数组也改变了,因为sort/reverse方法都不会创建新的内存地址
+console.log(arr.reverse());
+console.log(arr);
+```
+3. map方法(`不会改变`原有数组)对数组的每一项都应用一个函数,然后返回新数组,不会改变原有数组
+```
+var arr2=arr.map(item => {
+	return item+100
+})
+console.log(arr2);//[177, 102]
+console.log(arr);//[77, 2]
+```
+4. join不会改变数组的值,生成字符串
+```
+console.log(arr.join(','));//77, 2
+console.log(arr);//[77, 2]
+```
+5. toString生成字符串
+```
+console.log(arr.toString());//默认以,分割 77, 2
+console.log(arr)//[77, 2]
+```
+6. concat数组拼接,不改变原有数组
+```
+console.log(arr.concat([4,2,5]));
+console.log(arr);
+// concat还可以用于字符串拼接
+var str='33'
+console.log(str.concat('hello'));
+console.log(str)
+```
+7. valueOf()返回数组的原始值
+8. toSource() 方法表示对象的源代码
+9. 把数组转换为本地字符串
+* [参考](https://www.w3school.com.cn/jsref/jsref_toLocaleString_array.asp)
+
+
+## 会改变原有的字符串的方法
+1. replace替换
+
+## 不会改变原有字符串的方法
+1. substr(长度)，substring,slice,indexOf,lastIndexOf,concat(新子串)，charAt,charCodeAt,
+2. split(分割出新数组，不会改变字符串)
+
+## 会改变原有数组的方法
+1. pop,push,shift,unshift
+2. sort,reverse,splice
+
+## 不会改变原有数组的方法
+1. join(生成字符串)，map(新数组),toString(生成字符串),concat(数组拼接)
