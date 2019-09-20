@@ -23,3 +23,44 @@
 2. ul(unolderly无序列表)
 `list-style-type:circle每列前面都是圆圈`
 `listy-style-type:square每列前面都是正方形`
+
+## 4.h5不闭合标签
+1. br:换行标签
+2. img:图片标签
+3. input:表单输入标签，有多种类型
+4. meta:媒体标签，用来说明文档，例如字符编码，响应式布局等
+
+## 5.h5的嵌套规则
+1. 块级元素可以包含内联元素或者`某些块元素`，但是`内联元素不能包含块级元素,内联元素只能包含其他内联元素`
+* 例子:块级元素嵌套
+```
+<div id="app">
+	<!-- 1.1块级元素div嵌套块级元素p -->
+	<p></p>
+	<!-- 1.2块级元素div嵌套内联元素span -->
+	<span id="app"></span>
+</div>
+```
+* 例子:错误！内联元素不能嵌套块级元素
+`<span><div>i am</div></span>`
+* `内联元素可以嵌套其他内联元素`
+`<span><a href="#">one</a></span>`
+2. p块级元素不可以嵌套其他块级元素
+3. 除了p元素，还有这些块级元素也不能包含块级元素，如:p,h1-6,dt
+4. 注意 li元素也是块级元素，可以包含ol,ul,div等块级元素
+
+## 6.元素内外文本及自身
+1. innerHTML:在读模式下，innerHTML返回元素的所有子节点(包括注释，文本，标签)，在写模式下会创建一个新的子节点代替原来的子节点
+2. outerHTML:在读模式下是获取该元素本身，在写模式下是创建一个新的节点代替原来的节点
+```
+如: <div id="app">
+		我是父元素div的内容
+		<span>我是子元素span的内容</span>
+    </div>
+使用innerHTML:输出 我是父元素div的内容 <span>我是子元素span的内容</span>
+使用outerHTML:输出 <div id="app">  我是父元素div的内容 <span>我是子元素span的内容</span> </div>
+```
+3. innerText/outerText:在读模式下，都是获取该元素(包括子元素)的文本，但是在写模式下完全不同！
+`在写模式下，innerText使用文本替换整个节点的所有子节点，例如上面的例子被 one 替换就会变成<div id="app"> one </div> `
+`在写模式下，outerText使用文本正欢整个节点！！！再用one替换就成了 one 所以也就是只剩下一个文本了`
+* [参考](https://www.cnblogs.com/jongsuk0214/p/6930876.html)
