@@ -205,3 +205,17 @@ Base.call(o)
 * es6中新增了默认参数值，例如time(a,b=3,callback){},当我们使用time(1,2,3)时，b=2。当我们使用`time(1,2)时，a=1,b=2,callback=undefined`。
 * 注意！当我们使用undefined，`time(1,undefined,function(){})的时候，b不变`，因为`使用undefined相当于没有赋值`，所以b还是使用默认值。
 * 当我们使用null,time(1,null,function(){})的时候，b不使用默认值，因为此时`b使用传递过来的合法值null `
+
+## 解释性语言
+* 效率低:js就是解释性语言，解释性语言的程序不需要编译，`在运行程序的时候每执行一次编译一次`，所以`效率较低`
+* `非独立`:js语言依赖于外部执行环境，不能独立存在，对于客户端来说就是浏览器，对于服务器来说就是node环境
+
+## 阻止冒泡/默认事件
+1.如果是IE浏览器
+* 阻止冒泡:window.event.cancelBuble=true;
+* 阻止默认事件:window.event.returnValue=false;
+2. 阻止非IE浏览器
+* 阻止冒泡:event.stopPropagation()
+* 阻止默认事件:event.preventDafault();
+3. 但是火狐浏览器不太一样,虽然火狐也是使用W3C标准的用法，但是注意火狐使用的`event一定是要从参数中传递过来的`
+
