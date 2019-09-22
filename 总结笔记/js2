@@ -297,3 +297,76 @@ console.log(str)
 
 ## 不会改变原有数组的方法
 1. join(生成字符串)，map(新数组),toString(生成字符串),concat(数组拼接)
+
+## DOCTYPE声明
+1. DOCTYPE声明位于文档的最前面，处于标签之前，在解析文档之前需要告诉浏览器，使用什么文档类型规范来解析这个文档
+2. 严格模式:严格模式是按照该浏览器支持的最高版本运行
+3. 混杂模式:向下兼容那些老旧版本的浏览器。
+4. 意义:如果不定义DOCTYPE或者DOCTYPE的格式不正确会导致文档以混杂模式呈现。
+
+## sup/sub
+1. sup上标标签，例如`10<sup>2</sup>表示10的二次方`
+2. sub下标标签，例如`10<sub>2</sub>的2在下面，无意义`
+3. sup/sub也是行内元素
+
+## h5的data-*属性
+1. h5中新增了data-*属性，data-之后的属性是开发者自定义的属性名称，里面可以放置想存储的数据，然后通过数据集dataset来使用
+```
+// var id=document.getElementsByClassName('one')[0].dataset.id;
+// 如果浏览器不支持dataset属性,可以通过setAttribute方法获取
+var id=document.getElementsByClassName('one')[0].getAttribute('data-id')
+console.log(id)
+```
+2. `可以在列表li中使用data-id,然后每个元素使用方法传递event的时候就会自动传递自己的id，方便选择，在小程序中也可以用`
+
+## label标签
+1. label标签也是文本标签的一种，主要和表单控件结合使用，`for属性必须和需要对应的表单控件的id属性一致`
+2. 效果就是`点击label标签位置，对应的表单控件相当于被聚焦(边框outline凸起特效)`
+```
+<label for="name">Name:</label>
+<input type="text"  id="name" />
+```
+
+## 生成圆形的点击区域
+1. `虽然使用border-radius后的元素占据宽高还是原来那么多，但是实际有效区域改变了`
+```
+.one{
+	background: #0000FF;
+	width: 100px;
+	height: 100px;
+	border-radius: 50%;
+}
+<div class="one" onclick="change()">
+</div>
+function change(){
+	console.log('1432')
+}
+```
+* `使用border-radius后，原来点击生效的区域不生效了`
+2. 使用原生js+canvas来绘制一个圆形，然后使用勾股定理确定位置在不在范围内
+```
+<canvas id="one" width="300" height="300"></canvas>
+
+// 获取画布canvas
+var canvas=document.getElementById('one').getContext('2d');
+var radius=50;
+canvas.fillStyle='#00f'
+canvas.arc(150,150,radius,0,2*Math.PI,false)
+canvas.fill();//必须使用fill方法填充才有颜色
+
+document.onmousemove=function(e){
+	var e=e?e:window.event;
+	// 根据鼠标的x,y轴位置判断是否在元素上
+	var x=Math.abs(150-e.clientX);
+	var y=Math.abs(150-e.clientY);
+	// 使用勾股定理
+	if(Math.sqrt(Math.pow(x,2)+Math.pow(y,2))<radius){
+		console.log('323')
+	}
+}
+```
+
+## offsetx/clientx/screenx
+1. offsetx:指的是鼠标点击的位置相对于发生点击事件的元素的左边缘的距离
+2. clientx:指的是鼠标点击的位置相对于浏览器可视区域的距离
+3. screenx:指的是鼠标点击的位置相对于屏幕可视区域的距离
