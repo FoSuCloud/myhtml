@@ -370,3 +370,32 @@ document.onmousemove=function(e){
 1. offsetx:指的是鼠标点击的位置相对于发生点击事件的元素的左边缘的距离
 2. clientx:指的是鼠标点击的位置相对于浏览器可视区域的距离
 3. screenx:指的是鼠标点击的位置相对于屏幕可视区域的距离
+
+## localStorage/sessionStorage
+1. localStorage和sessionStorage都是用来存储客户端临时信息的
+2. localStorage和sessionStorage都是只能存储字符串类型的对象
+3. localStorage的生命周期是永久的，这意味着除非主动去秦楚这些localStorage信息，否则这些信息会永远存在
+4. sessionStorage的生命周期是当前窗口或者标签页，一旦窗口或者标签页被关闭了，那么sessionStorage存储的数据也就被清空了
+5. `资源共享`
+```
+1. 相同浏览器的不同页面(同源页面)可以共享localStorage数据
+2. 不同页面或者标签页之间没办法共享sessionStorage的信息
+注意:不同页面和标签页指的是顶级窗口，如果一个标签页包含多个iframe标签而且都属于同源页面，那么可以进行sessionStorage共享
+```
+
+## undefined与defined
+1.undefined指的是`声明了但是还没有赋值后的结果`
+`var one;console.log(one);//undefined`
+
+2.defined指的是`使用了还没有声明的变量`
+`console.log(who);//who is not defined`
+
+3.使用 对象.xx是`隐式声明对象的属性或者方法`
+`var obj={};console.log(obj.a);//undefined`
+
+4.同理使用window.xx形式会在`window对象中隐式的声明变量`
+```
+console.log(window.foo || (window.foo="bar"))
+// 所以左边是undefined,由于是||或,左边相等于false,可以执行右边,右边进行赋值操作
+console.log(window.foo);//bar 已被赋值
+```	
