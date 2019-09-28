@@ -399,3 +399,34 @@ console.log(window.foo || (window.foo="bar"))
 // 所以左边是undefined,由于是||或,左边相等于false,可以执行右边,右边进行赋值操作
 console.log(window.foo);//bar 已被赋值
 ```	
+5. `函数的name属性不需要声明，创建函数就自带name属性`
+```
+function foo(){
+				
+}
+var old=foo.name;
+console.log(foo.age);//undefined
+console.log(foo.name);//foo
+foo.name='bar';
+console.log(old,foo.name);//foo,foo
+```
+
+## form标签的enctype属性
+1. enctype属性规定在将表单数据发送到服务器之前如何对其进行编码
+2. `application/x-www-form-urlencodeed`默认在发送前对所有字符进行编码(空格转为+号，特殊字符转为ASCLL码)
+3. `multipart/form-data`不对字符编码，`但是当使用有文件上传控件的表单时，该值是必须的`
+4. `text/plain`将空格转为+号，不编码其他特殊字符。
+
+## 浏览器前缀打包
+1. 使用webpack打包的时候，会给css自动添加浏览器前缀，但是需要先安装一个loader
+2. 需要使用`postcss-loader 和一个插件autoprefixer`，注意需要在webpack.config.js文件中配置rules
+3. rules需要注意user调用loader的顺序是从右向左，所以postcss-loadr应该写在最后面
+4. `貌似现在会自动生成.postcss.js文件来编辑postcss打包规则`
+5. `然后loader的配置在build.util.js中使用`
+
+## 滚动
+1. `注意注意注意！！！要想滚动，必须先设置根元素或者父元素高度超过屏幕高度，而且当滚动到最底部之后，屏幕高度不会变化，所以无法继续向下滚动了`
+2. `注意，scrollTp,scrollBy都是不使用px,直接用数字的`
+3. scrollTo(left,top)=> scroolTo({left:left,top:top})`scrollTo是绝对位置滚动，滚动到该位置`;
+4. scrollBy(left,top)=> scrollBy({left:left,top:top})`scrollBy是相对位置滚动，如果一直使用scrollBy(0,100)那就每次都向下滚动100px`
+5. `document.scrollingElement.scrollTop`也是绝对定位，但是一次只能设置一次x/y
