@@ -426,7 +426,27 @@ console.log(old,foo.name);//foo,foo
 
 ## 滚动
 1. `注意注意注意！！！要想滚动，必须先设置根元素或者父元素高度超过屏幕高度，而且当滚动到最底部之后，屏幕高度不会变化，所以无法继续向下滚动了`
-2. `注意，scrollTp,scrollBy都是不使用px,直接用数字的`
+2. `注意，scrollTo,scrollBy都是不使用px,直接用数字的`
 3. scrollTo(left,top)=> scroolTo({left:left,top:top})`scrollTo是绝对位置滚动，滚动到该位置`;
 4. scrollBy(left,top)=> scrollBy({left:left,top:top})`scrollBy是相对位置滚动，如果一直使用scrollBy(0,100)那就每次都向下滚动100px`
 5. `document.scrollingElement.scrollTop`也是绝对定位，但是一次只能设置一次x/y
+
+## ==与===
+```
+// 1.对于基本数据类型来说,==就是值相等就可以了,而===需要值和类型相等
+// ==和===都需要先转换为数字
+console.log('4'==4);//true
+console.log('4'===4);//false,因为类型不同
+console.log(false==0);//true,都先转为数字
+
+// 2.null,undefined,NaN之间的比较按照特殊的规则
+console.log(null=="");//false，但是null,undefined,NaN之间的比较按照特定的规则
+console.log(null==null);//true
+
+// 3.对于引用数据类型来说,==和===没有区别,都需要指向同一个内存地址才行
+console.log([]==[]);//false
+console.log([]===[]);//false
+console.log([]=={});//false
+console.log({}=={});//false
+console.log({}===0);//false
+```
