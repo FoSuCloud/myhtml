@@ -399,7 +399,7 @@ console.log(window.foo || (window.foo="bar"))
 // 所以左边是undefined,由于是||或,左边相等于false,可以执行右边,右边进行赋值操作
 console.log(window.foo);//bar 已被赋值
 ```	
-5. `函数的name属性不需要声明，创建函数就自带name属性`
+5. `函数的name属性不需要声明，创建函数就自带name属性,相当于隐式声明了`
 ```
 function foo(){
 				
