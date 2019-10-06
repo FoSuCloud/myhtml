@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			ul{
+				list-style: none;
+			}
+			
+		</style>
+	</head>
+	<body>
+		<div id="one">
+			<p>
+				总共<span id="one-span"></span>个
+				选中<span id="two-span">0</span>个
+			</p>
+			<ul id="myul">
+			</ul>
+		</div>
+		<script type="text/javascript">
+			var myul=document.getElementById('myul');
+			var list=['one','two','three']
+			for(var i=0;i<list.length;i++){
+				// 创建li元素
+				var li=document.createElement('li');
+				// 添加元素input
+				var inp=document.createElement('input');
+				inp.setAttribute('type','checkbox');
+				inp.setAttribute('id',list[i]);
+				inp.setAttribute('name','myinp')
+				li.appendChild(inp);
+				// 添加元素label 
+				li.innerHTML+='<label for='+list[i]+'>'+list[i]+'</label>'
+				// 把li元素添加到ul元素
+				myul.appendChild(li);
+			}
+			// 注意: IE中不支持使用setAttribute设置class,但是可以改为用className
+			// 使用setAttribute设置IE的事件是不行的!
+			
+			var sel_list=[];
+			// 获取myinp元素,添加点击事件(由于IE不能通过setAttribute直接设置class,虽然可以用className,但是火狐又要用class,冲突了，所以使用name属性)
+			var new_myinp=document.getElementsByName('myinp');
+			// 设置文本元素个数
+			var oneSpan=document.getElementById('one-span');
+			var twoSpan=document.getElementById('two-span');
+			oneSpan.innerText=new_myinp.length
+			for(let i=0;i<new_myinp.length;i++){
+				// 异步任务,i需要使用let
+				new_myinp[i].onclick=function(){
+					// 判断该对象是否已经被选择,获取id属性
+					// console.log(this);
+					var new_id=this.getAttribute('id');
+					if(sel_list.indexOf(new_id)===-1){
+						sel_list.push(new_id);
+					}else{
+						// 需要注意的是,数组中删除某个元素使用splice改变原数组 而不是使用pop,shirft删除开头或者结尾元素
+						sel_list.splice(sel_list.indexOf(new_id),1);
+					}
+					// 修改选中个数
+					twoSpan.innerText=sel_list.length;
+					console.log(sel_list)
+				}
+			}
+		</script>
+	</body>
+</html>
