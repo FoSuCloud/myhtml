@@ -91,13 +91,13 @@
 1. `ie浏览器`:有onmouseenter,onmouseleace属性，表示鼠标移入和鼠标移出，`不会冒泡`
 2. `其他浏览器`:有onmouseover,onmouseout属性，表示鼠标移入和鼠标移出，`会冒泡`
 
+## 阻止冒泡及默认事件
+1. IE浏览器:阻止冒泡e.cancelBubble=true;取消默认事件:e.returnValue=false;
+2. 其他浏览器:阻止冒泡:e.stopPropagation;取消默认事件:e.preventDefault
+
 ## js的继承
 * 有六种:`原型链继承，构造函数继承，组合继承，原型式继承，组合式继承，寄生组合式继承`
 * [参考](https://www.cnblogs.com/Leophen/p/11401734.html)
-
-## 鼠标移入移出
-1. `ie浏览器`:有onmouseenter,onmouseleace属性，表示鼠标移入和鼠标移出，`不会冒泡`
-2. `其他浏览器`:有onmouseover,onmouseout属性，表示鼠标移入和鼠标移出，`会冒泡`
 
 ## DOM树中的节点类型
 1. element元素节点: 所有的元素节点(html标签)都是element nodes
