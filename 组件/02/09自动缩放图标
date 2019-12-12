@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			html,body{
+				height: 100%;
+				filter: alp;
+			}
+			.out{
+				width: 50px;
+				height: 50px;
+				border-radius: 50%;
+				background: rgba(255,0,0,.5);
+				transition: all 1s;
+				display: inline-block;
+			}
+			.out_hover{
+				transform: scale(0.5);
+			}
+			.one{
+				position: relative;
+				display: inline-block;
+				/* 要设为inline-block，否则宽度会被设为整个屏幕宽度 */
+			}
+			.inner{
+				width: 25px;
+				height: 25px;
+				border-radius: 50%;
+				background: rgb(155,0,0);
+				position: absolute;
+				top: 50%;
+				margin-top: -12.5px;
+				left: 50%;
+				margin-left: -12.5px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="one">
+			<div class="out"></div>
+			<div class="inner"></div>
+		</div>
+		<script type="text/javascript">
+			var out=document.getElementsByClassName('out')[0];
+			// 需要注意的是，看起来，inner和out是层叠关系，但是这这只是视图层看起来的
+			// 需要注意的是，实际上这是兄弟关系，不是父子关系，所以不存在冒泡！
+			out.onclick=function(){
+				console.log(out.getAttribute('class'));
+				var cla=out.getAttribute('class');
+				if(cla.indexOf('out_hover')!=-1){
+					out.setAttribute('class',cla.replace('out_hover',''));
+				}else{
+					out.setAttribute('class',cla+' out_hover');
+				}
+			}
+			// 如果想要让out元素自己自动变化大小，那就直接使用setTimeout，setInterval定时器
+			setInterval(()=>{
+				var cla=out.getAttribute('class');
+				if(cla.indexOf('out_hover')!=-1){
+					out.setAttribute('class',cla.replace('out_hover',''));
+				}else{
+					out.setAttribute('class',cla+' out_hover');
+				}
+			},1000)
+		</script>
+	</body>
+</html>
