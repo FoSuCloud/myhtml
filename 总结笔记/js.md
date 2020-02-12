@@ -433,13 +433,13 @@ console.log(typeof true);//boolean
 	// 单目加法?(单目的时候,无论是普通数据类型还是引用数据类型都会直接转换为数值类型)
 	console.log(+[]);//0,[]转换为数值类型
 	console.log(+[,,]);//NaN,',,'转换为数值类型就是NaN
-	console.log(+ new Array(017));//0开头的是八进制，相等于new Array(15),建立了一个15长度的空数组,[,,,,,]=>',,,,,,'不被识别，是NaN
+	console.log(+ new Array(017));//NaN,0开头的是八进制，相等于new Array(15),建立了一个15长度的空数组,[,,,,,]=>',,,,,,'不被识别，是NaN
 	console.log(+[1,2]);//'1,2',转换为数值类型也是NaN,因为是字符串而且没有分离,，所以不被识别，是NaN
 	console.log(+{});//NaN,'[object Object]'不被识别，转为Number类型是NaN
 	
 	<!-- 加号当做双目运算符 -->
 	//`数组与对象遇到加法会经过valueOf().toString()步骤，转换为字符串进行字符串拼接`
-	console.log([1,2]+1);// 相等于数组使用valueOf()再使用toString() =》 '1,2'+'1' => '1,22' 
+	console.log([1,2]+1);// 相等于数组使用valueOf()再使用toString() =》 '1,2'+'1' => '1,21' 
 	console.log({a:11}+2);// [objct Object]2
 	console.log([1,2]+[2,1]);// '1,22,1'
 	// `空格遇到加法`
