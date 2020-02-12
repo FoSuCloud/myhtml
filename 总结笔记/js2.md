@@ -283,7 +283,6 @@ console.log(str)
 9. 把数组转换为本地字符串
 * [参考](https://www.w3school.com.cn/jsref/jsref_toLocaleString_array.asp)
 
-
 ## 会改变原有的字符串的方法
 1. replace替换
 
@@ -386,13 +385,10 @@ document.onmousemove=function(e){
 ## undefined与defined
 1.undefined指的是`声明了但是还没有赋值后的结果`
 `var one;console.log(one);//undefined`
-
 2.defined指的是`使用了还没有声明的变量`
 `console.log(who);//who is not defined`
-
 3.使用 对象.xx是`隐式声明对象的属性或者方法`
 `var obj={};console.log(obj.a);//undefined`
-
 4.同理使用window.xx形式会在`window对象中隐式的声明变量`
 ```
 console.log(window.foo || (window.foo="bar"))
@@ -443,10 +439,37 @@ console.log(false==0);//true,都先转为数字
 console.log(null=="");//false，但是null,undefined,NaN之间的比较按照特定的规则
 console.log(null==null);//true
 
-// 3.对于引用数据类型来说,==和===没有区别,都需要指向同一个内存地址才行
+// 3.对于左右两边都是引用数据类型来说,==和===没有区别,都需要指向同一个内存地址才行
 console.log([]==[]);//false
 console.log([]===[]);//false
 console.log([]=={});//false
 console.log({}=={});//false
-console.log({}===0);//false
+
+//4.如果是引用数据类型和基本数据类型比较，那么引用数据类型先toString,再valueOf
+//只有一边是引用数据类型的话，那么就是比较值是否相等了，===就是比较数据类型了
+			console.log({}.toString());//[object Object]
+			console.log({}=='[object Object]');//true
+			// 因为typeof null=object,所以这也算是比较内存地址
+			console.log({}==null);//false
+			
+			console.log([].toString());//'',空。。
+			console.log([]=='');//true
+			console.log([]==0);//true 
+			console.log([]==null);//false,因为typeof null=object,所以这也算是比较内存地址
+			console.log([]==undefined);//因为null/undefined/NaN的比较方式不一样！
+```
+
+## !!是转换数据为布尔值
+1. 引用数据类型转换为布尔值都是true
+```
+			console.log(!![]);//true
+			console.log(!!{});//true
+```
+2. NaN,'',null,undefined,0转换为布尔值都是false
+```
+			console.log(!!null);
+			console.log(!!'');
+			console.log(!!undefined);
+			console.log(!!NaN);
+			console.log(!!0);
 ```
