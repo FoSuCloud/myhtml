@@ -292,10 +292,10 @@ console.log(str)
 
 ## 会改变原有数组的方法
 1. pop,push,shift,unshift
-2. sort,reverse,splice
+2. `sort`,reverse,splice
 
 ## 不会改变原有数组的方法
-1. join(生成字符串)，map(新数组),toString(生成字符串),concat(数组拼接)
+1. join(生成字符串)，`map(新数组)`,toString(生成字符串),concat(数组拼接)
 
 ## DOCTYPE声明
 1. DOCTYPE声明位于文档的最前面，处于标签之前，在解析文档之前需要告诉浏览器，使用什么文档类型规范来解析这个文档
