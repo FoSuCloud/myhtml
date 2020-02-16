@@ -92,6 +92,29 @@
 2. height,`参考父元素高度`
 3. line-height,font-size,`参考父元素属性`
 * 虽然是参考父元素，但是不一定是`继承属性`
+```
+		<div class="one">
+			<div class="two"></div>
+		</div>
+		.one{
+			height: 100px;
+			width: 50px;
+			background-color: red;
+		}
+		.two{
+			height: 30px;
+			width: 30px;
+			background-color: green;
+			/* padding-top,margin-top都是相对于父元素的width的！ */
+			/* 下面的50%都是25px */
+			padding-top: 50%; 
+			margin-bottom: 50%;
+			display: inline-block;
+		}
+```
+4. `注意:如果是一个元素设置overflow:hidden;产生BFC,然后设置伪元素after/before,那么就相当于伪元素是元素的子元素，::after的百分比就是相对于元素的`
+5. `border-radius的百分比是相对于自身的宽度的`
+
 
 ## 14.css的calc()函数
 * calc() 函数用于动态计算长度值。`但是兼容性有要求，所以尽量少用吧`
