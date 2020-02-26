@@ -87,3 +87,34 @@
 			console.log(two)
 ```
 
+## 手写call
+```
+			// 手写call 
+			Function.prototype.call=function(context,...callargs){
+				context=context||window;
+				context.func=this;
+				if(typeof context.func !=='function'){
+					throw new TypeError("必须是函数调用call");
+				}
+				// 使用绑定的对象去调用方法
+				let res=context.func(...callargs);
+				// 因为绑定的时候算是给对象添加了属性func,所以需要删除该属性
+				// 因为该属性不会再被用到
+				delete context.func;
+				return res
+			}
+```
+
+## 手写apply
+```
+			Function.prototype.apply=function(context,arr){
+				context=context||window;
+				context.func=this;
+				if(typeof context.func !=='function'){
+					throw new TypeError("必须是函数调用apply");
+				}
+				let res=context.func(...arr);
+				delete context.func;
+				return res
+			}
+```

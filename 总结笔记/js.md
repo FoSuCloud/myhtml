@@ -436,6 +436,10 @@ console.log(typeof true);//boolean
 	console.log(+ new Array(017));//NaN,0开头的是八进制，相等于new Array(15),建立了一个15长度的空数组,[,,,,,]=>',,,,,,'不被识别，是NaN
 	console.log(+[1,2]);//'1,2',转换为数值类型也是NaN,因为是字符串而且没有分离,，所以不被识别，是NaN
 	console.log(+{});//NaN,'[object Object]'不被识别，转为Number类型是NaN
+	console.log(undefined++);// NaN
+	console.log(+undefined);// NaN 
+	console.log(+null);// 0 
+	
 	
 	<!-- 加号当做双目运算符 -->
 	//`数组与对象遇到加法会经过valueOf().toString()步骤，转换为字符串进行字符串拼接`
